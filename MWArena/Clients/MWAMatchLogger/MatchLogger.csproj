@@ -74,6 +74,7 @@
     <Content Include="refs\Wortzel.LINQ.BulkCopy.XML" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="refs\Common.dll.config" />
     <None Include="refs\Common.Providers.dll.config" />
   </ItemGroup>
