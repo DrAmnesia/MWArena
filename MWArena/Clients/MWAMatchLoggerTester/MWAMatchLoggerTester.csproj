@@ -37,15 +37,15 @@
   <ItemGroup>
     <Reference Include="Common, Version=3.0.1.19132, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\TFS-CDW\CDW\SharedAssemblies\Release\Common.dll</HintPath>
+      <HintPath>refs\Common.dll</HintPath>
     </Reference>
     <Reference Include="Common.Providers, Version=3.0.1.19132, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\TFS-CDW\CDW\SharedAssemblies\Release\Common.Providers.dll</HintPath>
+      <HintPath>refs\Common.Providers.dll</HintPath>
     </Reference>
     <Reference Include="Common.Util, Version=3.0.1.37023, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\TFS-CDW\CDW\SharedAssemblies\Release\Common.Util.dll</HintPath>
+      <HintPath>refs\Common.Util.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -65,7 +65,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="Wortzel.LINQ.BulkCopy, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\TFS-CDW\CDW\SharedAssemblies\Wortzel.LINQ.BulkCopy.dll</HintPath>
+      <HintPath>refs\Wortzel.LINQ.BulkCopy.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -106,14 +106,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Common.ico" />
+    <Content Include="refs\Common.dll" />
+    <Content Include="refs\Common.Providers.dll" />
+    <Content Include="refs\Common.Util.dll" />
+    <Content Include="refs\Wortzel.LINQ.BulkCopy.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="refs\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Common\MWA.Models\MWA.Models.csproj">
       <Project>{a1ac9371-0a78-4108-8171-6c02740148cc}</Project>
       <Name>MWA.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MWAMatchLogger\MatchLogger.csproj">
+      <Project>{8792daf6-f69e-4a39-ba64-fb87ba36745b}</Project>
+      <Name>MatchLogger</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

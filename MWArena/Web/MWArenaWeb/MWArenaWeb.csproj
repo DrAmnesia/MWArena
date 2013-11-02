@@ -922,6 +922,12 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\MWA.Models\MWA.Models.csproj">
+      <Project>{a1ac9371-0a78-4108-8171-6c02740148cc}</Project>
+      <Name>MWA.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

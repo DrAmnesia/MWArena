@@ -65,6 +65,10 @@
       <Project>{a1ac9371-0a78-4108-8171-6c02740148cc}</Project>
       <Name>MWA.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MWAMatchLogger\MatchLogger.csproj">
+      <Project>{8792daf6-f69e-4a39-ba64-fb87ba36745b}</Project>
+      <Name>MatchLogger</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
