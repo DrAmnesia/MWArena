@@ -10,8 +10,12 @@ namespace MWArenaWeb.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-
+            string FilePath = Server.MapPath("~/closedbeta.html");
+            // You can add other conditions also here
+            if (System.IO.File.Exists(FilePath))
+            {
+                return File(FilePath, "text/html");
+            }
             return View();
         }
     }
