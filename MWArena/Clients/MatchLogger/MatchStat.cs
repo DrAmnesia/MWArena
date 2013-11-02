@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MatchLogger
 {
-    public class MatchStat
+    class MatchStat
     {
         public DateTime time = DateTime.MinValue;
         public string level = "";
@@ -12,18 +12,18 @@ namespace MatchLogger
         public string victoryType = "unknown";
         public string matchType = "unknown";
         public string team = "unknown";
-        public int command = -1;
-        public int avatar = -1;
-        public int faction = -1;
+        int command = -1;
+        int avatar = -1;
+        int faction = -1;
         public string name = "";
         public string mech = "";
         public int status = -1;
-        public int matchscore = -1;
-        public int kills = -1;
-        public int assists = -1;
-        public int damage = -1;
-        public int ping = -1;
-        public int lance = -1;
+        int matchscore = -1;
+        int kills = -1;
+        int assists = -1;
+        int damage = -1;
+        int ping = -1;
+        int lance = -1;
 
         private ulong ConvertToTimestamp(DateTime value)
         {

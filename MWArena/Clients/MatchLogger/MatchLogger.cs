@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Reflection;
-using MWA.Util;
-using System.Net.Http;
+
 namespace MatchLogger
 {
     public static class MatchLogger
@@ -280,7 +279,7 @@ namespace MatchLogger
             playerName = pn;
             playerNameSet = true;
         }
-         static string GetMatchHash(MatchStat m)
+        public static string GetMatchHash(MatchStat m)
         {
             return String.Format("{0}~{1}~{2}~{3}~{4}~{5}~{6}~{7}", m.time.ToUniversalTime().Year, m.time.ToUniversalTime().DayOfYear, m.name, m.mech, m.status, m.level, m.matchscore, m.damage).Replace(" ", "_");
 
