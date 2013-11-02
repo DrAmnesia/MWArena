@@ -10,7 +10,7 @@ namespace MWA.Models
     {
         
             public MwoADbContext()
-                : base("name=MwoAdb")
+                : base("name=ExpArena")
             {
                 Database.SetInitializer<MwoADbContext >(new DropCreateDatabaseIfModelChanges<MwoADbContext>());
                 this.Configuration.LazyLoadingEnabled = false;

@@ -1,4 +1,4 @@
-namespace MWArenaWeb.Migrations
+namespace MwoArenaWeb.Migrations
 {
     using System;
     using System.Data.Entity;
@@ -11,7 +11,7 @@ namespace MWArenaWeb.Migrations
         {
             AutomaticMigrationsEnabled = true;
         }
-        
+
         protected override void Seed(MWA.Models.MwoADbContext context)
         {
             //  This method will be called after migrating to the latest version.

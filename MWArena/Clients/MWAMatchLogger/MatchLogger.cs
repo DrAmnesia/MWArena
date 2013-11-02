@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-
+using System.Configuration;
 using MWA.Util;
 using MWA.Models;
 using System.Net.Http;
@@ -270,9 +270,9 @@ namespace MatchLogger
             matchtopush.PublishFlag = 1;
             matchtopush.PublishingUserName = (playerNameSet) ? (playerName == m.name) : false;
 
+            string apiUrl = (System.Configuration.ConfigurationManager.AppSettings["ApiUrl"] == "" || System.Configuration.ConfigurationManager.AppSettings["ApiUrl"] == null) ? "http://mwarena.azurewebsites.net/api/MwoAMatchMetric" : System.Configuration.ConfigurationManager.AppSettings["ApiUrl"];
 
-
-            HttpUtility.MakeRequest("http://localhost/MWArena/api/MwoAMatchMetric", matchtopush, null,
+            HttpUtility.MakeRequest(apiUrl, matchtopush, null,
                                                    null, typeof(HttpResponseMessage));
 
 
