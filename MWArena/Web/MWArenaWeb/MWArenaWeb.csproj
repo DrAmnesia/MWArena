@@ -797,6 +797,8 @@
     <Content Include="css\fonts\glyphicons\glyphicons-halflings-regular.eot" />
     <Content Include="css\fonts\glyphicons\glyphicons-halflings-regular.ttf" />
     <Content Include="css\fonts\glyphicons\glyphicons-halflings-regular.woff" />
+    <None Include="Properties\PublishProfiles\MWArena - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\MWArena - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
