@@ -70,15 +70,16 @@ namespace MatchLogger
                 csv.AppendLine(MatchStat.GetFieldNames());
             foreach (MatchStat m in friendlyList)
             {
-
-                httpPostMatchMetricTest(m);
                 csv.AppendLine(m.ToString());
+                httpPostMatchMetricTest(m);
+                
             }
 
             foreach (MatchStat m in enemyList)
             {
-                httpPostMatchMetricTest(m);
+
                 csv.AppendLine(m.ToString());
+                httpPostMatchMetricTest(m);
             }
 
             File.AppendAllText("match.csv", csv.ToString());
@@ -154,11 +155,7 @@ namespace MatchLogger
                     }
 
                     LogCSV();
-                    var matchStatsCompletedArgs = new MatchStatsCompletedArgs();
-
-                    matchStatsCompletedArgs.MatchStats = friendlyList.Concat(enemyList).ToList();
-
-                    onMatchStatsCompleted(matchStatsCompletedArgs);
+      
 
                     //reset all variables in preparation for next match
                     matchEndTime = DateTime.MaxValue;
@@ -185,13 +182,7 @@ namespace MatchLogger
             //Log.LogMessage(string.Format("Level loading: {0}", s));
         }
 
-        static void onMatchStatsCompleted(MatchStatsCompletedArgs e)
-        {
-            EventHandler handler = MatchStatsCompleted;
-            if (MatchStatsCompleted != null)
-                MatchStatsCompleted(handler, e);
-        }
-        public static event EventHandler MatchStatsCompleted;
+ 
 
 
 
@@ -268,11 +259,11 @@ namespace MatchLogger
             matchtopush.AssociationName = "PUG";
             matchtopush.MatchHash = GetMatchHash(m);
             matchtopush.PublishFlag = 1;
-            matchtopush.PublishingUserName = (playerNameSet) ? (playerName == m.name) : false;
+            matchtopush.PublishingUserName = (playerNameSet) ? (((playerName==null|playerName=="")?"bob":playerName) == m.name) : false;
 
-            string apiUrl = (System.Configuration.ConfigurationManager.AppSettings["ApiUrl"] == "" || System.Configuration.ConfigurationManager.AppSettings["ApiUrl"] == null) ? "http://mwarena.azurewebsites.net/api/MwoAMatchMetric" : System.Configuration.ConfigurationManager.AppSettings["ApiUrl"];
+           // string apiUrl = (System.Configuration.ConfigurationManager.AppSettings["ApiUrl"] == "" || System.Configuration.ConfigurationManager.AppSettings["ApiUrl"] == null) ? "http://mwarena.azurewebsites.net/api/MwoAMatchMetric" : System.Configuration.ConfigurationManager.AppSettings["ApiUrl"];
 
-            HttpUtility.MakeRequest(apiUrl, matchtopush, null,
+            HttpUtility.MakeRequest("http://mwarena.azurewebsites.net/api/MwoAMatchMetric", matchtopush, null,
                                                    null, typeof(HttpResponseMessage));
 
 
@@ -291,10 +282,7 @@ namespace MatchLogger
         }
 
     }
-    public class MatchStatsCompletedArgs : EventArgs
-    {
-        public List<MatchStat> MatchStats { get; set; }
-    }
+ 
 
 
 }

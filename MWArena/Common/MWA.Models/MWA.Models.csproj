@@ -7,8 +7,8 @@
     <ProjectGuid>{A1AC9371-0A78-4108-8171-6C02740148CC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MwoA.Models</RootNamespace>
-    <AssemblyName>MwoA.Models</AssemblyName>
+    <RootNamespace>MWA.Models</RootNamespace>
+    <AssemblyName>MWA.Models</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

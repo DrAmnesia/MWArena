@@ -61,22 +61,7 @@
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="refs\Common.dll" />
-    <Content Include="refs\Common.Messaging.dll" />
-    <Content Include="refs\Common.Messaging.pdb" />
-    <Content Include="refs\Common.Messaging.XML" />
-    <Content Include="refs\Common.pdb" />
-    <Content Include="refs\Common.Providers.dll" />
-    <Content Include="refs\Common.Providers.pdb" />
-    <Content Include="refs\Common.Providers.XML" />
-    <Content Include="refs\Wortzel.LINQ.BulkCopy.dll" />
-    <Content Include="refs\Wortzel.LINQ.BulkCopy.pdb" />
-    <Content Include="refs\Wortzel.LINQ.BulkCopy.XML" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
-    <None Include="refs\Common.dll.config" />
-    <None Include="refs\Common.Providers.dll.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\MWA.Models\MWA.Models.csproj">
