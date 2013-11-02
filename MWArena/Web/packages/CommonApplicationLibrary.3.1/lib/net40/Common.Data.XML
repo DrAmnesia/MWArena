@@ -1,0 +1,998 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.Data</name>
+    </assembly>
+    <members>
+        <member name="T:Common.Data.ClientNodeConnections">
+            <summary>Class ClientNodeConnections - For typical usage see <see cref="T:Common.Data.ClientNodeConnectionsExtensions"/> examples of data access methods.
+            <br/>   <img src="../icons/Common.Data.png"/></summary>
+            <remarks>This object stores connection strings and database names for a specific client's data nodes. These are accessed by a data node role code.
+            Example Data Node Role Codes:
+            <list type="table">
+            <listheader><term>dbRolecd</term><description>node role</description></listheader>
+            <item><term>D</term><description>Data Warehouse</description></item>
+            <item><term>P</term><description>PHI Database</description></item>
+            <item><term>T</term><description>Transfer Database</description></item>
+            <item><term>S</term><description>Staging Database</description></item>
+            <item><term>M</term><description>Master Database</description></item>
+            <item><term>DM</term><description>Data Mart - MU</description></item>
+            <item><term>Q</term><description>qMail or qEvent Database</description></item>
+            </list></remarks>
+        </member>
+        <member name="T:Common.Data.IClientNodeConnector">
+            <summary>
+            Interface IClientNodeConnector provides the minimum information required to build a sql connection to a client data node.</summary>
+        </member>
+        <member name="M:Common.Data.IClientNodeConnector.HasClientConnectionString(System.String)">
+            <summary>Determines  whether the client has a connection string for the specified node role.</summary>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <returns><c>true</c> if the client has a connection string for the specified data node role code; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Common.Data.IClientNodeConnector.GetClientConnectionString(System.String)">
+            <summary>Gets the client connection string for a given data node role code.</summary>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <returns>System.String.</returns>
+        </member>
+        <member name="P:Common.Data.IClientNodeConnector._clientid">
+            <summary>Gets the Clinical Data Warehouse clientid identifier.</summary>
+            <value>int</value>
+        </member>
+        <member name="P:Common.Data.IClientNodeConnector.MasterConnectionString">
+            <summary>Gets the connection string for the data source that provides the client data node connection details.</summary>
+            <value>Master database sql connection string</value>
+        </member>
+        <member name="P:Common.Data.IClientNodeConnector.DataNodeUserCredentials">
+            <summary>Gets the user credentials that will be used when establishing a connection to a client data node.</summary>
+            <value>database connection string user credentials.</value>
+        </member>
+        <member name="P:Common.Data.IClientNodeConnector.ConnectionPoolSettings">
+            <summary>Gets or sets the connection pool settings that will be used when establishing a connection to a client data node.</summary>
+            <value>The connection pool setting "True" or "False".</value>
+        </member>
+        <member name="P:Common.Data.IClientNodeConnector.Timeout">
+            <summary>Gets or sets the timeout in seconds that will be used when establishing a connection to a client data node.</summary>
+            <value>Connection timeout in seconds.</value>
+        </member>
+        <member name="P:Common.Data.IClientNodeConnector.ClientConnectionStrings">
+            <summary>IDictionary&lt;string,string&gt; of client node connection strings.</summary>
+            <value>Key: data node role code. e.g. "D" for Data Warehouse. Value: data node connection string </value>
+        </member>
+        <member name="F:Common.Data.ClientNodeConnections._ClientNodeDatabases">
+            <summary>Serializable Dictionary&lt;string,string&gt; of client node database names indexed by dbRolecd.</summary>
+        </member>
+        <member name="F:Common.Data.ClientNodeConnections._clientConnectionStrings">
+            <summary>Serializable Dictionary&lt;string,string&gt; of client node connection strings indexed by dbRolecd.</summary>
+        </member>
+        <member name="F:Common.Data.ClientNodeConnections.__clientid">
+            <summary>The Clinical Data Warehouse internal client idenitifier.</summary>
+        </member>
+        <member name="F:Common.Data.ClientNodeConnections._masterConnectionString">
+            <summary>The _master database connection string. This is used to retrieve the dbRolecd, server and database names of the client's data nodes </summary>
+        </member>
+        <member name="F:Common.Data.ClientNodeConnections._usercreds">
+            <summary>The credentials that will be used when building the client data node connection strings.</summary>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnections.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:Common.Data.ClientNodeConnections"/> class with default node connection properties. and no master database connection or client identifier.</summary>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnections.#ctor(System.String)">
+            <summary>Initializes a new instance of the <see cref="T:Common.Data.ClientNodeConnections"/> class with a master database connection string, default node connection properties and no client identifier.</summary>
+            <param name="masterConnectionString">The master database connection string.</param>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnections.#ctor(System.Int32,System.String)">
+            <summary>Initializes a new instance of the <see cref="T:Common.Data.ClientNodeConnections"/> class with a master database connection string, client identifier and default node connection properties.</summary>
+            <param name="_clientid">The Clinical Data Warehouse client identifier .</param>
+            <param name="masterConnectionString">The master database connection string.</param>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnections.#ctor(System.Int32,System.String,System.String,System.Boolean,System.Int32)">
+            <summary>Initializes a new instance of the <see cref="T:Common.Data.ClientNodeConnections"/> class with a master database connection string, client identifier and specific node connection properties.</summary>
+            <param name="_clientid">The Clinical Data Warehouse client identifier.</param>
+            <param name="masterConnectionString">The master database connection string.</param>
+            <param name="databaseUserCredentials">The database user credentials.</param>
+            <param name="pooling">if set to <c>true</c> connection pooling is turned on.</param>
+            <param name="timeout">The timeout value in seconds.</param>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnections.AddToClientNodeDatabases(System.String,System.String)">
+            <summary>Adds a database name to the  <see cref="F:Common.Data.ClientNodeConnections._ClientNodeDatabases"/> Dictionary of client node databases. Indexed by the node role code(dbRolecd).
+            </summary>
+            <param name="key">A data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param> 
+            <param name="value">The database name for this client data node</param>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnections.RemoveFromClientNodeDatabases(System.String)">
+            <summary>Removes a database name from the <see cref="F:Common.Data.ClientNodeConnections._ClientNodeDatabases"/> Dictionary of client node databases.
+            </summary>
+            <param name="key">A data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param> 
+        </member>
+        <member name="M:Common.Data.ClientNodeConnections.AddToClientConnectionStrings(System.String,System.String)">
+            <summary>Adds a connection string to the <see cref="T:Common.Data.ClientNodeConnections"/> Dictionary of client node connection strings. Indexed by the node role code(dbRolecd).
+            </summary>
+            <param name="key">A data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param> 
+            <param name="value">The connection string for this client data node</param>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnections.RemoveFromClientConnectionStrings(System.String)">
+            <summary>Removes a connection string from the <see cref="T:Common.Data.ClientNodeConnections"/> Dictionary of client node connection strings.
+            </summary>
+            <param name="key">A data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param> 
+        </member>
+        <member name="M:Common.Data.ClientNodeConnections.GetClientNodeDatabaseName(System.String)">
+            <summary>Gets a client's database name for a given data node role code.
+            </summary>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <exception cref="T:Common.Data.ClientNodeConnectionException">Exception raised if the ClientNodeConnections does not have connection information for a given data node role</exception>
+            <returns>System.String.</returns>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnections.GetClientConnectionString(System.String)">
+            <summary>Gets the client connection string for a given data node role code.
+            </summary>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <exception cref="T:Common.Data.ClientNodeConnectionException">Exception raised if the ClientNodeConnections does not have connection information for a given data node role</exception>
+            <returns>System.String.</returns>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnections.HasClientNodeDatabase(System.String)">
+            <summary>Determines whether the client has a database for the specified data node role code. </summary>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <returns><c>true</c> if the client has a database name for the specified data node role code; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnections.HasClientConnectionString(System.String)">
+            <summary>Determines  whether the client has a connection string for the specified node role. </summary>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <example> <code source="..\Common.Data.Test\ClientDataConnectionsHelperTest.cs" lang = "c#" title = "HasClientConnectionString(string dbRolecd) Example" numberLines = "true" keepSeeTags = "true" region="e.g. HasClientConnectionString(string dbRolecd)"   /></example>
+            <returns><c>true</c> if the client has a connection string for the specified data node role code; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="P:Common.Data.ClientNodeConnections.ConnectionPoolSettings">
+            <summary>Gets or sets the connection pool settings that will be used when establishing a connection to a client data node.</summary>
+            <value>"True" or "False".</value>
+        </member>
+        <member name="P:Common.Data.ClientNodeConnections.Timeout">
+            <summary>Gets or sets the timeout in seconds that will be used when establishing a connection to a client data node.</summary>
+            <value>Connection timeout in seconds.</value>
+        </member>
+        <member name="P:Common.Data.ClientNodeConnections.MasterConnectionString">
+            <summary>Gets the connection string for the data source that provides the client data node connection details.</summary>
+            <value>Master database sql connection string</value>
+        </member>
+        <member name="P:Common.Data.ClientNodeConnections.DataNodeUserCredentials">
+            <summary>Gets the user credentials that will be used when establishing a connection to a client data node.</summary>
+            <value>connection string user credentials.</value>
+        </member>
+        <member name="P:Common.Data.ClientNodeConnections._clientid">
+            <summary>Gets the Clinical Data Warehouse clientid identifier.</summary>
+            <value>int</value>
+        </member>
+        <member name="P:Common.Data.ClientNodeConnections.SerializableClientConnectionStrings">
+            <summary>Serializable Dictionary&lt;string,string&gt; of client node connection strings.
+            </summary>
+            <value>Key: abbreviated data node role code. e.g. "D" for Data Warehouse </value>
+        </member>
+        <member name="P:Common.Data.ClientNodeConnections.ClientConnectionStrings">
+            <summary>IDictionary&lt;string,string&gt; of client node connection strings.</summary>
+            <value>Key: data node role code. e.g. "D" for Data Warehouse. Value: data node connection string </value>
+        </member>
+        <member name="P:Common.Data.ClientNodeConnections.SerializableClientNodeDatabases">
+            <summary>Serializable Dictionary&lt;string,string&gt; of client node database names.</summary>
+            <value>Key: abbreviated data node role code. e.g. "D" for Data Warehouse</value>
+        </member>
+        <member name="P:Common.Data.ClientNodeConnections.ClientNodeDatabases">
+            <summary>IDictionary&lt;string,string&gt; of client node database names.</summary>
+            <value>Key: abbreviated data node role code. e.g. "D" for Data Warehouse</value>
+        </member>
+        <member name="T:Common.Data.ClientNodeConnectionsExtensions">
+            <summary>Class ClientNodeConnectionsExtensions provides IClientNodeConnector methods to run stored procedures on the correct server and database for a client and data node role combination.</summary>
+            <remarks> <example><code lang="c#" title="The following examples reference the constants listed below:" numberLines="false">
+            public const int _clientid = 1;
+            public const string masterConnectionString = "Server=(local)\\MASTER;Database=Action;Integrated Security=True;Pooling=False;";
+            public const string dbRolecd = "D"; // The Data Warehouse <seealso cref="T:Common.Data.ClientNodeConnections"/> dbRolecd examples.
+            public const string testproc = "sp_helptext";
+            public List&lt;SqlParameter&gt; parmsList = new List&lt;SqlParameter&gt; { new SqlParameter("objname", "sys.schemas") };</code></example>
+            <para> Data Access methods that return DataTables</para>
+            <example><code lang="c#" title="IClientNodeConnector.RunProcDT Example #1 with ClientNodeConnections default timeout" numberLines="true">
+            //Create the ClientNodeConnections Object
+            ClientNodeConnections cnc = ClientNodeConnectionsHelper.GetClientNodeConnections(_clientid, masterConnectionString);
+            //Execute a stored procedure on the Data Warehouse node that returns a DataTable
+            DataTable = cnc.RunProcDT(testproc, parmsList,dbRolecd);
+            </code><code lang="c#" title="IClientNodeConnector.RunProcDT Example #2 with 30 second timeout" numberLines="true">
+            //Create the ClientNodeConnections Object
+            ClientNodeConnections cnc = ClientNodeConnectionsHelper.GetClientNodeConnections(_clientid, masterConnectionString);
+            //Execute a stored procedure on the Data Warehouse node that returns a DataTable
+            DataTable = cnc.RunProcDT(testproc, parmsList,30,dbRolecd);
+            </code><code lang="c#" title="IClientNodeConnector.RunProcDT Example #3 with 30 second timeout and 3 retries" numberLines="true">
+            //Create the ClientNodeConnections Object
+            ClientNodeConnections cnc = ClientNodeConnectionsHelper.GetClientNodeConnections(_clientid, masterConnectionString);
+            //Execute a stored procedure on the Data Warehouse node that returns a DataTable
+            DataTable = cnc.RunProcDT(testproc, parmsList,30,3,dbRolecd);
+            </code></example>
+            <para>Data Access methods that return DataSets</para>
+            <example><code lang="c#" title="IClientNodeConnector.RunProcDS Example #1 with ClientNodeConnections timeout" numberLines="true">
+            //Create the ClientNodeConnections Object
+            ClientNodeConnections cnc = ClientNodeConnectionsHelper.GetClientNodeConnections(_clientid, masterConnectionString);
+            //Execute a stored procedure on the Data Warehouse node that returns a DataSet
+            DataSet = cnc.RunProcDS(testproc, parmsList,dbRolecd);
+            </code><code lang="c#" title="IClientNodeConnector.RunProcDS Example #2 - with 30 second timeout" numberLines="true">
+            //Create the ClientNodeConnectionsObject
+            ClientNodeConnections cnc = ClientNodeConnectionsHelper.GetClientNodeConnections(_clientid, masterConnectionString);
+            //Execute a stored procedure on the Data Warehouse node that returns a DataSet
+            DataSet = cnc.RunProcDS(testproc, parmsList, 30,dbRolecd);
+            </code></example>
+            </remarks>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsExtensions.RunProcDT(Common.Data.IClientNodeConnector,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String)">
+            <summary>Connects to a client's data node and runs a stored procedure that returns a Datatable.</summary>
+            <param name="cnc">The <see cref="T:Common.Data.IClientNodeConnector"/>  object that provides the connection information used to execute the stored procedure.</param>
+            <param name="procedure">The name of the stored procedure to be executed.</param>
+            <param name="parmsList">The list of System.Data.SqlClientsqlparameters to be passed to the stored procedure.</param>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <returns>System.Data.DataTable.</returns>
+            <example><code lang="c#" title="IClientNodeConnector.RunProcDT Example #1 with ClientNodeConnections default timeout" numberLines="true">
+            public const int _clientid = 1;
+            public const string masterConnectionString = "Server=(local)\\MASTER;Database=Action;Integrated Security=True;Pooling=False;";
+            public const string dbRolecd = "D"; // The Data Warehouse
+            public const string testproc = "sp_helptext";
+            public List&lt;SqlParameter&gt; parmsList = new List&lt;SqlParameter&gt; { new SqlParameter("objname", "sys.schemas") };
+            //Create the ClientNodeConnections Object
+            ClientNodeConnections cnc = ClientNodeConnectionsHelper.GetClientNodeConnections(_clientid, masterConnectionString);
+            //Execute a stored procedure on the Data Warehouse node that returns a DataTable
+            DataTable = cnc.RunProcDT(testproc, parmsList,dbRolecd);
+            </code></example>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsExtensions.RunProcDT(Common.Data.IClientNodeConnector,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.Int32,System.String)">
+            <summary>Connects to a client's data node and runs a stored procedure that returns a Datatable with a specified connection timeout value.</summary>
+            <param name="cnc">The <see cref="T:Common.Data.IClientNodeConnector"/>  object that provides the connection information used to execute the stored procedure.</param>
+            <param name="procedure">The name of the stored procedure to be executed.</param>
+            <param name="parmsList">The list of System.Data.SqlClientsqlparameters to be passed to the stored procedure.</param>
+            <param name="timeout">The connection timeout in seconds .</param>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <returns>System.Data.DataTable.</returns>
+            <example><code lang="c#" title="IClientNodeConnector.RunProcDT Example #2 with 30 second timeout" numberLines="true">
+            public const int _clientid = 1;
+            public const string masterConnectionString = "Server=(local)\\MASTER;Database=Action;Integrated Security=True;Pooling=False;";
+            public const string dbRolecd = "D"; // The Data Warehouse
+            public const string testproc = "sp_helptext";
+            public List&lt;SqlParameter&gt; parmsList = new List&lt;SqlParameter&gt; { new SqlParameter("objname", "sys.schemas") };
+            //Create the ClientNodeConnections Object
+            ClientNodeConnections cnc = ClientNodeConnectionsHelper.GetClientNodeConnections(_clientid, masterConnectionString);
+            //Execute a stored procedure on the Data Warehouse node that returns a DataTable
+            DataTable = cnc.RunProcDT(testproc, parmsList,30,dbRolecd);
+            </code></example>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsExtensions.RunProc(Common.Data.IClientNodeConnector,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.Int32,System.String)">
+            <summary>
+            Connects to a client's data node and runs a stored procedure
+            </summary>
+            <param name="cnc">The <see cref="T:Common.Data.IClientNodeConnector"/>  object that provides the connection information used to execute the stored procedure.</param>
+            <param name="procedure">The name of the stored procedure to be executed.</param>
+            <param name="parmsList">The list of System.Data.SqlClientsqlparameters to be passed to the stored procedure.</param>
+            <param name="timeout">The timeout.</param>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <example><code lang="c#" title="IClientNodeConnector.RunProc Example #1 " numberLines="true">
+            public const int _clientid = 1;
+            public const string masterConnectionString = "Server=(local)\\MASTER;Database=Action;Integrated Security=True;Pooling=False;";
+            public const string dbRolecd = "D"; // The Data Warehouse
+            public const string testproc = "sp_helptext";
+            public List&lt;SqlParameter&gt; parmsList = new List&lt;SqlParameter&gt; { new SqlParameter("objname", "sys.schemas") };
+            Create the ClientNodeConnections Object
+            ClientNodeConnections cnc = ClientNodeConnectionsHelper.GetClientNodeConnections(_clientid, masterConnectionString);
+            Execute a stored procedure on the Data Warehouse node that returns a DataTable
+            cnc.RunProc(testproc, parmsList,30,dbRolecd);
+              </code></example>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsExtensions.RunProcDT(Common.Data.IClientNodeConnector,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.Int32,System.Int32,System.String)">
+            <summary>Connects to a client's data node and runs a stored procedure that returns a Datatable with a specified connection timeout value for a configurable number of attempts.</summary>
+            <param name="cnc">The <see cref="T:Common.Data.IClientNodeConnector"/>  object that provides the connection information used to execute the stored procedure.</param>
+            <param name="procedure">The name of the stored procedure to be executed.</param>
+            <param name="parmsList">The list of System.Data.SqlClientsqlparameters to be passed to the stored procedure.</param>
+            <param name="timeout">The connection timeout in seconds.</param>
+            <param name="retries">The configurable number of attempts.</param>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <returns>System.Data.DataTable.</returns>
+            <example><code lang="c#" title="IClientNodeConnector.RunProcDT Example #3 with 30 second timeout and 3 retries" numberLines="true">
+            public const int _clientid = 1;
+            public const string masterConnectionString = "Server=(local)\\MASTER;Database=Action;Integrated Security=True;Pooling=False;";
+            public const string dbRolecd = "D"; // The Data Warehouse
+            public const string testproc = "sp_helptext";
+            public List&lt;SqlParameter&gt; parmsList = new List&lt;SqlParameter&gt; { new SqlParameter("objname", "sys.schemas") };
+            //Create the ClientNodeConnections Object
+            ClientNodeConnections cnc = ClientNodeConnectionsHelper.GetClientNodeConnections(_clientid, masterConnectionString);
+            //Execute a stored procedure on the Data Warehouse node that returns a DataTable
+            DataTable = cnc.RunProcDT(testproc, parmsList,30,3,dbRolecd);
+            </code></example>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsExtensions.RunProcDS(Common.Data.IClientNodeConnector,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String)">
+            <summary>Connects to a client's data node and runs a stored procedure that returns a Dataset.</summary>
+            <param name="cnc">The <see cref="T:Common.Data.IClientNodeConnector"/>  object that provides the connection information used to execute the stored procedure.</param>
+            <param name="procedure">The name of the stored procedure to be executed.</param>
+            <param name="parmsList">The list of System.Data.SqlClientsqlparameters to be passed to the stored procedure.</param>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <returns>System.Data.DataSet</returns>
+            <example><code lang="c#" title="IClientNodeConnector.RunProcDS Example #1 with ClientNodeConnections timeout" numberLines="true">
+            public const int _clientid = 1;
+            public const string masterConnectionString = "Server=(local)\\MASTER;Database=Action;Integrated Security=True;Pooling=False;";
+            public const string dbRolecd = "D"; // The Data Warehouse
+            public const string testproc = "sp_helptext";
+            public List&lt;SqlParameter&gt; parmsList = new List&lt;SqlParameter&gt; { new SqlParameter("objname", "sys.schemas") };
+            //Create the ClientNodeConnections Object
+            ClientNodeConnections cnc = ClientNodeConnectionsHelper.GetClientNodeConnections(_clientid, masterConnectionString);
+            //Execute a stored procedure on the Data Warehouse node that returns a DataSet
+            DataSet = cnc.RunProcDS( testproc, parmsList,dbRolecd);
+            </code></example>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsExtensions.RunProcDS(Common.Data.IClientNodeConnector,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.Int32,System.String)">
+            <summary>Connects to a client's data node and runs a stored procedure that returns a Dataset with a specified connection timeout value.</summary>
+            <param name="cnc">The <see cref="T:Common.Data.IClientNodeConnector"/>  object that provides the connection information used to execute the stored procedure.</param>
+            <param name="procedure">The name of the stored procedure to be executed.</param>
+            <param name="parmsList">The list of System.Data.SqlClientsqlparameters to be passed to the stored procedure.</param>
+            <param name="timeout">The connection timeout in seconds.</param>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <returns>System.Data.DataSet</returns>
+            <example><code lang="c#" title="IClientNodeConnector.RunProcDS Example #2 - with 30 second timeout" numberLines="true">
+            public const int _clientid = 1;
+            public const string masterConnectionString = "Server=(local)\\MASTER;Database=Action;Integrated Security=True;Pooling=False;";
+            public const string dbRolecd = "D"; // The Data Warehouse
+            public const string testproc = "sp_helptext";
+            public List&lt;SqlParameter&gt; parmsList = new List&lt;SqlParameter&gt; { new SqlParameter("objname", "sys.schemas") };
+            //Create the ClientNodeConnectionsObject
+            ClientNodeConnections cnc = ClientNodeConnectionsHelper.GetClientNodeConnections(_clientid, masterConnectionString);
+            //Execute a stored procedure on the Data Warehouse node that returns a DataSet
+            DataSet = cnc.RunProcDS( testproc, parmsList, 30,dbRolecd);
+            </code></example>
+        </member>
+        <member name="T:Common.Data.ClientNodeConnectionException">
+            <summary>Class ClientNodeConnectionException is the exception raised if the ClientNodeConnections does not have connection information for a given data node role</summary>
+        </member>
+        <member name="F:Common.Data.ClientNodeConnectionException._msg">
+            <summary>The exception message
+            </summary>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionException.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:Common.Data.ClientNodeConnectionException"/> class.
+            </summary>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionException.#ctor(System.String)">
+            <summary>Initializes a new instance of the <see cref="T:Common.Data.ClientNodeConnectionException"/> class with an explicit message.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionException.#ctor(System.String,System.Exception)">
+            <summary>Initializes a new instance of the <see cref="T:Common.Data.ClientNodeConnectionException"/> class with an explicit message and inner exception.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="inner">The inner exception.</param>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionException.#ctor(System.Int32,System.String)">
+            <summary>Initializes a new instance of the <see cref="T:Common.Data.ClientNodeConnectionException"/> class with an _clientid and dbRolecd that are used when building the exception message.
+            </summary>
+            <param name="_clientid">The Clinical Data Warehouse client identifier.</param>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionException.#ctor(System.Int32,System.String,System.Exception)">
+            <summary>Initializes a new instance of the <see cref="T:Common.Data.ClientNodeConnectionException"/> class with an inner exception and  an _clientid and dbRolecd that are used when building the exception message.
+            </summary>
+            <param name="_clientid">The Clinical Data Warehouse client identifier.</param>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <param name="inner">The inner exception.</param>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Initializes a new instance of the <see cref="T:Common.Data.ClientNodeConnectionException"/> class.
+            </summary>
+            <param name="info">The serialization information.</param>
+            <param name="context">The streaming context.</param>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" /> with information about the exception.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> that contains contextual information about the source or destination.</param>
+            <PermissionSet>
+              <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Read="*AllFiles*" PathDiscovery="*AllFiles*" />
+              <IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="SerializationFormatter" />
+              </PermissionSet>
+        </member>
+        <member name="P:Common.Data.ClientNodeConnectionException.ErrorCode">
+            <summary>Gets or sets the error code. see Common.Codes for a list of codes.
+            </summary>
+            <value>The error code.</value>
+        </member>
+        <member name="P:Common.Data.ClientNodeConnectionException._clientid">
+            <summary>Gets or sets the _clientid.
+            </summary>
+            <value>The _clientid. This is the Clinical Data Warehouse internal client identifier.</value>
+        </member>
+        <member name="P:Common.Data.ClientNodeConnectionException.DBRoleCD">
+            <summary>Gets or sets the DB role CD.
+            </summary>
+            <value>The type of data node that will be accessed (e.g. "D" for Data Warehouse or "DM" for Data Mart).</value>
+        </member>
+        <member name="P:Common.Data.ClientNodeConnectionException.Message">
+            <summary>Gets a message that describes the current exception.
+            </summary>
+            <value>The message.</value>
+            <returns>The error message that explains the reason for the exception, or an empty string("").</returns>
+        </member>
+        <member name="T:Common.DataAccess">
+            <summary>
+            Summary description for DataAccess
+            </summary>
+        </member>
+        <member name="M:Common.DataAccess.UpdateDB(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String)">
+            <summary>
+            Update the database directly with SQL
+            </summary>
+            <param name="sql">SQL to run on server</param>
+            <param name="parm_list">List of parameters</param>
+            <param name="connection">Connection to work against</param>
+            <returns>System.Int32.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProc(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String)">
+            <summary>
+            Run a stored procedure that returns a value
+            </summary>
+            <param name="procedure">The procedure.</param>
+            <param name="parm_list">The parm_list.</param>
+            <param name="connection">The connection.</param>
+            <returns>System.Object.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProc(System.String,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter})">
+            <summary>
+            Run a stored procedure that returns a value
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="procedure">The procedure.</param>
+            <param name="parm_list">The parm_list.</param>
+            <returns>System.Object.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcDS(System.String,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.Int32)">
+            <summary>
+            Run a sproc and return DataSet
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="procedure">The procedure.</param>
+            <param name="parm_list">The parm_list.</param>
+            <param name="timeout">The timeout.</param>
+            <returns>DataSet.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcDS(System.String,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter})">
+            <summary>
+            Run a sproc and return DataSet
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="procedure">The procedure.</param>
+            <param name="parm_list">The parm_list.</param>
+            <returns>DataSet.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcDT(System.String,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.Int32)">
+            <summary>
+            Run a sproc and return DataTable
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="procedure">The procedure.</param>
+            <param name="parm_list">The parm_list.</param>
+            <param name="timeout">The timeout.</param>
+            <returns>DataTable.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcDT(System.String,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter})">
+            <summary>
+            Run the SQL Procedure and return a DataTable
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="procedure">The procedure.</param>
+            <param name="parm_list">The parm_list.</param>
+            <returns>DataTable.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcDT(System.String,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.Int32,System.Int32)">
+            <summary>
+            Run a sproc and return DataTable
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="procedure">The procedure.</param>
+            <param name="parm_list">The parm_list.</param>
+            <param name="timeout">The timeout.</param>
+            <param name="retries">The retries.</param>
+            <returns>DataTable.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcInt(System.String,System.String,System.String,System.Object)">
+            <summary>
+            Run a scalar stored procedure that returns an int
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="procedure">The procedure.</param>
+            <param name="parameterName">Name of the parameter.</param>
+            <param name="parameterValue">The parameter value.</param>
+            <returns>System.Int32.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcInt(System.String,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter})">
+            <summary>
+            Run a scalar stored procedure that returns an int
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="procedure">The procedure.</param>
+            <param name="param_list">The param_list.</param>
+            <returns>System.Int32.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcRow(System.String,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter})">
+            <summary>
+            Run the SQL Procedure and returns the first DataRow
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="procedure">The procedure.</param>
+            <param name="parmList">The parm list.</param>
+            <returns>DataRow.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcDT(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String)">
+            <summary>
+            Run the SQL Procedure and return a DataTable
+            </summary>
+            <param name="procedure">The procedure.</param>
+            <param name="parm_list">The parm_list.</param>
+            <param name="connection">The connection.</param>
+            <returns>DataTable.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcDT(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String,System.Int32,System.Int32)">
+            <summary>
+            Try to get the query results multiple times
+            </summary>
+            <param name="procedure">SQL stored procedure to run</param>
+            <param name="parm_list">parameter list</param>
+            <param name="connection">db connection string to use</param>
+            <param name="timeout">second for timeout</param>
+            <param name="retries">number of tries</param>
+            <returns>table results</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcDT(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String,System.Int32)">
+            <summary>
+            Run the SQL Procedure and return a DataSet
+            </summary>
+            <param name="procedure">The procedure.</param>
+            <param name="parm_list">The parm_list.</param>
+            <param name="connection">The connection.</param>
+            <param name="timeout">The timeout.</param>
+            <returns>DataTable.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcDS(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String)">
+            <summary>
+            Run the SQL Procedure and return a DataSet
+            </summary>
+            <param name="procedure">The procedure.</param>
+            <param name="parmList">The parm list.</param>
+            <param name="connection">The connection.</param>
+            <returns>DataSet.</returns>
+        </member>
+        <member name="M:Common.DataAccess.GetDataTable(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String)">
+            <summary>
+            Get a datatable based on a query
+            </summary>
+            <param name="sql">SQL query to return table from</param>
+            <param name="parmList">List of parameters for query</param>
+            <param name="connection">database connection to use</param>
+            <returns>Datatable</returns>
+        </member>
+        <member name="M:Common.DataAccess.GetDataTable(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String,System.Int32,System.Int32)">
+            <summary>
+            Try to get the query results multiple times
+            </summary>
+            <param name="sql">SQL to execute</param>
+            <param name="parmList">parameter list</param>
+            <param name="connection">db connection string to use</param>
+            <param name="timeout">second for timeout</param>
+            <param name="retries">number of tries</param>
+            <returns>table results</returns>
+        </member>
+        <member name="M:Common.DataAccess.GetDataTable(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String,System.Int32)">
+            <summary>
+            Get a datatable based on a query
+            </summary>
+            <param name="sql">SQL query to return table from</param>
+            <param name="parmList">List of parameters for query</param>
+            <param name="connection">database connection to use</param>
+            <param name="timeout">Timeout value for command</param>
+            <returns>Datatable</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcXml(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String)">
+            <summary>
+            Run a stored procedure that returns a value
+            </summary>
+            <param name="sql">The SQL.</param>
+            <param name="parmList">The parm list.</param>
+            <param name="connection">The connection.</param>
+            <returns>XmlDocument.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcXmlResults(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String)">
+            <summary>
+            Run a stored procedure that wraps the xml results in a root tag called "Results"
+            </summary>
+            <param name="sql">procedure to execute</param>
+            <param name="parmList">list of parameters to pass into the procedure</param>
+            <param name="connection">Which database to connect to</param>
+            <returns>XMLDocument with results</returns>
+        </member>
+        <member name="M:Common.DataAccess.GetDataXml(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String)">
+            <summary>
+            Run a SQL query and returns data in an XML document format
+            </summary>
+            <param name="sql">Query to run</param>
+            <param name="parmList">List of parameters in the query</param>
+            <param name="connection">BAM or PeekaCity connection</param>
+            <returns>XPathDocument results of query</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcInt(System.String,System.String,System.Object,System.String)">
+            <summary>
+            Run a scalar stored procedure that returns an int
+            </summary>
+            <param name="procedure">The procedure.</param>
+            <param name="parameterName">Name of the parameter.</param>
+            <param name="parameterValue">The parameter value.</param>
+            <param name="connection">The connection.</param>
+            <returns>System.Int32.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcInt(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String)">
+            <summary>
+            Run a scalar stored procedure that returns an int
+            </summary>
+            <param name="procedure">The procedure.</param>
+            <param name="param_list">The param_list.</param>
+            <param name="connection">The connection.</param>
+            <returns>System.Int32.</returns>
+        </member>
+        <member name="M:Common.DataAccess.RunProcRow(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String)">
+            <summary>
+            Run the SQL Procedure and returns the first DataRow
+            </summary>
+            <param name="procedure">The procedure.</param>
+            <param name="parmList">The parm list.</param>
+            <param name="connection">The connection.</param>
+            <returns>DataRow.</returns>
+        </member>
+        <member name="M:Common.DataAccess.GetConnectionString(System.String)">
+            <summary>
+            Get the connection string for use
+            </summary>
+            <param name="connection">Textual representation of connectin string</param>
+            <returns>connection string settings...</returns>
+        </member>
+        <member name="M:Common.DataAccess.SQLString(System.String)">
+            <summary>
+            For RAW SQL double up the quotes if necessary
+            </summary>
+            <param name="source">SQL String to "fix"</param>
+            <returns>new SQL String</returns>
+        </member>
+        <member name="T:Common.DataAccessHelper">
+            <summary>Class DataAccessHelper provides static methods that utilize the <see cref="T:Common.Data.ClientNodeConnectionsHelper"/> to execute client specific data requests.  </summary>
+            <remarks>Provided for backward compatibility. <see cref="T:Common.Data.ClientNodeConnectionsExtensions"/> provide a more comprehensive API.</remarks>
+        </member>
+        <member name="M:Common.DataAccessHelper.RunProcDT(System.String,System.String,System.String,System.Int32,System.String,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.Int32)">
+            <summary>Connects to the master database to retrieve the client's data node connection information and then runs a stored procedure that returns a Datatable with a specified connection timeout value.</summary>
+            <param name="masterConnectionString">The master connection string.</param>
+            <param name="userCredentials">The data node user credentials.</param>
+            <param name="poolsettings">The connection pool settings.</param>
+            <param name="_clientid">The Clinical Data Warehouse client identifier.</param>
+            <param name="dbRolecd">The data node role code e.g. "D" for Data Warehouse.</param>
+            <param name="procedure">The stored procedure to be executed on the client data node.</param>
+            <param name="parmsList">The sqlparameters to be passed to the stored procedure.</param>
+            <param name="timeout">The connectionstring timeout in seconds.</param>
+            <returns>DataTable.</returns>
+        </member>
+        <member name="T:Common.Providers.CommonDataExtensions">
+            <summary>
+            Class CommonDataExtensions
+            </summary>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.ToAuditLog(Common.Data.IClientNodeConnector,Common.Status)">
+            <summary>writes the status entries using the default audit log provider.
+            </summary>
+            <param name="cnc">The ClientNodeConnections object which containss the log database connectionstring</param>
+            <param name="status">The status.</param>
+            <returns>Guid.</returns>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.ToAuditLog(Common.Data.IClientNodeConnector,Common.Status,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>writes the status entries using the default audit log provider.
+            </summary>
+            <param name="cnc">The ClientNodeConnections object which containss the log database connectionstring</param>
+            <param name="status">The status.</param>
+            <param name="extdata">The extdata.</param>
+            <returns>Guid.</returns>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.ToAuditLog(Common.Data.IClientNodeConnector,Common.Status,System.Guid)">
+            <summary>writes the status entries using the default audit log provider.
+            </summary>
+            <param name="cnc">The ClientNodeConnections object which containss the log database connectionstring</param>
+            <param name="status">The status.</param>
+            <param name="tracker">The tracker.</param>
+            <returns>Guid.</returns>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.ToAuditLog(Common.Data.IClientNodeConnector,Common.Status,System.Guid,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>writes the status entries using the default audit log provider.
+            </summary>
+            <param name="cnc">The ClientNodeConnections object which containss the log database connectionstring</param>
+            <param name="status">The status.</param>
+            <param name="tracker">The tracker.</param>
+            <param name="extdata">The extdata.</param>
+            <returns>Guid.</returns>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.ToAuditLog(Common.Data.IClientNodeConnector,Common.Providers.IStatusProvider,Common.Status,System.Guid,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>writes the status entries using the default audit log provider.
+            </summary>
+            <param name="cnc">The ClientNodeConnections object which containss the log database connectionstring</param>
+            <param name="p">The p.</param>
+            <param name="status">The status.</param>
+            <param name="tracker">The tracker.</param>
+            <param name="extdata">The extdata.</param>
+            <returns>Guid.</returns>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.ToAuditLog``1(Common.Data.IClientNodeConnector,Common.Providers.IStatusProvider,Common.Status,System.Guid,``0)">
+            <summary>writes the status entries using the default audit log provider.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cnc">The ClientNodeConnections object which containss the log database connectionstring</param>
+            <param name="p">The p.</param>
+            <param name="status">The status.</param>
+            <param name="tracker">The tracker.</param>
+            <param name="typeddata">The reference type to be serialized into the log.</param>
+            <returns>Guid.</returns>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.PublishqEvent(Common.Data.IClientNodeConnector,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.Int32,System.String,System.Guid,System.String)">
+            <summary> Publishes a qEvent to a client data node qMail database instance.
+            </summary>
+            <param name="cnc">The IClientNodeConnector contains the client specific datanode qMail database connectionstring.</param>
+            <param name="extdata">The extdata dictionary containing payload values .</param>
+            <param name="source">The source that is publishing this qEvent.</param>
+            <param name="eventname">The name of the event being published.</param>
+            <param name="statuscode">See common.codes for a list of valid codes.</param>
+            <param name="statusmsg">A human friendly messaage explaining the event</param>
+            <param name="tracker">The guid identifying this distributed transaction.</param>
+            <param name="procedure">The stored procedure to execute in order to publish this event.</param>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.PublishqEvent(Common.Data.IClientNodeConnector,System.Xml.Linq.XElement,System.String,System.String,System.Int32,System.String,System.Guid,System.String)">
+            <summary>Publishes a qEvent to a client data node qMail database instance.
+            </summary>
+            <param name="cnc">The IClientNodeConnector contains the client specific datanode qMail database connectionstring.</param>
+            <param name="extdata">The extdata dictionary containing payload values .</param>
+            <param name="source">The source that is publishing this qEvent.</param>
+            <param name="eventname">The name of the event being published.</param>
+            <param name="statuscode">See common.codes for a list of valid codes.</param>
+            <param name="statusmsg">A human friendly messaage explaining the event</param>
+            <param name="tracker">The guid identifying this distributed transaction.</param>
+            <param name="procedure">The stored procedure to execute in order to publish this event.</param>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.PublishqEvent(Common.ITrackable,System.String,System.Int32,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>Publishes a qEvent to a client data node qMail database instance. </summary>
+            <param name="trackable">The trackable.</param>
+            <param name="masterConnString">The master connection string.</param>
+            <param name="_clientid">The _clientid.</param>
+            <param name="eventname">The eventname.</param>
+            <param name="extdata">The extdata.</param>
+            <param name="sourceOverride">The source name override.</param>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.PublishqEvent(Common.ITrackable,Common.Data.IClientNodeConnector,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            Publishqs the event.
+            </summary>
+            <param name="trackable">The trackable.</param>
+            <param name="cnc">The CNC.</param>
+            <param name="eventname">The eventname.</param>
+            <param name="extdata">The extdata.</param>
+            <param name="sourceOverride">The source override.</param>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.PublishqEvent(Common.ITrackable,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Publishes a qEvent to a qMail database instance.
+            </summary>
+            <param name="trackable">The trackable.</param>
+            <param name="connString">The master connection string.</param>
+            <param name="eventname">The eventname.</param>
+            <param name="extdata">The extdata.</param>
+            <param name="sourceOverride">The source name override.</param>
+            <param name="procedure">The procedure used to publish the qEvent.</param>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.PublishqEvent(Common.ITrackable,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary> Publishes a qEvent with a serialized dictionary payload to a client data node qMail database instance. </summary>
+            <param name="trackable">The trackable.</param>
+            <param name="connString">The master connection string.</param>
+            <param name="eventname">The eventname.</param>
+            <param name="extdata">The extdata.</param>
+            <param name="sourceOverride">The source name override.</param>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.PublishqEvent(Common.ITrackable,System.String,System.String,System.Xml.Linq.XElement,System.String)">
+            <summary> Publishes a qEvent with an XElement payload to a client data node qMail database instance. </summary>
+            <param name="trackable">The trackable.</param>
+            <param name="connString">The master connection string.</param>
+            <param name="eventname">The eventname.</param>
+            <param name="extdata">The extdata.</param>
+            <param name="sourceOverride">The source name override.</param>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.GetqMailConnstring">
+            <summary>Gets the qMail connstring. </summary>
+            <returns>System.String.</returns>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.GetqMailConnstring(Common.ITrackable,System.String)">
+            <summary>Gets the qMail connstring. </summary>
+            <returns>System.String.</returns>
+        </member>
+        <member name="M:Common.Providers.CommonDataExtensions.GetqMailConnstring(System.String)">
+            <summary>Gets the qMail connstring. </summary>
+            <returns>System.String.</returns>
+        </member>
+        <member name="T:Common.Data.ITenantDataTrackable">
+            <summary> Interface IClientDataTrackable designates the members required to support federated data requests. </summary>
+        </member>
+        <member name="P:Common.Data.ITenantDataTrackable.MasterConnectionString">
+            <summary> Gets or sets the master connection string. </summary>
+            <value>The master connection string.</value>
+        </member>
+        <member name="P:Common.Data.ITenantDataTrackable.Cnc">
+            <summary> Gets or sets the ClientNodeConnector to be used for federated data access. </summary>
+        </member>
+        <member name="T:Common.Data.ClientNodeConnectionsHelper">
+            <summary>Class ClientNodeConnectionsHelper - For typical usage see <see cref="T:Common.Data.ClientNodeConnectionsExtensions"/> examples of data access methods.
+            <para>A static helper that provides functionality for building and retrieving sql connection string to client's data nodes.</para>
+            <para> See <see cref="T:Common.Data.ClientNodeConnectionsExtensions"></see></para>
+            </summary>
+            <remarks>For use with the "v5" Clinical Data Warehouse.
+            <para>Author: drb 10/10/2012 Allscripts</para></remarks>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.#cctor">
+            <summary>Initializes static members of the <see cref="T:Common.Data.ClientNodeConnectionsHelper"/> class.
+            </summary>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.GetClientConnectionStrings(System.Int32,System.String,System.String,System.String,System.Data.SqlClient.SqlCommand)">
+            <summary>*Not Secure* - Creates a Dictionary containing the client connection strings using a custom sqlCommand.
+            </summary>
+            <param name="_clientid">The _clientid.</param>
+            <param name="masterConnectionString">The master connection string.</param>
+            <param name="databaseUserCredentials">The database user creds.</param>
+            <param name="connectionPoolSettings">The connection pool settings.</param>
+            <param name="clientConnectionStringsCommand">The client connection strings command.</param>
+            <returns>Dictionary{StringString}.</returns>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.GetClientConnectionStrings(System.Int32,System.String,System.String,System.String)">
+            <summary>*Not Secure* - Creates a Dictionary containing the client connection strings using the defualt sqlCommand.
+            </summary>
+            <param name="_clientid">The _clientid.</param>
+            <param name="masterConnectionString">The master connection string.</param>
+            <param name="databaseUserCredentials">The database user credentials.</param>
+            <param name="connectionPoolSettings">The connection pool settings.</param>
+            <returns>Dictionary{StringString}.</returns>
+            <example><code lang="c#" title="GetClientConnectionStrings Example #1" numberLines="true">
+            public const int _clientid = 1;
+            public const string s = "(local)\\MASTER";
+            public const string db = "Action";
+            public const string pools = "False";
+            public const string creds = "Integrated Security=True";
+            string connstr = ClientNodeConnections.BuildClientConnectionString(s, db, creds, pools);
+            SqlCommand cmd = ClientNodeConnections.GetClientConnectionStringsCommand(_clientid);
+            Dictionary&lt;string, string&gt; actual = ClientNodeConnections.GetClientConnectionStrings(_clientid, connstr, creds, pools);
+              </code>
+              <para>Actual[0] = {[D, Server=V5-DEV\DATANODE1;Database=CDW_DW;False;Pooling=Integrated Security=True;]}</para></example>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.BuildClientConnectionString(System.String,System.String,System.String,System.String)">
+            <summary>Builds a sql connection string for a specific client's data node.</summary>
+            <param name="serverName">Name of the database server.</param>
+            <param name="dbName">Name of the database.</param>
+            <param name="databaseUserCredentials">The database user's credentials.</param>
+            <param name="connectionPoolSettings">The connection pool settings.</param>
+            <returns>System.String.</returns>
+            <example><code lang="c#" title="BuildClientConnectionString Example #1" numberLines="true">
+            string actual = Common.Data.ClientNodeConnections.BuildClientConnectionString("(localdb)", "master",  "Integrated Security=True","False");
+              </code>
+              <para>Actual= Server=(localdb);Database=master;Integrated Security=True;Pooling=False;</para></example>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.GetClientConnectionStringsCommand">
+            <summary>Gets the client connection strings sqlcommand </summary>
+            <returns>SqlCommand.</returns>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.GetClientConnectionStringsCommand(System.Int32)">
+            <summary>Gets the client connection strings sqlcommand with an _clientid SqlParameter. </summary>
+            <param name="_clientid">The Clinical Data Warehouse client identifier.</param>
+            <returns>SqlCommand.</returns>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.GetClientNodeConnections(System.Int32,System.String,System.String,System.String,System.Data.SqlClient.SqlCommand)">
+            <summary>*Not Secure* - Creates a ClientNodeConnections object with the client connection strings and client specific database names using a custom sqlCommand.</summary>
+            <param name="_clientid">The _clientid.</param>
+            <param name="masterConnectionString">The master connection string.</param>
+            <param name="databaseUserCredentials">The database user creds.</param>
+            <param name="connectionPoolSettings">The connection pool settings.</param>
+            <param name="clientConnectionStringsCommand">The client connection strings command.</param>
+            <returns>ClientNodeConnections.</returns>
+             <example><code lang="c#" title="GetClientNodeConnections Example #1" numberLines="true">
+            var cmd = ClientNodeConnectionsHelper.GetClientConnectionStringsCommand(_clientid);
+            ClientNodeConnections cdc = ClientNodeConnectionsHelper.GetClientNodeConnections(1, "Server=(local)\\MASTER;Database=Action;Integrated Security=True;Pooling=False;","Integrated Security=True","False",cmd);
+            </code></example>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.GetClientNodeConnections(System.Int32,System.String,System.String,System.String)">
+            <summary>*Not Secure* -Creates a ClientNodeConnections with the client connection strings and client specific database names using the default sqlCommand.
+            </summary>
+            <param name="_clientid">The _clientid.</param>
+            <param name="masterConnectionString">The master connection string.</param>
+            <param name="databaseUserCredentials">The database user creds.</param>
+            <param name="connectionPoolSettings">The connection pool settings.</param>
+            <returns>ClientNodeConnections.</returns>
+            <example><code lang="c#" title="GetClientNodeConnections Example #1" numberLines="true">
+            ClientNodeConnections cdc = ClientNodeConnectionsHelper.GetClientNodeConnections(1, "Server=(local)\\MASTER;Database=Action;Integrated Security=True;Pooling=False;","Integrated Security=True","False");
+            </code></example>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.GetClientNodeConnections(System.Int32,System.String)">
+            <summary>Creates a ClientNodeConnections with secure connection strings and database names for a _clientid *Uses Trusted Authentication*.
+            </summary>
+            <param name="_clientid">The _clientid.</param>
+            <param name="masterConnectionString">The master connection string.</param>
+            <returns>ClientNodeConnections.</returns>
+            <example><code lang="c#" title="GetClientNodeConnections Example #1" numberLines="true">
+            ClientNodeConnections cdc = ClientNodeConnectionsHelper.GetClientNodeConnections(1, "Server=(local)\\MASTER;Database=Action;Integrated Security=True;Pooling=False;");
+            </code></example>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.FillClientNodeConnections(System.String,System.Data.SqlClient.SqlCommand,Common.Data.ClientNodeConnections)">
+            <summary>Fills the clientNodeConnections connectionstring and databasename dictionaries.
+            </summary>
+            <param name="masterConnectionString">The master connection string.</param>
+            <param name="clientConnectionStringsCommand">The client connection strings command.</param>
+            <param name="cnc">The clientNodeConnections.</param>
+            <returns>ClientNodeConnections.</returns>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.GetClientNodeConnectionsByAccountId(System.String,System.String,System.String)">
+            <summary>Gets the client connection strings with an accountid. </summary>
+            <param name="accountId">The Clinical Data Warehouse account identifier .</param>
+            <param name="masterConnectionString">The master connection string.</param>
+            <param name="procedure">The procedure.</param>
+            <returns>ClientNodeConnections.</returns>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.RunProcDT(Common.Data.IClientNodeConnector,System.String,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.Int32)">
+            <summary>Connects to a client's data node and runs a stored procedure that returns a Datatable with a specified connection timeout value.</summary>
+            <param name="cnc">The <see cref="T:Common.Data.ClientNodeConnections"/>  object that provides the connection information used to execute the stored procedure.</param>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <param name="procedure">The name of the stored procedure to be executed.</param>
+            <param name="parmsList">The list of System.Data.SqlClientsqlparameters to be passed to the stored procedure.</param>
+            <param name="timeout">The connection timeout in seconds .</param>
+            <returns>DataTable.</returns>
+            <exception cref="T:Common.Data.ClientNodeConnectionException"></exception>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.RunProc(Common.Data.IClientNodeConnector,System.String,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter})">
+            <summary>Connects to a client's data node and runs a stored procedure</summary>
+            <param name="cnc">The <see cref="T:Common.Data.ClientNodeConnections"/>  object that provides the connection information used to execute the stored procedure.</param>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <param name="procedure">The name of the stored procedure to be executed.</param>
+            <param name="parmsList">The list of System.Data.SqlClientsqlparameters to be passed to the stored procedure.</param>
+            <returns>DataTable.</returns>
+            <exception cref="T:Common.Data.ClientNodeConnectionException"></exception>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.RunProcDT(Common.Data.IClientNodeConnector,System.String,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.Int32,System.Int32)">
+            <summary>Connects to a client's data node and runs a stored procedure that returns a Datatable with a specified connection timeout value for a configurable number of attempts.</summary>
+            <param name="cnc">The <see cref="T:Common.Data.ClientNodeConnections"/>  object that provides the connection information used to execute the stored procedure.</param>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <param name="procedure">The name of the stored procedure to be executed.</param>
+            <param name="parmsList">The list of System.Data.SqlClientsqlparameters to be passed to the stored procedure.</param>
+            <param name="timeout">The connection timeout in seconds.</param>
+            <param name="retries">The configurable number of attempts.</param>
+            <returns>System.Data.DataTable.</returns>
+            <exception cref="T:Common.Data.ClientNodeConnectionException"> The exception raised if the ClientNodeConnections does not have connection information for a given data node role.</exception>
+        </member>
+        <member name="M:Common.Data.ClientNodeConnectionsHelper.RunProcDS(Common.Data.IClientNodeConnector,System.String,System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.Int32)">
+            <summary>Connects to a client's data node and runs a stored procedure that returns a Datatable with a specified connection timeout value.</summary>
+            <param name="cnc">The <see cref="T:Common.Data.ClientNodeConnections"/>  object that provides the connection information used to execute the stored procedure.</param>
+            <param name="dbRolecd">The data node role code. e.g. "D" for Data Warehouse. Check the master database _ servers table for a complete list of dbRolecd values.</param>
+            <param name="procedure">The name of the stored procedure to be executed.</param>
+            <param name="parmsList">The list of System.Data.SqlClientsqlparameters to be passed to the stored procedure.</param>
+            <param name="timeout">The connection timeout in seconds .</param>
+            <returns>System.Data.DataSet</returns>
+            <exception cref="T:Common.Data.ClientNodeConnectionException"></exception>
+        </member>
+        <member name="T:Common.Data.StoredProcedures">
+            <summary>
+            Enum StoredProcedures
+            </summary>
+        </member>
+        <member name="F:Common.Data.StoredProcedures.events_publish_formatted_sql_event">
+            <summary>
+            The events_publish_formatted_sql_event stored procedure name
+            </summary>
+        </member>
+        <member name="F:Common.Data.StoredProcedures.usp_acu_Get_clientIdByClientId">
+            <summary>
+            The  stored procedure name for getting a an _clientid by Client Id
+            </summary>
+        </member>
+        <member name="F:Common.Data.StoredProcedures.usp_acu_Get_clientIdByAccountId">
+            <summary>
+            The  stored procedure name for getting a an _clientid by account id
+            </summary>
+        </member>
+    </members>
+</doc>

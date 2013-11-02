@@ -1,0 +1,961 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1BD9DA48-40E2-422D-92E2-BACDA76FCAB3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MwoArenaWeb</RootNamespace>
+    <AssemblyName>MwoArenaWeb</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.1.0.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.1.0.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.2.0.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.2.0.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.2.0.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.2.0.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.0.0\lib\net45\System.Web.Http.Owin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
+    <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
+    <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageAreaRegistration.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
+    <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ImageSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\InvalidSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
+    <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MwoAMatchMetricController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountBindingModels.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\MwoAContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Results\ChallengeResult.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="changelog.txt" />
+    <Content Include="component_calendar.html" />
+    <Content Include="component_fileupload.html" />
+    <Content Include="component_gallery.html" />
+    <Content Include="component_maps.html" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="css\application.commented.css" />
+    <Content Include="css\application.css" />
+    <Content Include="css\application.min.css" />
+    <Content Include="css\bootstrap-original\bootstrap.css" />
+    <Content Include="css\bootstrap-original\responsive.css" />
+    <Content Include="css\chosen-sprite%402x.png" />
+    <Content Include="css\chosen-sprite.png" />
+    <Content Include="css\font-awesome\css\font-awesome-ie7.css" />
+    <Content Include="css\font-awesome\css\font-awesome-ie7.min.css" />
+    <Content Include="css\font-awesome\css\font-awesome.css" />
+    <Content Include="css\font-awesome\css\font-awesome.min.css" />
+    <Content Include="css\font-awesome\font\fontawesome-webfont.svg" />
+    <Content Include="css\fontello\css\fontello.css" />
+    <Content Include="css\fontello\font\fontello.svg" />
+    <Content Include="css\fontello\LICENSE.txt" />
+    <Content Include="css\fonts\glyphicons\glyphicons-halflings-regular.svg" />
+    <Content Include="css\lib\bootstrap-switch.css" />
+    <Content Include="css\select2.png" />
+    <Content Include="css\select2x2.png" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="form_account.html" />
+    <Content Include="form_article.html" />
+    <Content Include="form_elements.html" />
+    <Content Include="form_validation.html" />
+    <Content Include="form_wizard.html" />
+    <Content Include="Global.asax" />
+    <Content Include="grid.html" />
+    <Content Include="img\1.jpg" />
+    <Content Include="img\10.jpg" />
+    <Content Include="img\11.jpg" />
+    <Content Include="img\12.jpg" />
+    <Content Include="img\13.jpg" />
+    <Content Include="img\14.jpg" />
+    <Content Include="img\15.jpg" />
+    <Content Include="img\2.jpg" />
+    <Content Include="img\3.jpg" />
+    <Content Include="img\5.jpg" />
+    <Content Include="img\6.jpg" />
+    <Content Include="img\7.jpg" />
+    <Content Include="img\8.jpg" />
+    <Content Include="img\9.jpg" />
+    <Content Include="img\alpha.png" />
+    <Content Include="img\bgnoise_lg.png" />
+    <Content Include="img\bgnoise_lg_dark.png" />
+    <Content Include="img\bgnoise_lg_transparent.png" />
+    <Content Include="img\datatables\back_disabled.png" />
+    <Content Include="img\datatables\back_enabled.png" />
+    <Content Include="img\datatables\back_enabled_hover.png" />
+    <Content Include="img\datatables\forward_disabled.png" />
+    <Content Include="img\datatables\forward_enabled.png" />
+    <Content Include="img\datatables\forward_enabled_hover.png" />
+    <Content Include="img\datatables\sort_asc.png" />
+    <Content Include="img\datatables\sort_asc_disabled.png" />
+    <Content Include="img\datatables\sort_both.png" />
+    <Content Include="img\datatables\sort_desc.png" />
+    <Content Include="img\datatables\sort_desc_disabled.png" />
+    <Content Include="img\favicon.png" />
+    <Content Include="img\glyphicons-halflings-dark.png" />
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="img\hue.png" />
+    <Content Include="img\icheck\square\grey%402x.png" />
+    <Content Include="img\icheck\square\grey.png" />
+    <Content Include="img\icons\liao-icon.png" />
+    <Content Include="img\icons\Kurita-icon.png" />
+    <Content Include="img\icons\davion-icon.png" />
+    <Content Include="img\icons\marik-icon.png" />
+    <Content Include="img\icons\steiner-icon.png" />
+    <Content Include="img\icons\rasalhague-icon.png" />
+    <Content Include="img\jpeg\1.jpg" />
+    <Content Include="img\jpeg\10.jpg" />
+    <Content Include="img\jpeg\11.jpg" />
+    <Content Include="img\jpeg\12.jpg" />
+    <Content Include="img\jpeg\2.jpg" />
+    <Content Include="img\jpeg\3.jpg" />
+    <Content Include="img\jpeg\4.jpg" />
+    <Content Include="img\jpeg\5.jpg" />
+    <Content Include="img\jpeg\6.jpg" />
+    <Content Include="img\jpeg\7.jpg" />
+    <Content Include="img\jpeg\8.jpg" />
+    <Content Include="img\jpeg\9.jpg" />
+    <Content Include="img\jpeg\light-blue-laptop-transparent.png" />
+    <Content Include="img\jpeg\light-blue-laptop-white.png" />
+    <Content Include="img\jpeg\light-blue-phone.png" />
+    <Content Include="img\jpeg\light-blue-preview-1.png" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\saturation.png" />
+    <Content Include="img\saturation2.png" />
+    <Content Include="img\search-white.png" />
+    <Content Include="img\search.png" />
+    <Content Include="index.html" />
+    <Content Include="js\app.js" />
+    <Content Include="js\calendar.js" />
+    <Content Include="js\chat.js" />
+    <Content Include="js\fileupload.js" />
+    <Content Include="js\forms-elemets.js" />
+    <Content Include="js\forms.js" />
+    <Content Include="js\inbox.js" />
+    <Content Include="js\index.js" />
+    <Content Include="js\landing.js" />
+    <Content Include="js\maps.js" />
+    <Content Include="js\print.js" />
+    <Content Include="js\realtime.js" />
+    <Content Include="js\settings.js" />
+    <Content Include="js\stats.js" />
+    <Content Include="js\tables-dynamic.js" />
+    <Content Include="js\ui-buttons.js" />
+    <Content Include="js\ui-dialogs.js" />
+    <Content Include="js\wizard.js" />
+    <Content Include="landing.html" />
+    <Content Include="lib\backbone\backbone-LICENSE.txt" />
+    <Content Include="lib\backbone\backbone-min.js" />
+    <Content Include="lib\backbone\backbone-pageable.js" />
+    <Content Include="lib\backbone\backbone.js" />
+    <Content Include="lib\backbone\backbone.localStorage-min.js" />
+    <Content Include="lib\backbone\backbone.localStorage.js" />
+    <Content Include="lib\backbone\underscore-LICENSE.txt" />
+    <Content Include="lib\backbone\underscore-min.js" />
+    <Content Include="lib\backbone\underscore.js" />
+    <Content Include="lib\backgrid\backgrid-paginator.js" />
+    <Content Include="lib\backgrid\backgrid.js" />
+    <Content Include="lib\backgrid\LICENSE-MIT.txt" />
+    <Content Include="lib\bootstrap-colorpicker.js" />
+    <Content Include="lib\bootstrap-datepicker.js" />
+    <Content Include="lib\bootstrap-select\bootstrap-select-license.txt" />
+    <Content Include="lib\bootstrap-select\bootstrap-select.js" />
+    <Content Include="lib\bootstrap-switch.js" />
+    <Content Include="lib\bootstrap-wysihtml5\bootstrap-wysihtml5-license.txt" />
+    <Content Include="lib\bootstrap-wysihtml5\bootstrap-wysihtml5.js" />
+    <Content Include="lib\bootstrap\affix.js" />
+    <Content Include="lib\bootstrap\alert.js" />
+    <Content Include="lib\bootstrap\button.js" />
+    <Content Include="lib\bootstrap\carousel.js" />
+    <Content Include="lib\bootstrap\collapse.js" />
+    <Content Include="lib\bootstrap\dropdown.js" />
+    <Content Include="lib\bootstrap\modal.js" />
+    <Content Include="lib\bootstrap\popover.js" />
+    <Content Include="lib\bootstrap\scrollspy.js" />
+    <Content Include="lib\bootstrap\tab.js" />
+    <Content Include="lib\bootstrap\tooltip.js" />
+    <Content Include="lib\bootstrap\transition.js" />
+    <Content Include="lib\d3.layout.min.js" />
+    <Content Include="lib\fullcalendar\fullcalendar-license.txt" />
+    <Content Include="lib\fullcalendar\fullcalendar.js" />
+    <Content Include="lib\gmap3.js" />
+    <Content Include="lib\icheck.js\jquery.icheck.js" />
+    <Content Include="lib\jquery-maskedinput\jquery.maskedinput-license.txt" />
+    <Content Include="lib\jquery-maskedinput\jquery.maskedinput.js" />
+    <Content Include="lib\jquery-ui-1.10.1.custom.js" />
+    <Content Include="lib\jquery.autogrow-textarea.js" />
+    <Content Include="lib\jquery.bootstrap.wizard.js" />
+    <Content Include="lib\jquery.dataTables.min.js" />
+    <Content Include="lib\jquery.fileupload-fp.js" />
+    <Content Include="lib\jquery.fileupload-ui.js" />
+    <Content Include="lib\jquery.fileupload.js" />
+    <Content Include="lib\jquery.iframe-transport.js" />
+    <Content Include="lib\jquery.slimscroll.js" />
+    <Content Include="lib\jquery.vmap.australia.js" />
+    <Content Include="lib\jquery.vmap.europe.js" />
+    <Content Include="lib\jquery.vmap.js" />
+    <Content Include="lib\jquery.vmap.usa.js" />
+    <Content Include="lib\jquery.vmap.world.js" />
+    <Content Include="lib\jquery\jquery-migrate-1.1.0.min.js" />
+    <Content Include="lib\jquery\jquery.1.9.0.min.js" />
+    <Content Include="lib\nvd3\lib\cie.js" />
+    <Content Include="lib\nvd3\lib\crossfilter.js" />
+    <Content Include="lib\nvd3\lib\crossfilter.min.js" />
+    <Content Include="lib\nvd3\lib\d3.v2.js" />
+    <Content Include="lib\nvd3\lib\d3.v2.min.js" />
+    <Content Include="lib\nvd3\lib\d3.v3.min.js" />
+    <Content Include="lib\nvd3\lib\fisheye.js" />
+    <Content Include="lib\nvd3\lib\hive.js" />
+    <Content Include="lib\nvd3\lib\horizon.js" />
+    <Content Include="lib\nvd3\lib\LICENSE.txt" />
+    <Content Include="lib\nvd3\lib\sankey.js" />
+    <Content Include="lib\nvd3\nv.d3.custom.js" />
+    <Content Include="lib\nvd3\src\core.js" />
+    <Content Include="lib\nvd3\src\intro.js" />
+    <Content Include="lib\nvd3\src\models\axis.js" />
+    <Content Include="lib\nvd3\src\models\backup\bullet.js" />
+    <Content Include="lib\nvd3\src\models\backup\bulletChart.js" />
+    <Content Include="lib\nvd3\src\models\boilerplate.js" />
+    <Content Include="lib\nvd3\src\models\bullet.js" />
+    <Content Include="lib\nvd3\src\models\bulletChart.js" />
+    <Content Include="lib\nvd3\src\models\cumulativeLineChart.js" />
+    <Content Include="lib\nvd3\src\models\discreteBar.js" />
+    <Content Include="lib\nvd3\src\models\discreteBarChart.js" />
+    <Content Include="lib\nvd3\src\models\distribution.js" />
+    <Content Include="lib\nvd3\src\models\historicalBar.js" />
+    <Content Include="lib\nvd3\src\models\indentedTree.js" />
+    <Content Include="lib\nvd3\src\models\legend.js" />
+    <Content Include="lib\nvd3\src\models\line.js" />
+    <Content Include="lib\nvd3\src\models\lineChart.js" />
+    <Content Include="lib\nvd3\src\models\linePlusBarChart.js" />
+    <Content Include="lib\nvd3\src\models\linePlusBarWithFocusChart.js" />
+    <Content Include="lib\nvd3\src\models\lineWithFisheye.js" />
+    <Content Include="lib\nvd3\src\models\lineWithFisheyeChart.js" />
+    <Content Include="lib\nvd3\src\models\lineWithFocusChart.js" />
+    <Content Include="lib\nvd3\src\models\multiBar.js" />
+    <Content Include="lib\nvd3\src\models\multiBarChart.js" />
+    <Content Include="lib\nvd3\src\models\multiBarHorizontal.js" />
+    <Content Include="lib\nvd3\src\models\multiBarHorizontalChart.js" />
+    <Content Include="lib\nvd3\src\models\multiBarTimeSeries.js" />
+    <Content Include="lib\nvd3\src\models\multiBarTimeSeriesChart.js" />
+    <Content Include="lib\nvd3\src\models\multiChart.js" />
+    <Content Include="lib\nvd3\src\models\ohlcBar.js" />
+    <Content Include="lib\nvd3\src\models\parallelCoordinates.js" />
+    <Content Include="lib\nvd3\src\models\pie.js" />
+    <Content Include="lib\nvd3\src\models\pieChart.js" />
+    <Content Include="lib\nvd3\src\models\pieChartTotal.js" />
+    <Content Include="lib\nvd3\src\models\scatter.js" />
+    <Content Include="lib\nvd3\src\models\scatterChart.js" />
+    <Content Include="lib\nvd3\src\models\scatterPlusLineChart.js" />
+    <Content Include="lib\nvd3\src\models\sparkline.js" />
+    <Content Include="lib\nvd3\src\models\sparklinePlus.js" />
+    <Content Include="lib\nvd3\src\models\stackedArea.js" />
+    <Content Include="lib\nvd3\src\models\stackedAreaChart.js" />
+    <Content Include="lib\nvd3\src\nv.d3.css" />
+    <Content Include="lib\nvd3\src\outro.js" />
+    <Content Include="lib\nvd3\src\tooltip.js" />
+    <Content Include="lib\nvd3\src\utils.js" />
+    <Content Include="lib\nvd3\stream_layers.js" />
+    <Content Include="lib\parsley\parsley.js" />
+    <Content Include="lib\rickshaw\rickshaw-extensions.js" />
+    <Content Include="lib\rickshaw\rickshaw-license.txt" />
+    <Content Include="lib\rickshaw\rickshaw.js" />
+    <Content Include="lib\select2.js" />
+    <Content Include="lib\sparkline\jquery.sparkline.js" />
+    <Content Include="lib\vendor\http_blueimp.github.io_JavaScript-Canvas-to-Blob_js_canvas-to-blob.js" />
+    <Content Include="lib\vendor\http_blueimp.github.io_JavaScript-Load-Image_js_load-image.js" />
+    <Content Include="lib\vendor\http_blueimp.github.io_JavaScript-Templates_js_tmpl.js" />
+    <Content Include="lib\vendor\jquery.ui.widget.js" />
+    <Content Include="lib\wysihtml5\advanced.js" />
+    <Content Include="lib\wysihtml5\wysihtml5-0.3.0_rc2-license.txt" />
+    <Content Include="lib\wysihtml5\wysihtml5-0.3.0_rc2.js" />
+    <Content Include="ClosedBeta.html" />
+    <Content Include="login.html" />
+    <Content Include="preview-transparent.png" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\HelpPage\Views\Web.config" />
+    <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Samples.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Parameters.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\InvalidSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ImageSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="js\emails.json" />
+    <Content Include="js\folders.json" />
+    <Content Include="lib\examples\pageable-territories.json" />
+    <Content Include="lib\nvd3\LICENSE.md" />
+    <Content Include="lib\parsley\parsley-license.md" />
+    <Content Include="sass\application.scss" />
+    <Content Include="sass\bootstrap-original\bootstrap.scss" />
+    <Content Include="sass\bootstrap-original\_alerts.scss" />
+    <Content Include="sass\bootstrap-original\_badges.scss" />
+    <Content Include="sass\bootstrap-original\_breadcrumbs.scss" />
+    <Content Include="sass\bootstrap-original\_button-groups.scss" />
+    <Content Include="sass\bootstrap-original\_buttons.scss" />
+    <Content Include="sass\bootstrap-original\_carousel.scss" />
+    <Content Include="sass\bootstrap-original\_close.scss" />
+    <Content Include="sass\bootstrap-original\_code.scss" />
+    <Content Include="sass\bootstrap-original\_component-animations.scss" />
+    <Content Include="sass\bootstrap-original\_dropdowns.scss" />
+    <Content Include="sass\bootstrap-original\_forms.scss" />
+    <Content Include="sass\bootstrap-original\_glyphicons.scss" />
+    <Content Include="sass\bootstrap-original\_grid.scss" />
+    <Content Include="sass\bootstrap-original\_input-groups.scss" />
+    <Content Include="sass\bootstrap-original\_jumbotron.scss" />
+    <Content Include="sass\bootstrap-original\_labels.scss" />
+    <Content Include="sass\bootstrap-original\_list-group.scss" />
+    <Content Include="sass\bootstrap-original\_media.scss" />
+    <Content Include="sass\bootstrap-original\_mixins.scss" />
+    <Content Include="sass\bootstrap-original\_modals.scss" />
+    <Content Include="sass\bootstrap-original\_navbar.scss" />
+    <Content Include="sass\bootstrap-original\_navs.scss" />
+    <Content Include="sass\bootstrap-original\_normalize.scss" />
+    <Content Include="sass\bootstrap-original\_pager.scss" />
+    <Content Include="sass\bootstrap-original\_pagination.scss" />
+    <Content Include="sass\bootstrap-original\_panels.scss" />
+    <Content Include="sass\bootstrap-original\_popovers.scss" />
+    <Content Include="sass\bootstrap-original\_print.scss" />
+    <Content Include="sass\bootstrap-original\_progress-bars.scss" />
+    <Content Include="sass\bootstrap-original\_responsive-utilities.scss" />
+    <Content Include="sass\bootstrap-original\_scaffolding.scss" />
+    <Content Include="sass\bootstrap-original\_tables.scss" />
+    <Content Include="sass\bootstrap-original\_theme.scss" />
+    <Content Include="sass\bootstrap-original\_thumbnails.scss" />
+    <Content Include="sass\bootstrap-original\_tooltip.scss" />
+    <Content Include="sass\bootstrap-original\_type.scss" />
+    <Content Include="sass\bootstrap-original\_utilities.scss" />
+    <Content Include="sass\bootstrap-original\_variables.scss" />
+    <Content Include="sass\bootstrap-original\_wells.scss" />
+    <Content Include="sass\lib\_animate.scss" />
+    <Content Include="sass\lib\_backgrid.scss" />
+    <Content Include="sass\lib\_bootstrap-colorpicker.scss" />
+    <Content Include="sass\lib\_bootstrap-switch.scss" />
+    <Content Include="sass\lib\_bootstrap-wysihtml5.scss" />
+    <Content Include="sass\lib\_chosen.scss" />
+    <Content Include="sass\lib\_datepicker.scss" />
+    <Content Include="sass\lib\_fullcalendar.scss" />
+    <Content Include="sass\lib\_icheckbox.scss" />
+    <Content Include="sass\lib\_jquery.datatables.scss" />
+    <Content Include="sass\lib\_jquery.fileupload-ui.scss" />
+    <Content Include="sass\lib\_jqvmap.scss" />
+    <Content Include="sass\lib\_rickshaw.scss" />
+    <Content Include="sass\lib\_select2.scss" />
+    <Content Include="sass\_base.scss" />
+    <Content Include="sass\_bootstrap-override.scss" />
+    <Content Include="sass\_font.scss" />
+    <Content Include="sass\_general.scss" />
+    <Content Include="sass\_print.scss" />
+    <Content Include="sass\_responsive.scss" />
+    <Content Include="sass\_svg.scss" />
+    <Content Include="sass\_variables.scss" />
+    <Content Include="special_404.html" />
+    <Content Include="special_inbox.html" />
+    <Content Include="special_invoice.html" />
+    <Content Include="special_search.html" />
+    <Content Include="stat_charts.html" />
+    <Content Include="stat_realtime.html" />
+    <Content Include="stat_statistics.html" />
+    <Content Include="tables_dynamic.html" />
+    <Content Include="tables_static.html" />
+    <Content Include="ui_accordion.html" />
+    <Content Include="ui_buttons.html" />
+    <Content Include="ui_dialogs.html" />
+    <Content Include="ui_icons.html" />
+    <Content Include="ui_tabs.html" />
+    <Content Include="white\component_calendar.html" />
+    <Content Include="white\component_fileupload.html" />
+    <Content Include="white\component_gallery.html" />
+    <Content Include="white\component_maps.html" />
+    <Content Include="white\css\application.commented.css" />
+    <Content Include="white\css\application.css" />
+    <Content Include="white\css\application.min.css" />
+    <Content Include="white\css\bootstrap-original\bootstrap.css" />
+    <Content Include="white\css\bootstrap-original\responsive.css" />
+    <Content Include="white\css\chosen-sprite%402x.png" />
+    <Content Include="white\css\chosen-sprite.png" />
+    <Content Include="white\css\font-awesome\css\font-awesome-ie7.css" />
+    <Content Include="white\css\font-awesome\css\font-awesome-ie7.min.css" />
+    <Content Include="white\css\font-awesome\css\font-awesome.css" />
+    <Content Include="white\css\font-awesome\css\font-awesome.min.css" />
+    <Content Include="white\css\font-awesome\font\fontawesome-webfont.svg" />
+    <Content Include="white\css\fontello\css\fontello.css" />
+    <Content Include="white\css\fontello\font\fontello.svg" />
+    <Content Include="white\css\fontello\LICENSE.txt" />
+    <Content Include="white\css\fonts\glyphicons\glyphicons-halflings-regular.svg" />
+    <Content Include="white\css\lib\bootstrap-switch.css" />
+    <Content Include="white\css\select2.png" />
+    <Content Include="white\css\select2x2.png" />
+    <Content Include="white\form_account.html" />
+    <Content Include="white\form_article.html" />
+    <Content Include="white\form_elements.html" />
+    <Content Include="white\form_validation.html" />
+    <Content Include="white\form_wizard.html" />
+    <Content Include="white\grid.html" />
+    <Content Include="white\img\1.jpg" />
+    <Content Include="white\img\10.jpg" />
+    <Content Include="white\img\11.jpg" />
+    <Content Include="white\img\12.jpg" />
+    <Content Include="white\img\13.jpg" />
+    <Content Include="white\img\14.jpg" />
+    <Content Include="white\img\15.jpg" />
+    <Content Include="white\img\2.jpg" />
+    <Content Include="white\img\3.jpg" />
+    <Content Include="white\img\5.jpg" />
+    <Content Include="white\img\6.jpg" />
+    <Content Include="white\img\7.jpg" />
+    <Content Include="white\img\8.jpg" />
+    <Content Include="white\img\9.jpg" />
+    <Content Include="white\img\alpha.png" />
+    <Content Include="white\img\bgnoise_lg.png" />
+    <Content Include="white\img\bgnoise_lg_dark.png" />
+    <Content Include="white\img\bgnoise_lg_transparent.png" />
+    <Content Include="white\img\datatables\back_disabled.png" />
+    <Content Include="white\img\datatables\back_enabled.png" />
+    <Content Include="white\img\datatables\back_enabled_hover.png" />
+    <Content Include="white\img\datatables\forward_disabled.png" />
+    <Content Include="white\img\datatables\forward_enabled.png" />
+    <Content Include="white\img\datatables\forward_enabled_hover.png" />
+    <Content Include="white\img\datatables\sort_asc.png" />
+    <Content Include="white\img\datatables\sort_asc_disabled.png" />
+    <Content Include="white\img\datatables\sort_both.png" />
+    <Content Include="white\img\datatables\sort_desc.png" />
+    <Content Include="white\img\datatables\sort_desc_disabled.png" />
+    <Content Include="white\img\favicon.png" />
+    <Content Include="white\img\glyphicons-halflings-dark.png" />
+    <Content Include="white\img\glyphicons-halflings-white.png" />
+    <Content Include="white\img\glyphicons-halflings.png" />
+    <Content Include="white\img\hue.png" />
+    <Content Include="white\img\icheck\square\grey%402x.png" />
+    <Content Include="white\img\icheck\square\grey.png" />
+    <Content Include="white\img\jpeg\1.jpg" />
+    <Content Include="white\img\jpeg\10.jpg" />
+    <Content Include="white\img\jpeg\11.jpg" />
+    <Content Include="white\img\jpeg\12.jpg" />
+    <Content Include="white\img\jpeg\2.jpg" />
+    <Content Include="white\img\jpeg\3.jpg" />
+    <Content Include="white\img\jpeg\4.jpg" />
+    <Content Include="white\img\jpeg\5.jpg" />
+    <Content Include="white\img\jpeg\6.jpg" />
+    <Content Include="white\img\jpeg\7.jpg" />
+    <Content Include="white\img\jpeg\8.jpg" />
+    <Content Include="white\img\jpeg\9.jpg" />
+    <Content Include="white\img\logo.png" />
+    <Content Include="white\img\saturation.png" />
+    <Content Include="white\img\saturation2.png" />
+    <Content Include="white\img\search-white.png" />
+    <Content Include="white\img\search.png" />
+    <Content Include="white\index.html" />
+    <Content Include="white\js\app.js" />
+    <Content Include="white\js\calendar.js" />
+    <Content Include="white\js\chat.js" />
+    <Content Include="white\js\fileupload.js" />
+    <Content Include="white\js\forms-elemets.js" />
+    <Content Include="white\js\forms.js" />
+    <Content Include="white\js\inbox.js" />
+    <Content Include="white\js\index.js" />
+    <Content Include="white\js\maps.js" />
+    <Content Include="white\js\print.js" />
+    <Content Include="white\js\realtime.js" />
+    <Content Include="white\js\settings.js" />
+    <Content Include="white\js\stats.js" />
+    <Content Include="white\js\tables-dynamic.js" />
+    <Content Include="white\js\ui-buttons.js" />
+    <Content Include="white\js\ui-dialogs.js" />
+    <Content Include="white\js\wizard.js" />
+    <Content Include="white\lib\backbone\backbone-LICENSE.txt" />
+    <Content Include="white\lib\backbone\backbone-min.js" />
+    <Content Include="white\lib\backbone\backbone-pageable.js" />
+    <Content Include="white\lib\backbone\backbone.js" />
+    <Content Include="white\lib\backbone\backbone.localStorage-min.js" />
+    <Content Include="white\lib\backbone\backbone.localStorage.js" />
+    <Content Include="white\lib\backbone\underscore-LICENSE.txt" />
+    <Content Include="white\lib\backbone\underscore-min.js" />
+    <Content Include="white\lib\backbone\underscore.js" />
+    <Content Include="white\lib\backgrid\backgrid-paginator.js" />
+    <Content Include="white\lib\backgrid\backgrid.js" />
+    <Content Include="white\lib\backgrid\LICENSE-MIT.txt" />
+    <Content Include="white\lib\bootstrap-colorpicker.js" />
+    <Content Include="white\lib\bootstrap-datepicker.js" />
+    <Content Include="white\lib\bootstrap-select\bootstrap-select-license.txt" />
+    <Content Include="white\lib\bootstrap-select\bootstrap-select.js" />
+    <Content Include="white\lib\bootstrap-switch.js" />
+    <Content Include="white\lib\bootstrap-wysihtml5\bootstrap-wysihtml5-license.txt" />
+    <Content Include="white\lib\bootstrap-wysihtml5\bootstrap-wysihtml5.js" />
+    <Content Include="white\lib\bootstrap\affix.js" />
+    <Content Include="white\lib\bootstrap\alert.js" />
+    <Content Include="white\lib\bootstrap\button.js" />
+    <Content Include="white\lib\bootstrap\carousel.js" />
+    <Content Include="white\lib\bootstrap\collapse.js" />
+    <Content Include="white\lib\bootstrap\dropdown.js" />
+    <Content Include="white\lib\bootstrap\modal.js" />
+    <Content Include="white\lib\bootstrap\popover.js" />
+    <Content Include="white\lib\bootstrap\scrollspy.js" />
+    <Content Include="white\lib\bootstrap\tab.js" />
+    <Content Include="white\lib\bootstrap\tooltip.js" />
+    <Content Include="white\lib\bootstrap\transition.js" />
+    <Content Include="white\lib\d3.layout.min.js" />
+    <Content Include="white\lib\fullcalendar\fullcalendar-license.txt" />
+    <Content Include="white\lib\fullcalendar\fullcalendar.js" />
+    <Content Include="white\lib\gmap3.js" />
+    <Content Include="white\lib\icheck.js\jquery.icheck.js" />
+    <Content Include="white\lib\jquery-maskedinput\jquery.maskedinput-license.txt" />
+    <Content Include="white\lib\jquery-maskedinput\jquery.maskedinput.js" />
+    <Content Include="white\lib\jquery-ui-1.10.1.custom.js" />
+    <Content Include="white\lib\jquery.autogrow-textarea.js" />
+    <Content Include="white\lib\jquery.bootstrap.wizard.js" />
+    <Content Include="white\lib\jquery.dataTables.min.js" />
+    <Content Include="white\lib\jquery.fileupload-fp.js" />
+    <Content Include="white\lib\jquery.fileupload-ui.js" />
+    <Content Include="white\lib\jquery.fileupload.js" />
+    <Content Include="white\lib\jquery.iframe-transport.js" />
+    <Content Include="white\lib\jquery.slimscroll.js" />
+    <Content Include="white\lib\jquery.vmap.australia.js" />
+    <Content Include="white\lib\jquery.vmap.europe.js" />
+    <Content Include="white\lib\jquery.vmap.js" />
+    <Content Include="white\lib\jquery.vmap.usa.js" />
+    <Content Include="white\lib\jquery.vmap.world.js" />
+    <Content Include="white\lib\jquery\jquery-migrate-1.1.0.min.js" />
+    <Content Include="white\lib\jquery\jquery.1.9.0.min.js" />
+    <Content Include="white\lib\nvd3\lib\cie.js" />
+    <Content Include="white\lib\nvd3\lib\crossfilter.js" />
+    <Content Include="white\lib\nvd3\lib\crossfilter.min.js" />
+    <Content Include="white\lib\nvd3\lib\d3.v2.js" />
+    <Content Include="white\lib\nvd3\lib\d3.v2.min.js" />
+    <Content Include="white\lib\nvd3\lib\d3.v3.min.js" />
+    <Content Include="white\lib\nvd3\lib\fisheye.js" />
+    <Content Include="white\lib\nvd3\lib\hive.js" />
+    <Content Include="white\lib\nvd3\lib\horizon.js" />
+    <Content Include="white\lib\nvd3\lib\LICENSE.txt" />
+    <Content Include="white\lib\nvd3\lib\sankey.js" />
+    <Content Include="white\lib\nvd3\nv.d3.custom.js" />
+    <Content Include="white\lib\nvd3\src\core.js" />
+    <Content Include="white\lib\nvd3\src\intro.js" />
+    <Content Include="white\lib\nvd3\src\models\axis.js" />
+    <Content Include="white\lib\nvd3\src\models\backup\bullet.js" />
+    <Content Include="white\lib\nvd3\src\models\backup\bulletChart.js" />
+    <Content Include="white\lib\nvd3\src\models\boilerplate.js" />
+    <Content Include="white\lib\nvd3\src\models\bullet.js" />
+    <Content Include="white\lib\nvd3\src\models\bulletChart.js" />
+    <Content Include="white\lib\nvd3\src\models\cumulativeLineChart.js" />
+    <Content Include="white\lib\nvd3\src\models\discreteBar.js" />
+    <Content Include="white\lib\nvd3\src\models\discreteBarChart.js" />
+    <Content Include="white\lib\nvd3\src\models\distribution.js" />
+    <Content Include="white\lib\nvd3\src\models\historicalBar.js" />
+    <Content Include="white\lib\nvd3\src\models\indentedTree.js" />
+    <Content Include="white\lib\nvd3\src\models\legend.js" />
+    <Content Include="white\lib\nvd3\src\models\line.js" />
+    <Content Include="white\lib\nvd3\src\models\lineChart.js" />
+    <Content Include="white\lib\nvd3\src\models\linePlusBarChart.js" />
+    <Content Include="white\lib\nvd3\src\models\linePlusBarWithFocusChart.js" />
+    <Content Include="white\lib\nvd3\src\models\lineWithFisheye.js" />
+    <Content Include="white\lib\nvd3\src\models\lineWithFisheyeChart.js" />
+    <Content Include="white\lib\nvd3\src\models\lineWithFocusChart.js" />
+    <Content Include="white\lib\nvd3\src\models\multiBar.js" />
+    <Content Include="white\lib\nvd3\src\models\multiBarChart.js" />
+    <Content Include="white\lib\nvd3\src\models\multiBarHorizontal.js" />
+    <Content Include="white\lib\nvd3\src\models\multiBarHorizontalChart.js" />
+    <Content Include="white\lib\nvd3\src\models\multiBarTimeSeries.js" />
+    <Content Include="white\lib\nvd3\src\models\multiBarTimeSeriesChart.js" />
+    <Content Include="white\lib\nvd3\src\models\multiChart.js" />
+    <Content Include="white\lib\nvd3\src\models\ohlcBar.js" />
+    <Content Include="white\lib\nvd3\src\models\parallelCoordinates.js" />
+    <Content Include="white\lib\nvd3\src\models\pie.js" />
+    <Content Include="white\lib\nvd3\src\models\pieChart.js" />
+    <Content Include="white\lib\nvd3\src\models\pieChartTotal.js" />
+    <Content Include="white\lib\nvd3\src\models\scatter.js" />
+    <Content Include="white\lib\nvd3\src\models\scatterChart.js" />
+    <Content Include="white\lib\nvd3\src\models\scatterPlusLineChart.js" />
+    <Content Include="white\lib\nvd3\src\models\sparkline.js" />
+    <Content Include="white\lib\nvd3\src\models\sparklinePlus.js" />
+    <Content Include="white\lib\nvd3\src\models\stackedArea.js" />
+    <Content Include="white\lib\nvd3\src\models\stackedAreaChart.js" />
+    <Content Include="white\lib\nvd3\src\nv.d3.css" />
+    <Content Include="white\lib\nvd3\src\outro.js" />
+    <Content Include="white\lib\nvd3\src\tooltip.js" />
+    <Content Include="white\lib\nvd3\src\utils.js" />
+    <Content Include="white\lib\nvd3\stream_layers.js" />
+    <Content Include="white\lib\parsley\parsley.js" />
+    <Content Include="white\lib\rickshaw\rickshaw-extensions.js" />
+    <Content Include="white\lib\rickshaw\rickshaw-license.txt" />
+    <Content Include="white\lib\rickshaw\rickshaw.js" />
+    <Content Include="white\lib\select2.js" />
+    <Content Include="white\lib\sparkline\jquery.sparkline.js" />
+    <Content Include="white\lib\vendor\http_blueimp.github.io_JavaScript-Canvas-to-Blob_js_canvas-to-blob.js" />
+    <Content Include="white\lib\vendor\http_blueimp.github.io_JavaScript-Load-Image_js_load-image.js" />
+    <Content Include="white\lib\vendor\http_blueimp.github.io_JavaScript-Templates_js_tmpl.js" />
+    <Content Include="white\lib\vendor\jquery.ui.widget.js" />
+    <Content Include="white\lib\wysihtml5\advanced.js" />
+    <Content Include="white\lib\wysihtml5\wysihtml5-0.3.0_rc2-license.txt" />
+    <Content Include="white\lib\wysihtml5\wysihtml5-0.3.0_rc2.js" />
+    <Content Include="white\login.html" />
+    <Content Include="white\preview-transparent.png" />
+    <Content Include="white\special_404.html" />
+    <Content Include="white\special_inbox.html" />
+    <Content Include="white\special_invoice.html" />
+    <Content Include="white\special_search.html" />
+    <Content Include="white\stat_charts.html" />
+    <Content Include="white\stat_realtime.html" />
+    <Content Include="white\stat_statistics.html" />
+    <Content Include="white\tables_dynamic.html" />
+    <Content Include="white\tables_static.html" />
+    <Content Include="white\ui_accordion.html" />
+    <Content Include="white\ui_buttons.html" />
+    <Content Include="white\ui_dialogs.html" />
+    <Content Include="white\ui_icons.html" />
+    <Content Include="white\ui_tabs.html" />
+    <Content Include="config.rb" />
+    <Content Include="readme.md" />
+    <Content Include="css\font\open-sans-bold.woff" />
+    <Content Include="css\font\open-sans-italic.woff" />
+    <Content Include="css\font\open-sans-light.woff" />
+    <Content Include="css\font\open-sans-semibold.woff" />
+    <Content Include="css\font\open-sans.woff" />
+    <Content Include="css\font-awesome\font\fontawesome-webfont.eot" />
+    <Content Include="css\font-awesome\font\fontawesome-webfont.ttf" />
+    <Content Include="css\font-awesome\font\fontawesome-webfont.woff" />
+    <Content Include="css\font-awesome\font\FontAwesome.otf" />
+    <Content Include="css\fontello\font\fontello.eot" />
+    <Content Include="css\fontello\font\fontello.ttf" />
+    <Content Include="css\fontello\font\fontello.woff" />
+    <Content Include="css\fonts\glyphicons\glyphicons-halflings-regular.eot" />
+    <Content Include="css\fonts\glyphicons\glyphicons-halflings-regular.ttf" />
+    <Content Include="css\fonts\glyphicons\glyphicons-halflings-regular.woff" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="server\php\index.php" />
+    <Content Include="server\php\UploadHandler.php" />
+    <Content Include="white\config.rb" />
+    <Content Include="white\css\font-awesome\font\fontawesome-webfont.eot" />
+    <Content Include="white\css\font-awesome\font\fontawesome-webfont.ttf" />
+    <Content Include="white\css\font-awesome\font\fontawesome-webfont.woff" />
+    <Content Include="white\css\font-awesome\font\FontAwesome.otf" />
+    <Content Include="white\css\fontello\font\fontello.eot" />
+    <Content Include="white\css\fontello\font\fontello.ttf" />
+    <Content Include="white\css\fontello\font\fontello.woff" />
+    <Content Include="white\css\fonts\glyphicons\glyphicons-halflings-regular.eot" />
+    <Content Include="white\css\fonts\glyphicons\glyphicons-halflings-regular.ttf" />
+    <Content Include="white\css\fonts\glyphicons\glyphicons-halflings-regular.woff" />
+    <Content Include="white\css\font\open-sans-bold.woff" />
+    <Content Include="white\css\font\open-sans-italic.woff" />
+    <Content Include="white\css\font\open-sans-light.woff" />
+    <Content Include="white\css\font\open-sans-semibold.woff" />
+    <Content Include="white\css\font\open-sans.woff" />
+    <Content Include="white\js\emails.json" />
+    <Content Include="white\js\folders.json" />
+    <Content Include="white\lib\examples\pageable-territories.json" />
+    <Content Include="white\lib\nvd3\LICENSE.md" />
+    <Content Include="white\lib\parsley\parsley-license.md" />
+    <Content Include="white\sass\application.scss" />
+    <Content Include="white\sass\bootstrap-original\bootstrap.scss" />
+    <Content Include="white\sass\bootstrap-original\_alerts.scss" />
+    <Content Include="white\sass\bootstrap-original\_badges.scss" />
+    <Content Include="white\sass\bootstrap-original\_breadcrumbs.scss" />
+    <Content Include="white\sass\bootstrap-original\_button-groups.scss" />
+    <Content Include="white\sass\bootstrap-original\_buttons.scss" />
+    <Content Include="white\sass\bootstrap-original\_carousel.scss" />
+    <Content Include="white\sass\bootstrap-original\_close.scss" />
+    <Content Include="white\sass\bootstrap-original\_code.scss" />
+    <Content Include="white\sass\bootstrap-original\_component-animations.scss" />
+    <Content Include="white\sass\bootstrap-original\_dropdowns.scss" />
+    <Content Include="white\sass\bootstrap-original\_forms.scss" />
+    <Content Include="white\sass\bootstrap-original\_glyphicons.scss" />
+    <Content Include="white\sass\bootstrap-original\_grid.scss" />
+    <Content Include="white\sass\bootstrap-original\_input-groups.scss" />
+    <Content Include="white\sass\bootstrap-original\_jumbotron.scss" />
+    <Content Include="white\sass\bootstrap-original\_labels.scss" />
+    <Content Include="white\sass\bootstrap-original\_list-group.scss" />
+    <Content Include="white\sass\bootstrap-original\_media.scss" />
+    <Content Include="white\sass\bootstrap-original\_mixins.scss" />
+    <Content Include="white\sass\bootstrap-original\_modals.scss" />
+    <Content Include="white\sass\bootstrap-original\_navbar.scss" />
+    <Content Include="white\sass\bootstrap-original\_navs.scss" />
+    <Content Include="white\sass\bootstrap-original\_normalize.scss" />
+    <Content Include="white\sass\bootstrap-original\_pager.scss" />
+    <Content Include="white\sass\bootstrap-original\_pagination.scss" />
+    <Content Include="white\sass\bootstrap-original\_panels.scss" />
+    <Content Include="white\sass\bootstrap-original\_popovers.scss" />
+    <Content Include="white\sass\bootstrap-original\_print.scss" />
+    <Content Include="white\sass\bootstrap-original\_progress-bars.scss" />
+    <Content Include="white\sass\bootstrap-original\_responsive-utilities.scss" />
+    <Content Include="white\sass\bootstrap-original\_scaffolding.scss" />
+    <Content Include="white\sass\bootstrap-original\_tables.scss" />
+    <Content Include="white\sass\bootstrap-original\_theme.scss" />
+    <Content Include="white\sass\bootstrap-original\_thumbnails.scss" />
+    <Content Include="white\sass\bootstrap-original\_tooltip.scss" />
+    <Content Include="white\sass\bootstrap-original\_type.scss" />
+    <Content Include="white\sass\bootstrap-original\_utilities.scss" />
+    <Content Include="white\sass\bootstrap-original\_variables.scss" />
+    <Content Include="white\sass\bootstrap-original\_wells.scss" />
+    <Content Include="white\sass\lib\_backgrid.scss" />
+    <Content Include="white\sass\lib\_bootstrap-colorpicker.scss" />
+    <Content Include="white\sass\lib\_bootstrap-switch.scss" />
+    <Content Include="white\sass\lib\_bootstrap-wysihtml5.scss" />
+    <Content Include="white\sass\lib\_chosen.scss" />
+    <Content Include="white\sass\lib\_datepicker.scss" />
+    <Content Include="white\sass\lib\_fullcalendar.scss" />
+    <Content Include="white\sass\lib\_icheckbox.scss" />
+    <Content Include="white\sass\lib\_jquery.datatables.scss" />
+    <Content Include="white\sass\lib\_jquery.fileupload-ui.scss" />
+    <Content Include="white\sass\lib\_jqvmap.scss" />
+    <Content Include="white\sass\lib\_rickshaw.scss" />
+    <Content Include="white\sass\lib\_select2.scss" />
+    <Content Include="white\sass\_base.scss" />
+    <Content Include="white\sass\_bootstrap-override.scss" />
+    <Content Include="white\sass\_font.scss" />
+    <Content Include="white\sass\_general.scss" />
+    <Content Include="white\sass\_print.scss" />
+    <Content Include="white\sass\_responsive.scss" />
+    <Content Include="white\sass\_svg.scss" />
+    <Content Include="white\sass\_variables.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="server\php\files\dp4q2u7rbaediet1j1jcm2cli3\thumbnail\" />
+    <Folder Include="server\php\files\kfvbr9d4gm3hi2pcs3ilbgd8i3\thumbnail\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>1419</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/MwoArena</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost/MwoArena</IISAppRootUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

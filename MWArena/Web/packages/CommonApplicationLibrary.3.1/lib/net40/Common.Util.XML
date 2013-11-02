@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.Util</name>
+    </assembly>
+    <members>
+        <member name="M:Common.Util.CommonRegEx.CommonRegex">
+            <summary>
+            Common Regular Expression Class 
+            </summary>
+        </member>
+        <member name="T:Common.Util.DotNetFrameworkHelper">
+            <summary> Common.Util.DotNetFrameworkHelper class implements the <see cref="T:Common.Util.IDotNetFrameworkHelper">Common.Util.IDotNetFrameworkHelper</see> interface</summary>
+        </member>
+        <member name="M:Common.Util.DotNetFrameworkHelper.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:Common.Util.DotNetFrameworkHelper">Common.Util.DotNetFrameworkHelper</see> with no parameters.
+            </summary>
+        </member>
+        <member name="T:Common.Util.ClassVersion">
+            <summary>Class Version information </summary>
+        </member>
+        <member name="T:Common.Util.Environment">
+            <summary> Common.Util.Environment class implements the <see cref="!:Common.Util.IEnvironment">Common.Util.IEnvironment</see> interface</summary>
+        </member>
+        <member name="M:Common.Util.Environment.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:Common.Util.Environment">Common.Util.Environment</see> with no parameters.
+            </summary>
+        </member>
+        <member name="T:Common.Util.ExportToExcel">
+            <summary>
+            Creates an excel file without using Microsoft Excel.
+            </summary>
+        </member>
+        <member name="M:Common.Util.ExportToExcel.#ctor">
+            <summary>
+            Initializes a new instance of the ExportToExcel class using BIFF Methods.
+            </summary>        
+        </member>
+        <member name="M:Common.Util.ExportToExcel.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the ExportToExcel class using BIFF Methods.
+            </summary>        
+        </member>
+        <member name="M:Common.Util.ExportToExcel.WriteCell(System.Int32,System.Int32,System.String)">
+            <summary>
+            Overloaded method WriteCell to writes the text cell value.
+            </summary>        
+        </member>
+        <member name="M:Common.Util.ExportToExcel.WriteCell(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Overloaded method WriteCell to write the integer cell value.
+            </summary>
+        </member>
+        <member name="M:Common.Util.ExportToExcel.WriteCell(System.Int32,System.Int32,System.Double)">
+            <summary>
+            Overloaded method WriteCell to write the double cell value.
+            </summary>        
+        </member>
+        <member name="M:Common.Util.ExportToExcel.WriteCell(System.Int32,System.Int32)">
+            <summary>
+            Overloaded method WriteCell to write the empty cell.
+            </summary>        
+        </member>
+        <member name="M:Common.Util.ExportToExcel.BeginWrite">
+            <summary>
+            One time call is made for creating XLS fileheader
+            </summary>
+        </member>
+        <member name="M:Common.Util.ExportToExcel.EndWrite">
+            <summary>
+            One time call is made for ending the write operation.
+            </summary>
+        </member>
+        <member name="M:Common.Util.ExportToExcel.WriteToExcelFile(System.Data.DataTable,System.String,System.Boolean)">
+            <summary>
+            Method to Directly create file with the values from DataTable supplied
+            Enter the filename with .xls extension.
+            </summary>
+            <param name="argDataTable"></param>
+            <param name="argFileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Util.ExportToExcel.WriteToMemoryStream(System.Data.DataTable,System.String,System.Boolean)">
+            <summary>
+            Method to Directly create MemoryStream object with the values from DataTable supplied
+            </summary>
+            <param name="argDataTable"></param>        
+            <returns></returns>
+        </member>
+    </members>
+</doc>

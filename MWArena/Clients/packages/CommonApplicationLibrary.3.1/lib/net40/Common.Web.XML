@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.Web</name>
+    </assembly>
+    <members>
+        <member name="M:Common.Web.RoutedExecution.GetClientConnectionString(System.Int32,System.String,System.String,System.String,Common.Web.DBRoles)">
+            <summary>
+            Get Client ConnectionString
+            </summary>
+            <param name="_clientid"></param>
+            <param name="masterconnection"></param>
+            <param name="userCreds"></param>
+            <param name="pooling"></param>
+            <param name="dbRole"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Web.RoutedExecution.GetClientDatabaseName(System.Int32,System.String,System.String,System.String,Common.Web.DBRoles)">
+            <summary>
+            Get Client Database name
+            CDW_DM1 or CDW_DM2 or CDW_DW2
+            </summary>
+            <param name="_clientid"></param>
+            <param name="masterconnection"></param>
+            <param name="userCreds"></param>
+            <param name="pooling"></param>
+            <param name="dbRole"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Web.RoutedExecution.LoadConnectionData(System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Load connection data for a client
+            </summary>
+            <param name="_clientid"></param>
+            <param name="masterconnection"></param>
+            <param name="userCreds"></param>
+            <param name="pooling"></param>
+            <param name="dbRole"></param>
+        </member>
+        <member name="M:Common.Web.RoutedExecution.GetClientNodeConnections(System.String,System.String,System.String,System.String)">
+            <summary>
+            Get client node connection by making a call to Common.Data.GetClientNodeConnections
+            </summary>
+            <param name="clientid"></param>
+            <param name="masterconnection"></param>
+            <param name="userCreds"></param>
+            <param name="pooling"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Web.RoutedExecution.GetClientNodeConnections(System.String)">
+            <summary>
+            Get ClientNodeConnection object from session which was loaded earlier by calling LoadConnectionData
+            </summary>
+            <param name="clientid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Web.RoutedExecutionHelper.GetClientConnectionString(Common.Web.DBRoles)">
+            <summary>
+            Get Connection string by passing the dbRole like 'D' or 'DM'
+            </summary>
+            <param name="dbRole"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Web.RoutedExecutionHelper.GetClientDatabaseName(Common.Web.DBRoles)">
+            <summary>
+            Get Connection string by passing the dbRole like 'D' or 'DM'
+            </summary>
+            <param name="dbRole"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Web.RoutedExecutionHelper.LoadClientConnectionData">
+            <summary>
+            Load the connection data. Both connection strings and database information
+            Server=V5-DEV\DATANODE1;Database=CDW_DW;False;Pooling=Integrated Security=True;
+            Database: CDW_DW
+            </summary>
+        </member>
+        <member name="M:Common.Web.RoutedExecutionHelper.GetClientNodeConnections">
+            <summary>
+            Get ClientNodeConnection by making a call to Common.Data
+            This method can be used at places where Session object might be null
+            but needing the object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Web.RoutedExecutionHelper.GetSessionClientNodeConnections">
+            <summary>
+            Pull the ClientNodeConnection object from the session using the clientid
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.IO.Encryption</name>
+    </assembly>
+    <members>
+        <member name="M:Common.IO.Encryption.PgpEncryptionKeys.#ctor(System.String,System.String,System.String)">
+            <exception cref="T:System.ArgumentException">Public key not found. Private key not found. Missing password</exception>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Common.IO.Encryption.PgpEncryptionKeys.GetFirstSecretKey(Org.BouncyCastle.Bcpg.OpenPgp.PgpSecretKeyRingBundle)" -->
+        <member name="T:Common.IO.Encryption.PgpEncrypt">
+            <summary> Wrapper around Bouncy Castle OpenPGP library.
+            Bouncy documentation can be found here: http://www.bouncycastle.org/docs/pgdocs1.6/index.html </summary>
+        </member>
+        <member name="M:Common.IO.Encryption.PgpEncrypt.#ctor(Common.IO.Encryption.PgpEncryptionKeys)">
+            <summary> Instantiate a new PgpEncrypt class with initialized PgpEncryptionKeys. </summary>
+            <param name="encryptionKeys"></param>
+            <exception cref="T:System.ArgumentNullException">encryptionKeys is null</exception>
+        </member>
+        <member name="M:Common.IO.Encryption.PgpEncrypt.EncryptAndSign(System.IO.Stream,System.IO.FileInfo)">
+            <param name="fileName">FileInfo of the file to encrypt</param>
+        </member>
+    </members>
+</doc>

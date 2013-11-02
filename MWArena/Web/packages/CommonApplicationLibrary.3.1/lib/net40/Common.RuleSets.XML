@@ -1,0 +1,412 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.RuleSets</name>
+    </assembly>
+    <members>
+        <member name="T:Common.RuleSets.Contracts.IEnumerableRule`3">
+            <summary>
+            Interface IEnumerableRule
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="T2">The type of the t2.</typeparam>
+            <typeparam name="TR">The type of the TR.</typeparam>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IEnumerableRule`3.Test">
+            <summary>
+            Gets or sets the test.
+            </summary>
+            <value>The test.</value>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IEnumerableRule`3.Criteria">
+            <summary>
+            Gets or sets the criteria.
+            </summary>
+            <value>The criteria.</value>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IEnumerableRule`3.Source">
+            <summary>
+            Gets or sets the source.
+            </summary>
+            <value>The source.</value>
+        </member>
+        <member name="T:Common.RuleSets.Contracts.IEvalRule`2">
+            <summary>
+            Interface IEvalRule
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TR">The type of the TR.</typeparam>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IEvalRule`2.Test">
+            <summary>
+            Gets or sets the test.
+            </summary>
+            <value>The test.</value>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IEvalRule`2.First">
+            <summary>
+            Gets or sets the first.
+            </summary>
+            <value>The first.</value>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IEvalRule`2.Second">
+            <summary>
+            Gets or sets the second.
+            </summary>
+            <value>The second.</value>
+        </member>
+        <member name="T:Common.RuleSets.Contracts.IEvalRule`3">
+            <summary>
+            Interface IEvalRule
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="T2">The type of the t2.</typeparam>
+            <typeparam name="TR">The type of the TR.</typeparam>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IEvalRule`3.Test">
+            <summary>
+            Gets or sets the test.
+            </summary>
+            <value>The test.</value>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IEvalRule`3.First">
+            <summary>
+            Gets or sets the first.
+            </summary>
+            <value>The first.</value>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IEvalRule`3.Second">
+            <summary>
+            Gets or sets the second.
+            </summary>
+            <value>The second.</value>
+        </member>
+        <member name="T:Common.RuleSets.Contracts.IRuleObjectResult`1">
+            <summary>
+            Interface IRuleObjectResult
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Common.RuleSets.Contracts.IRuleResult">
+            <summary>
+            Interface IRuleResult
+            </summary>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IRuleResult.Passed">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Common.RuleSets.Contracts.IRuleResult"/> is passed.
+            </summary>
+            <value><c>true</c> if passed; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IRuleResult.ResultIntegerValue">
+            <summary>
+            Gets or sets the result integer value.
+            </summary>
+            <value>The result integer value.</value>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IRuleResult.ResultStringValue">
+            <summary>
+            Gets or sets the result string value.
+            </summary>
+            <value>The result string value.</value>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IRuleObjectResult`1.ResultObject">
+            <summary>
+            Gets or sets the result object.
+            </summary>
+            <value>The result object.</value>
+        </member>
+        <member name="T:Common.RuleSets.Contracts.IRuleSet">
+            <summary>
+            Interface IRuleSet
+            </summary>
+        </member>
+        <member name="M:Common.RuleSets.Contracts.IRuleSet.Run">
+            <summary>
+            Runs this instance.
+            </summary>
+            <returns>IRule.</returns>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IRuleSet.Result">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Common.RuleSets.Contracts.IRuleSet"/> is result.
+            </summary>
+            <value><c>true</c> if result; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IRuleSet.Succeeded">
+            <summary>
+            Gets or sets the succeeded.
+            </summary>
+            <value>The succeeded.</value>
+        </member>
+        <member name="P:Common.RuleSets.Contracts.IRuleSet.Total">
+            <summary>
+            Gets or sets the total.
+            </summary>
+            <value>The total.</value>
+        </member>
+        <member name="T:Common.RuleSets.ProcessingRule">
+            <summary>An implementation of IRule that returns and IRuleResultObject
+            <img src="../icons/CommonRuleSets.png"/></summary>
+        </member>
+        <member name="M:Common.RuleSets.ProcessingRule.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Common.RuleSets.ProcessingRule"/> class.
+            </summary>
+        </member>
+        <member name="M:Common.RuleSets.ProcessingRule.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Common.RuleSets.ProcessingRule"/> class.
+            </summary>
+            <param name="name">The name.</param>
+        </member>
+        <member name="M:Common.RuleSets.ProcessingRule.Run">
+            <summary>
+            Runs this instance.
+            </summary>
+            <returns>IRuleResult.</returns>
+        </member>
+        <member name="M:Common.RuleSets.ProcessingRule.CheckResults(Common.RuleSets.Contracts.IRuleResult)">
+            <summary>
+            Checks the results.
+            </summary>
+            <param name="results">The results.</param>
+            <returns>IRuleResult.</returns>
+        </member>
+        <member name="P:Common.RuleSets.ProcessingRule.IsActive">
+            <summary>
+            Gets or sets a value indicating whether this instance is active.
+            </summary>
+            <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Common.RuleSets.ProcessingRule.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:Common.RuleSets.ProcessingRule.Results">
+            <summary>
+            Gets or sets the results.
+            </summary>
+            <value>The results.</value>
+        </member>
+        <member name="T:Common.RuleSets.Examples.EvalRule`2">
+            <summary>
+            Class EvalRule
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="T2">The type of the t2.</typeparam>
+        </member>
+        <member name="M:Common.RuleSets.Examples.EvalRule`2.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Common.RuleSets.Examples.EvalRule`2"/> class.
+            </summary>
+        </member>
+        <member name="M:Common.RuleSets.Examples.EvalRule`2.#ctor(System.Func{`0,`1,System.Boolean},`0,`1)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Common.RuleSets.Examples.EvalRule`2"/> class.
+            </summary>
+            <param name="test">The test.</param>
+            <param name="first">The first.</param>
+            <param name="second">The second.</param>
+        </member>
+        <member name="M:Common.RuleSets.Examples.EvalRule`2.Run(`0,`1)">
+            <summary>
+            Runs the specified first.
+            </summary>
+            <param name="first">The first.</param>
+            <param name="second">The second.</param>
+            <returns>IRuleResult.</returns>
+        </member>
+        <member name="P:Common.RuleSets.Examples.EvalRule`2.Test">
+            <summary>
+            Gets or sets the test.
+            </summary>
+            <value>The test.</value>
+        </member>
+        <member name="P:Common.RuleSets.Examples.EvalRule`2.First">
+            <summary>
+            Gets or sets the first.
+            </summary>
+            <value>The first.</value>
+        </member>
+        <member name="P:Common.RuleSets.Examples.EvalRule`2.Second">
+            <summary>
+            Gets or sets the second.
+            </summary>
+            <value>The second.</value>
+        </member>
+        <member name="T:Common.RuleSets.Examples.EvalRule`1">
+            <summary>
+            Class EvalRule
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Common.RuleSets.Examples.EvalRule`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Common.RuleSets.Examples.EvalRule`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Common.RuleSets.Examples.EvalRule`1.#ctor(System.Func{`0,`0,System.Boolean},`0,`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Common.RuleSets.Examples.EvalRule`1"/> class.
+            </summary>
+            <param name="test">The test.</param>
+            <param name="first">The first.</param>
+            <param name="second">The second.</param>
+        </member>
+        <member name="M:Common.RuleSets.Examples.EvalRule`1.#ctor(System.String,System.Func{`0,`0,System.Boolean},`0,`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Common.RuleSets.Examples.EvalRule`1"/> class.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="test">The test.</param>
+            <param name="first">The first.</param>
+            <param name="second">The second.</param>
+        </member>
+        <member name="M:Common.RuleSets.Examples.EvalRule`1.Run">
+            <summary>
+            Runs this instance.
+            </summary>
+            <returns>IRuleResult.</returns>
+        </member>
+        <member name="P:Common.RuleSets.Examples.EvalRule`1.Test">
+            <summary>
+            Gets or sets the test.
+            </summary>
+            <value>The test.</value>
+        </member>
+        <member name="P:Common.RuleSets.Examples.EvalRule`1.First">
+            <summary>
+            Gets or sets the first.
+            </summary>
+            <value>The first.</value>
+        </member>
+        <member name="P:Common.RuleSets.Examples.EvalRule`1.Second">
+            <summary>
+            Gets or sets the second.
+            </summary>
+            <value>The second.</value>
+        </member>
+        <member name="T:Common.RuleSets.ProcessingRule`3">
+            <summary>
+            Class ProcessingRule
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="T2">The type of the t2.</typeparam>
+            <typeparam name="TR">The type of the TR.</typeparam>
+        </member>
+        <member name="M:Common.RuleSets.ProcessingRule`3.#ctor(System.Func{`0,`1,`2},`0,`1)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Common.RuleSets.ProcessingRule`3"/> class.
+            </summary>
+            <param name="test">The test.</param>
+            <param name="first">The first.</param>
+            <param name="second">The second.</param>
+        </member>
+        <member name="M:Common.RuleSets.ProcessingRule`3.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Common.RuleSets.ProcessingRule`3"/> class.
+            </summary>
+        </member>
+        <member name="M:Common.RuleSets.ProcessingRule`3.Run(`0,`1)">
+            <summary>
+            Runs the specified actual.
+            </summary>
+            <param name="actual">The actual.</param>
+            <param name="expected">The expected.</param>
+            <returns>IRuleObjectResult{`2}.</returns>
+        </member>
+        <member name="P:Common.RuleSets.ProcessingRule`3.First">
+            <summary>
+            Gets or sets the first.
+            </summary>
+            <value>The first.</value>
+        </member>
+        <member name="P:Common.RuleSets.ProcessingRule`3.Second">
+            <summary>
+            Gets or sets the second.
+            </summary>
+            <value>The second.</value>
+        </member>
+        <member name="P:Common.RuleSets.ProcessingRule`3.ResultObject">
+            <summary>
+            Gets or sets the result object.
+            </summary>
+            <value>The result object.</value>
+        </member>
+        <member name="P:Common.RuleSets.ProcessingRule`3.RuleObjectResult">
+            <summary>
+            Gets or sets the rule object result.
+            </summary>
+            <value>The rule object result.</value>
+        </member>
+        <member name="P:Common.RuleSets.ProcessingRule`3.Test">
+            <summary>
+            Gets or sets the test.
+            </summary>
+            <value>The test.</value>
+        </member>
+        <member name="T:Common.RuleSets.RuleSet">
+            <summary> Simple base RuleSet class </summary>
+        </member>
+        <member name="M:Common.RuleSets.RuleSet.Run">
+            <summary>
+            Runs this instance.
+            </summary>
+            <returns>IRule.</returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Common.RuleSets.RuleSet.ProcessRules">
+            <summary>
+            Processes the rules.
+            </summary>
+            <returns>RuleSet.</returns>
+        </member>
+        <member name="M:Common.RuleSets.RuleSet.IncrementPassFail(Common.RuleSets.Contracts.IRule)">
+            <summary>
+            Increments the pass fail.
+            </summary>
+            <param name="pass">The pass.</param>
+            <returns>System.Int32.</returns>
+        </member>
+        <member name="P:Common.RuleSets.RuleSet.Tracker">
+            <summary>
+            Gets or sets a Unigue Instance Identifier for tracking the objects activities.
+            </summary>
+            <value>The tracker.</value>
+        </member>
+        <member name="P:Common.RuleSets.RuleSet.Status">
+            <summary>
+            Provides a current reference to the object's internal or private Common.Status field
+            </summary>
+            <value>The status.</value>
+            <returns>a Common Status</returns>
+        </member>
+        <member name="P:Common.RuleSets.RuleSet.Failed">
+            <summary>
+            Gets or sets the failed.
+            </summary>
+            <value>The failed.</value>
+        </member>
+        <member name="P:Common.RuleSets.RuleSet.Total">
+            <summary>
+            Gets or sets the total.
+            </summary>
+            <value>The total.</value>
+        </member>
+        <member name="P:Common.RuleSets.RuleSet.Result">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Common.RuleSets.RuleSet"/> is result.
+            </summary>
+            <value><c>true</c> if result; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Common.RuleSets.RuleSet.Succeeded">
+            <summary>
+            Gets or sets the succeeded.
+            </summary>
+            <value>The succeeded.</value>
+        </member>
+    </members>
+</doc>

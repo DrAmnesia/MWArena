@@ -1,0 +1,1205 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common</name>
+    </assembly>
+    <members>
+        <member name="T:Common.Codes">
+            <summary>Common.Codes is a list integer constants that represent Status Codes</summary>
+        </member>
+        <member name="F:Common.Codes.PARKED">
+            <summary>[-111] Object or Message has been paced in a holding status to be processed at a later time or by another service.<para>Src: Common Library</para></summary>
+        </member>
+        <member name="F:Common.Codes.UNKNOWN">
+            <summary>[-1] Unknown Object and/or status.<para>Src: Common Library</para></summary>
+        </member>
+        <member name="F:Common.Codes.UNPROCESSED">
+            <summary>[0] The Object in question is in its initial state or has been re-verted to a similar state.<para>Src: Common Library</para></summary>
+        </member>
+        <member name="F:Common.Codes.PROCESSED">
+            <summary>[1] The Object in question has completed its most recent transaction.<para>Src: Common Library</para>  </summary>
+        </member>
+        <member name="F:Common.Codes.NOT_ACTIVITY">
+            <summary>[10] The Object or Process initialized and exitied without activity.<para>Src: Common Library</para></summary>
+        </member>
+        <member name="F:Common.Codes.CONTINUE">
+            <summary>[100] This means that the server has received the request headers, and that the client should proceed to send the request body (in the case of a request for which a body needs to be sent; for example, a POST request). </summary>
+        </member>
+        <member name="F:Common.Codes.SWITCHING_PROTOCOLS">
+            <summary>[101] HTTP: This means the requester has asked the server to switch protocols and the server is acknowledging that it will do so</summary>
+        </member>
+        <member name="F:Common.Codes.INPROCESS">
+            <summary>[102] The Object in question is currently involved in a transaction. This is equivalent to 102 Processing (WebDAV) (RFC 2518 )</summary>
+        </member>
+        <member name="F:Common.Codes.INFORMATION">
+            <summary>[110] an informational message</summary>
+        </member>
+        <member name="F:Common.Codes.SUCCESS">
+            <summary>[200] The transaction was successful. this is equivalent tothe  Http OK result</summary>
+        </member>
+        <member name="F:Common.Codes.RESOURCE_CREATED">
+            <summary>[201] The item has been successfully created. This is equivalent to HTTP: 201 Created.  </summary>
+        </member>
+        <member name="F:Common.Codes.REQUEST_ACCEPTED">
+            <summary>[202] The request has been accepted for processing, but the processing has not been completed. The request might or might not eventually be acted upon, as it might be disallowed when processing actually takes place. This is equivalent to HTTP: ACCEPTED.</summary>
+        </member>
+        <member name="F:Common.Codes.NONAUTHORITATIVE_INFORMATION">
+            <summary>[203] The server successfully processed the request, but is returning information that may be from another source.</summary>
+        </member>
+        <member name="F:Common.Codes.NO_CONTENT">
+            <summary>[204] The server successfully processed the request, but is not returning any content.</summary>
+        </member>
+        <member name="F:Common.Codes.RESET_CONTENT">
+            <summary>[205] The server successfully processed the request, but is not returning any content. Unlike a 204 response, this response requires that the requester reset the document view.</summary>
+        </member>
+        <member name="F:Common.Codes.PARTIAL_CONTENT">
+            <summary>[206] The server is delivering only part of the resource due to a range header sent by the client. This is used by tools like wget to enable resuming of interrupted downloads, or split a download into multiple simultaneous streams.</summary>
+        </member>
+        <member name="F:Common.Codes.MULTISTATUS">
+            <summary>[207] The message body that follows is an XML message and can contain a number of separate response codes, depending on how many sub-requests were made.</summary>
+        </member>
+        <member name="F:Common.Codes.WARNING">
+            <summary>[255] No Error has been geterated but the process was not completely successfull.</summary>
+        </member>
+        <member name="F:Common.Codes.MULTIPLE_CHOICES">
+            <summary>[300] Indicates multiple options for the resource that the client may follow. It, for instance, could be used to present different format options for video, list files with different extensions, or word sense disambiguation.</summary>
+        </member>
+        <member name="F:Common.Codes.MOVED_PERMANENTLY">
+            <summary>[301] This and all future requests should be directed to the given URI.</summary>
+        </member>
+        <member name="F:Common.Codes.FOUND">
+            <summary>[302] This is the most popular redirect code[citation needed], but also an example of industrial practice contradicting the standard. HTTP/1.0 specification (RFC 1945 ) required the client to perform a temporary redirect (the original describing phrase was "Moved Temporarily"), but popular browsers implemented it as a 303 See Other. Therefore, HTTP/1.1 added status codes 303 and 307 to distinguish between the two behaviours. However, the majority of Web applications and frameworks still use the 302 status code as if it were the 303.</summary>
+        </member>
+        <member name="F:Common.Codes.SEE_OTHER">
+            <summary>[303] The response to the request can be found under another URI using a GET method. When received in response to a PUT, it should be assumed that the server has received the data and the redirect should be issued with a separate GET message.</summary>
+        </member>
+        <member name="F:Common.Codes.NOT_MODIFIED">
+            <summary>[304] Indicates the resource has not been modified since last requested. Typically, the HTTP client provides a header like the If-Modified-Since header to provide a time against which to compare. Utilizing this saves bandwidth and reprocessing on both the server and client, as only the header data must be sent and received in comparison to the entirety of the page being re-processed by the server, then resent using more bandwidth of the server and client.</summary>
+        </member>
+        <member name="F:Common.Codes.USE_PROXY">
+            <summary>[305]</summary>
+        </member>
+        <member name="F:Common.Codes.SWITCH_PROXY">
+            <summary>[306] No longer used.</summary>
+        </member>
+        <member name="F:Common.Codes.TEMPORARY_REDIRECT">
+            <summary>[307] In this occasion, the request should be repeated with another URI, but future requests can still use the original URI. In contrast to 303, the request method should not be changed when reissuing the original request. For instance, a POST request must be repeated using another POST request.</summary>
+        </member>
+        <member name="F:Common.Codes.DATA_NOT_AVAILABLE">
+            <summary>[360] There is no data available for the current transaction or context.</summary>
+        </member>
+        <member name="F:Common.Codes.BAD_REQUEST">
+            <summary>[400] The request contains bad syntax or cannot be fulfilled.</summary>
+        </member>
+        <member name="F:Common.Codes.UNAUTHORIZED">
+            <summary>[401] Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource. See Basic access authentication and Digest access authentication.</summary>
+        </member>
+        <member name="F:Common.Codes.PAYMENT_REQUIRED">
+            <summary>[402] The original intention was that this code might be used as part of some form of digital cash or micropayment scheme, but that has not happened, and this code has never been used.</summary>
+        </member>
+        <member name="F:Common.Codes.FORBIDDEN">
+            <summary>[403] The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference.</summary>
+        </member>
+        <member name="F:Common.Codes.RESOURCE_NOT_FOUND">
+            <summary>[404] The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible.</summary>
+        </member>
+        <member name="F:Common.Codes.METHOD_NOT_ALLOWED">
+            <summary>[405] A request was made of a resource using a request method not supported by that resource; for example, using GET on a form which requires data to be presented via POST, or using PUT on a read-only resource.</summary>
+        </member>
+        <member name="F:Common.Codes.NOT_ACCEPTABLE">
+            <summary>The requested resource is only capable of generating content not acceptable according to the Accept headers sent in the request.</summary>
+        </member>
+        <member name="F:Common.Codes.PROXY_AUTHENTICATION_REQUIRED">
+            <summary>[407] </summary>
+        </member>
+        <member name="F:Common.Codes.REQUEST_TIMEOUT">
+            <summary>[408] The server timed out waiting for the request.</summary>
+        </member>
+        <member name="F:Common.Codes.CONFLICT">
+            <summary>[409] Indicates that the request could not be processed because of conflict in the request, such as an edit conflict.</summary>
+        </member>
+        <member name="F:Common.Codes.GONE">
+            <summary>[410] Indicates that the resource requested is no longer available and will not be available again. This should be used when a resource has been intentionally removed; however, it is not necessary to return this code and a 404 Not Found can be issued instead. Upon receiving a 410 status code, the client should not request the resource again in the future. Clients such as search engines should remove the resource from their indexes.</summary>
+        </member>
+        <member name="F:Common.Codes.LENGTH_REQUIRED">
+            <summary>[411] The request did not specify the length of its content, which is required by the requested resource.</summary>
+        </member>
+        <member name="F:Common.Codes.PRECONDITION_FAILED">
+            <summary>[412] The server does not meet one of the preconditions that the requester put on the request.</summary>
+        </member>
+        <member name="F:Common.Codes.REQUEST_ENTITY_TOO_LARGE">
+            <summary>[413] The request is larger than the server is willing or able to process.</summary>
+        </member>
+        <member name="F:Common.Codes.REQUESTURI_TOO_LONG">
+            <summary>[414]The URI provided was too long for the server to process.</summary>
+        </member>
+        <member name="F:Common.Codes.UNSUPPORTED_MEDIA_TYPE">
+            <summary>[415] The request did not specify any media types that the server or resource supports. For example the client specified that an image resource should be served as image/svg+xml, but the server cannot find a matching version of the image.</summary>
+        </member>
+        <member name="F:Common.Codes.REQUESTED_RANGE_NOT_SATISFIABLE">
+            <summary>[416]The client has asked for a portion of the file, but the server cannot supply that portion (for example, if the client asked for a part of the file that lies beyond the end of the file).</summary>
+        </member>
+        <member name="F:Common.Codes.EXPECTATION_FAILED">
+            <summary>[417]The server cannot meet the requirements of the Expect request-header field.</summary>
+        </member>
+        <member name="F:Common.Codes.IM_A_TEAPOT">
+            <summary>[418] The HTCPCP server is a teapot. The responding entity MAY be short and stout. Defined by the April Fools' specification RFC 2324. See Hyper Text Coffee Pot Control Protocol for more information.</summary>
+        </member>
+        <member name="F:Common.Codes.UNPROCESSABLE_ENTITY">
+            <summary>[422] The request was well-formed but was unable to be followed due to semantic errors.</summary>
+        </member>
+        <member name="F:Common.Codes.LOCKED">
+            <summary>[423] The resource that is being accessed is locked</summary>
+        </member>
+        <member name="F:Common.Codes.FAILED_DEPENDENCY">
+            <summary>[424] The request failed due to failure of a previous request (e.g. a PROPPATCH).</summary>
+        </member>
+        <member name="F:Common.Codes.UNORDERED_COLLECTION">
+            <summary>[425] Defined in drafts of WebDav Advanced Collections, but not present in "Web Distributed Authoring and Versioning (WebDAV) Ordered Collections Protocol".</summary>
+        </member>
+        <member name="F:Common.Codes.UPGRADE_REQUIRED">
+            <summary>[426] The client should switch to TLS/1.0.</summary>
+        </member>
+        <member name="F:Common.Codes.RETRY_WITH">
+            <summary>[449] A Microsoft extension. The request should be retried after doing the appropriate action.</summary>
+        </member>
+        <member name="F:Common.Codes.ERROR">
+            <summary>[500] This is a General Exception Status</summary>
+        </member>
+        <member name="F:Common.Codes.NOT_IMPLEMENTED">
+            <summary>[501] The server either does not recognise the request method, or it lacks the ability to fulfil the request.</summary>
+        </member>
+        <member name="F:Common.Codes.BAD_GATEWAY">
+            <summary>[502] The server was acting as a gateway or proxy and received an invalid response from the downstream server.</summary>
+        </member>
+        <member name="F:Common.Codes.SERVICE_UNAVAILABLE">
+            <summary>[503] The server is currently unavailable (because it is overloaded or down for maintenance). Generally, this is a temporary state.</summary>
+        </member>
+        <member name="F:Common.Codes.GATEWAY_TIMEOUT">
+            <summary>[504] </summary>
+        </member>
+        <member name="F:Common.Codes.HTTP_VERSION_NOT_SUPPORTED">
+            <summary>[505] </summary>
+        </member>
+        <member name="F:Common.Codes.VARIANT_ALSO_NEGOTIATES_">
+            <summary>[506] (RFC 2295 )</summary>
+        </member>
+        <member name="F:Common.Codes.INSUFFICIENT_STORAGE_">
+            <summary>[507] (WebDAV) (RFC 4918 )</summary>
+        </member>
+        <member name="F:Common.Codes.BANDWIDTH_LIMIT_EXCEEDED">
+            <summary>[509] This status code, while used by many servers, is not specified in any RFCs.</summary>
+        </member>
+        <member name="F:Common.Codes.INVALID_FORMAT">
+            <summary>[510] badly formatted message, data or string</summary>
+        </member>
+        <member name="F:Common.Codes.NOT_IMPLEMENTED_">
+            <summary>[900] The desired feature or activity has yet to be activated.<para>Src: Common Library</para></summary>
+        </member>
+        <member name="F:Common.Codes.TERMINATED">
+            <summary>[999] Object, Process or Message is Non-Functional and should not be re-used or re-procesed.<para>Src: Common Library</para></summary>
+        </member>
+        <member name="F:Common.Codes.CANCELLED">
+            <summary>[1000] The request or process in question has been cancelled by the initiator.<para>Src: Common Library</para></summary>
+        </member>
+        <member name="F:Common.Codes.Test">
+            <summary>[502] The server was acting as a gateway or proxy and received an invalid response from the downstream server.</summary>
+        </member>
+        <member name="F:Common.Codes.ASYNC_PROCESS">
+            <summary>[502] The server was acting as a gateway or proxy and received an invalid response from the downstream server.</summary>
+        </member>
+        <member name="F:Common.Codes.WARN_PROVIDER">
+            <summary>[256] The customer content channel with warn level.</summary>
+        </member>
+        <member name="F:Common.Codes.PREVENT_PROVIDER">
+            <summary>[257] The customer content channel with prevent level.</summary>
+        </member>
+        <member name="M:Common.Codes.GetStatusText``1(``0)">
+            <summary>
+            Gets the Name of public const for given value
+            Supports being called in inherited types
+            </summary>
+            <typeparam name="T">The type of the constant</typeparam>
+            <param name="value">The value of type (T) being searched for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Codes.GetStatusCodeList">
+            <summary>
+            Gets the Name of public const for given value
+            Supports being called in inherited types
+            </summary>
+        </member>
+        <member name="M:Common.Codes.GetStatusCode(System.Type,System.String)">
+            <summary>
+            Gets the Constant by name
+            Supports being called in inherited types
+            </summary>
+            <param name="containingType">Type of the containing.</param>
+            <param name="statusCode">The status code.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Codes.GetAssessment(System.Int32)">
+            <summary>returns the Risk Range the status falls into</summary>
+        </member>
+        <member name="T:Common.Configuration.StatusConfiguration">
+            <summary>Provides an object reference for the commonConfiguration section of the web.config or app.config</summary>
+        </member>
+        <member name="P:Common.Configuration.StatusConfiguration.DefaultProvider">
+            <summary>Gets or sets the default provider.</summary><value>The default provider.</value>
+        </member>
+        <member name="P:Common.Configuration.StatusConfiguration.XmlLogfile">
+            <summary> Gets or sets the XML logfile. </summary>
+            <value>The XML logfile.</value>
+            
+        </member>
+        <member name="P:Common.Configuration.StatusConfiguration.SqlLogtable">
+            <summary> Gets or sets the SQL logtable.</summary>
+            <value>The SQL logtable.</value>
+        </member>
+        <member name="P:Common.Configuration.StatusConfiguration.WindowsEvent">
+            <summary> Gets or sets the windows event.</summary>
+            <value>The windows event.</value>
+        </member>
+        <member name="P:Common.Configuration.StatusConfiguration.SmtpMail">
+            <summary> Gets or sets the SMTP mail. </summary>
+            <value>The SMTP mail.</value>
+        </member>
+        <member name="P:Common.Configuration.StatusConfiguration.W3cLogfile">
+            <summary> Gets or sets the W3C logfile. </summary>
+            <value>The W3C logfile.</value>
+        </member>
+        <member name="P:Common.Configuration.StatusConfiguration.QueuedEvent">
+            <summary> Gets or sets the queued event. </summary>
+            <value>The queued event.</value>
+        </member>
+        <member name="P:Common.Configuration.StatusConfiguration.AllscriptsEnvelope">
+            <summary> Gets or sets the queued event. </summary>
+            <value>The queued event.</value>
+        </member>
+        <member name="T:Common.Configuration.XmlLogfileProviderElement">
+            <summary> This a provider used to publish the Status information to an xml logfile </summary>
+        </member>
+        <member name="T:Common.Configuration.StatusProviderElementBase">
+            <summary>  </summary>
+        </member>
+        <member name="P:Common.Providers.IStatusProviderElement.Throttle">
+            <summary>Gets or sets the Message throughput (Messages Per 10 Second Interval) this provider supports.</summary>
+        </member>
+        <member name="P:Common.Providers.IStatusProviderElement.Threshold">
+            <summary>Gets or sets the minimum StatusCode value for this provider to publish.</summary>
+        </member>
+        <member name="P:Common.Providers.IStatusProviderElement.Destination">
+            <summary>Gets or sets the Destination for this provider to publish to.</summary>
+        </member>
+        <member name="P:Common.Providers.IStatusProviderElement.Mode">
+            <summary> Gets or sets Mode of operation (off,on, triggered, debug) </summary>
+        </member>
+        <member name="P:Common.Configuration.StatusProviderElementBase.Destination">
+            <summary> Gets or sets the destination. </summary>
+            <value>The destination.</value>
+        </member>
+        <member name="P:Common.Configuration.StatusProviderElementBase.Threshold">
+            <summary> Gets or sets the threshold. </summary>
+            <value>The threshold.</value>
+        </member>
+        <member name="P:Common.Configuration.StatusProviderElementBase.Throttle">
+            <summary> Gets or sets the name of the file. </summary>
+            <value>The name of the file.</value>
+        </member>
+        <member name="P:Common.Configuration.StatusProviderElementBase.Mode">
+            <summary> Gets or sets Mode of operation (off,on, triggered, debug) </summary>
+        </member>
+        <member name="P:Common.Configuration.XmlLogfileProviderElement.Destination">
+            <summary> Gets or sets the destination. </summary>
+            <value>The destination.</value>
+        </member>
+        <member name="P:Common.Configuration.XmlLogfileProviderElement.Threshold">
+            <summary> Gets or sets the threshold. </summary>
+            <value>The threshold.</value>
+        </member>
+        <member name="P:Common.Configuration.XmlLogfileProviderElement.FileName">
+            <summary> Gets or sets the name of the file. </summary>
+            <value>The name of the file.</value>
+        </member>
+        <member name="P:Common.Configuration.XmlLogfileProviderElement.PrependServerName">
+            <summary> a Flag which is used to determine if the servername should be prePended to the filename </summary>
+            <value>The name of the file.</value>
+        </member>
+        <member name="T:Common.Configuration.SqlLogTableProviderElement">
+            <summary>Publishes the serialized status content to a SQL Table  </summary>
+        </member>
+        <member name="P:Common.Configuration.SqlLogTableProviderElement.Destination">
+            <summary> Gets or sets the destination. </summary>
+            <value>The destination.</value>
+        </member>
+        <member name="P:Common.Configuration.SqlLogTableProviderElement.Threshold">
+            <summary> Gets or sets the threshold. </summary>
+            <value>The threshold.</value>
+        </member>
+        <member name="P:Common.Configuration.SqlLogTableProviderElement.ConnectionString">
+            <summary> Gets or sets the connection string. </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="T:Common.Configuration.WindowsEventProviderElement">
+            <summary>Publishes the serialized status content to the windows event log  </summary>
+        </member>
+        <member name="P:Common.Configuration.WindowsEventProviderElement.Destination">
+            <summary> Gets or sets the destination. </summary>
+            <value>The destination.</value>
+        </member>
+        <member name="P:Common.Configuration.WindowsEventProviderElement.Threshold">
+            <summary> Gets or sets the threshold. </summary>
+            <value>The threshold.</value>
+        </member>
+        <member name="P:Common.Configuration.WindowsEventProviderElement.ServerName">
+            <summary> Gets or sets the name of the server. </summary>
+            <value>The name of the server.</value>
+        </member>
+        <member name="P:Common.Configuration.WindowsEventProviderElement.LogName">
+            <summary> Gets or sets the name of the event log. </summary>
+            <value>The name of the server.</value>
+        </member>
+        <member name="T:Common.Configuration.SmtpMailProviderElement">
+            <summary>Publishes the serialized status content in an email sent to the default recipient</summary>
+        </member>
+        <member name="P:Common.Configuration.SmtpMailProviderElement.Destination">
+            <summary>Gets or sets the to address(es) of the mail message. </summary>
+            <value>Semicolon delimited list of email addresses.</value>
+        </member>
+        <member name="P:Common.Configuration.SmtpMailProviderElement.Threshold">
+            <summary> Gets or sets the threshold. </summary>
+            <value>The threshold.</value>
+        </member>
+        <member name="P:Common.Configuration.SmtpMailProviderElement.ServerName">
+            <summary> Gets or sets the name of the server. </summary>
+            <value>The name of the server.</value>
+        </member>
+        <member name="P:Common.Configuration.SmtpMailProviderElement.Port">
+            <summary> Gets or sets the port. </summary>
+            <value>The port.</value>
+        </member>
+        <member name="P:Common.Configuration.SmtpMailProviderElement.Login">
+            <summary> Gets or sets the login. </summary>
+            <value>The login.</value>
+        </member>
+        <member name="P:Common.Configuration.SmtpMailProviderElement.Password">
+            <summary> Gets or sets the password. </summary>
+            <value>The password.</value>
+        </member>
+        <member name="P:Common.Configuration.SmtpMailProviderElement.From">
+            <summary> Gets or sets the from address the will be sent from. </summary>
+            <value>The password.</value>
+        </member>
+        <member name="T:Common.Configuration.W3CLogfileProviderElement">
+            <summary>published Status information to a W3C logfile.</summary>
+        </member>
+        <member name="P:Common.Configuration.W3CLogfileProviderElement.Destination">
+            <summary> Gets or sets the destination. </summary>
+            <value>The destination.</value>
+        </member>
+        <member name="P:Common.Configuration.W3CLogfileProviderElement.Threshold">
+            <summary> Gets or sets the threshold. </summary>
+            <value>The threshold.</value>
+        </member>
+        <member name="P:Common.Configuration.W3CLogfileProviderElement.FileName">
+            <summary> Gets or sets the name of the file. </summary>
+            <value>The name of the file.</value>
+        </member>
+        <member name="T:Common.Configuration.QueuedEventProviderElement">
+            <summary>Publishes the serialized status content to a service broker queue.</summary>
+        </member>
+        <member name="P:Common.Configuration.QueuedEventProviderElement.Destination">
+            <summary> Gets or sets the destination. </summary>
+            <value>The destination.</value>
+        </member>
+        <member name="P:Common.Configuration.QueuedEventProviderElement.Threshold">
+            <summary> Gets or sets the threshold. </summary>
+            <value>The threshold.</value>
+        </member>
+        <member name="P:Common.Configuration.QueuedEventProviderElement.ConnectionString">
+            <summary> Gets or sets the connection string. </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="T:Common.Configuration.AllscriptsEnvelopeProviderElement">
+            <summary>sends a message through the Allscripts messaging system.</summary>
+        </member>
+        <member name="P:Common.Configuration.AllscriptsEnvelopeProviderElement.Destination">
+            <summary> Gets or sets the destination. </summary>
+            <value>The destination.</value>
+        </member>
+        <member name="P:Common.Configuration.AllscriptsEnvelopeProviderElement.Threshold">
+            <summary> Gets or sets the threshold. </summary>
+            <value>The threshold.</value>
+        </member>
+        <member name="M:Common.Configuration.StatusConfigurationFactory.GetStatusConfig">
+            <summary>  Gets the Common.Configuration.StatusConfiguration &lt;commonConfiguration&gt; in web.config </summary>
+            <returns>Common.Configuration.StatusConfiguration</returns>
+        </member>
+        <member name="T:Common.Constants.Assessment">
+            <summary>A range grouping for Status Code Results</summary>
+        </member>
+        <member name="F:Common.Constants.Assessment.UNPROCESSED">
+            <summary>0 : UNKNOWN or custom results , typically pending processing</summary>
+        </member>
+        <member name="F:Common.Constants.Assessment.PROCESSED">
+            <summary>1-99 : UNKNOWN or custom results , typically treated as PROCESSING</summary>
+        </member>
+        <member name="F:Common.Constants.Assessment.PROCESSING">
+            <summary>100-199 PROCESSING </summary>
+        </member>
+        <member name="F:Common.Constants.Assessment.SUCCESS">
+            <summary>200-250 : Successful request</summary>
+        </member>
+        <member name="F:Common.Constants.Assessment.WARNING">
+            <summary>255-399 : Warning or alert of special activity </summary>
+        </member>
+        <member name="F:Common.Constants.Assessment.CAUTION">
+            <summary>400-499 : Use Caution, a logic error or business rule failure has been encountered</summary>
+        </member>
+        <member name="F:Common.Constants.Assessment.FAILURE">
+            <summary>500-510 : SYSTEM ERROR has been encountered</summary>
+        </member>
+        <member name="F:Common.Constants.Assessment.CUSTOM">
+            <summary>1000+ : Custom Status has been encountered</summary>
+        </member>
+        <member name="T:Common.CommonExtensions">
+            <summary> Extension methods for the Common Classes   </summary>
+        </member>
+        <member name="M:Common.CommonExtensions.GetStatusText``2(``1,``0)">
+            <summary>  Gets the Name of public const for given value supports being called in all Codesets inheriting from Common.Codes</summary>
+            <typeparam name="T">The type of the constant</typeparam>
+            <typeparam name="T2">The type of the Object</typeparam>
+            <param name="codeSet">The code set.</param>
+            <param name="value">The value of type (T) being searched for</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.CommonExtensions.GetStatusCodes``1(``0)">
+            <summary>  Gets the Constant by name upports being called in inherited types </summary>
+            <param name="containingType">Type of the containing.</param>
+            <param name="statusCode">The status code.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.CommonExtensions.ToCommonStatusCode``1(``0)">
+            <summary> Converts derived code types to the base common codes.   </summary>
+            <param name = "status">The status.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.CommonExtensions.Reset(Common.Status)">
+            <summary>Clears the status change log.</summary>
+        </member>
+        <member name="M:Common.Extensions.GenericTypeExtensions.GetName``1(``0)">
+            <summary> Gets the name.   </summary>
+            <typeparam name="T"></typeparam>
+            <param name="item">The item.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.Extensions.GenericTypeExtensions.ToXMLString``1(``0)">
+            <summary> Serializes the IXmlSerializable type to an XML string.   </summary>
+            <typeparam name="T"></typeparam>
+            <param name="_instance">The _instance.</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.SystemExtensions">
+            <summary>
+            Extension methods for the .Net Framework System namespace
+            </summary>
+        </member>
+        <member name="M:System.SystemExtensions.GetPropertyNames``1(``0)">
+            <summary>
+            Gets the Name of public properties for given object
+            </summary>
+            <typeparam name="T">The type of the constant</typeparam>
+            <param name="obj">The obj.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.SystemExtensions.GetProperties``1(``0)">
+            <summary>
+            Gets the properties.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj">The obj.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.SystemExtensions.TypeNameContains(System.Object,System.String)">
+            <summary>
+            Types the name contains.
+            </summary>
+            <param name="o">The o.</param>
+            <param name="s">The s.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.SystemExtensions.ToTitleCase(System.String)">
+            <summary>
+            Toes the title case.
+            </summary>
+            <param name="s">The s.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.SystemExtensions.IsNullOrEmpty(System.String)">
+            <summary>
+            Determines whether [is null or empty] [the specified string to check].
+            </summary>
+            <param name="stringToCheck">The string to check.</param>
+            <returns>
+            	<c>true</c> if [is null or empty] [the specified string to check]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:System.SystemExtensions.IsFilled(System.String)">
+            <summary>
+            Determines whether the specified string to check is filled.
+            </summary>
+            <param name="stringToCheck">The string to check.</param>
+            <returns>
+            	<c>true</c> if the specified string to check is filled; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:System.SystemExtensions.XmlEncode(System.String)">
+            <summary>
+            Encodes a string to be safe for inclusion in xml.
+            </summary>
+            <param name="xmlString">The XML string.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.SystemExtensions.XmlDecode(System.String)">
+            <summary>
+            Reverts an XmlEncoded String.
+            </summary>
+            <param name="xmlString">The XML string.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.SystemExtensions.Right(System.String,System.Int32)">
+            <summary>Returns a substring taken from the right end of the string  that is equal in length to the value of the count parameter.</summary>
+            <param name="source">The String to be parsed.</param>
+            <param name="count">The length of the string to be taken from the source string</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:System.SystemExtensions.Left(System.String,System.Int32)">
+            <summary>Returns a substring taken from the left end of the string  that is equal in length to the value of the count parameter.</summary>
+            <param name="source">The String to be parsed.</param>
+            <param name="count">The length of the string to be taken from the source string</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:System.SystemExtensions.ToXmlTextElementString(System.String,System.String)">
+            <summary>XmlEncodes a string and then wraps it in a set of lowercased tags</summary>
+            <param name="toWrap">To wrap.</param>
+            <param name="xmlElementName">Name of the XML element.</param>
+            <returns>(String) a string formatted like an XMLElement</returns>
+        </member>
+        <member name="M:System.SystemExtensions.SplitByString(System.String,System.String)">
+            <summary>
+            Splits a string the by string.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="delim">The delim.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.SystemExtensions.LowerCaseTags(System.String)">
+            <summary>Lowers the case tags.
+            </summary>
+            <param name="xml">The XML.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.SystemExtensions.Wrap(System.String,System.String)">
+            <summary>
+            Wrap xml encoded child string in tags of this string
+            </summary>
+            <param name="wrapper">The wrapper.</param>
+            <param name="child">The child.</param>
+            <returns>
+            (String) a string formatted like an XMLElement
+            </returns>
+        </member>
+        <member name="M:System.SystemExtensions.Wrap(System.String,System.String,System.Boolean)">
+            <summary>
+            Wrap xml encoded child string in tags of this string
+            </summary>
+            <param name="wrapper">The wrapper.</param>
+            <param name="child">The child.</param>
+            <param name="encode">if set to <c>true</c> [encode].</param>
+            <returns>
+            (String) a string formatted like an XMLElement
+            </returns>
+        </member>
+        <member name="M:System.SystemExtensions.ToXmlString(System.Exception)">
+            <summary>Simple outer and inner <see cref="T:System.Exception">System.Exception</see> xml serialization.</summary>
+            <param name="ex">The <see cref="T:System.Exception">System.Exception</see> ex.</param>
+        </member>
+        <member name="M:System.SystemExtensions.GetStringInBetween(System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Gets the string in between.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="begin">The begin.</param>
+            <param name="end">The end.</param>
+            <param name="includeBegin">if set to <c>true</c> [include begin].</param>
+            <param name="includeEnd">if set to <c>true</c> [include end].</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.SystemExtensions.ToDateString(System.Nullable{System.DateTime})">
+            <summary>Converts a Nullable DateTime to a short date string or an empty string</summary>
+            <param name="NullableDateTime">The nullable date time.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.SystemExtensions.ToDateStampString(System.Nullable{System.DateTime})">
+            <summary>Converts a Nullable DateTime to a short date string or an empty string</summary>
+            <param name="NullableDateTime">The nullable date time.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.SystemExtensions.Depluralize(System.String)">
+            <summary>
+            Depluralizes the specified input string.
+            </summary>
+            <param name="Inp">The inp.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.SystemExtensions.FormatWith(System.String,System.Object[])">
+            <summary>Formats a string written using the String.Format patterns. </summary>
+            <param name="format">The format.</param>
+            <param name="args">The args.</param>
+            <returns>System.String.</returns>
+            <exception cref="T:System.ArgumentNullException">format</exception>
+        </member>
+        <member name="M:System.SystemExtensions.FormatWith(System.String,System.IFormatProvider,System.Object[])">
+            <summary>Formats a string written using the String.Format pattern and an IFormatProvider.
+            </summary>
+            <param name="format">The format.</param>
+            <param name="provider">The provider.</param>
+            <param name="args">The args.</param>
+            <returns>System.String.</returns>
+            <exception cref="T:System.ArgumentNullException">format</exception>
+        </member>
+        <member name="M:System.SystemExtensions.FormatList(System.Collections.Generic.IList{System.Object},System.String,System.Int32,System.Object[])">
+            <summary>Formats a string written using the String.Format patterns. </summary>
+            <param name="format">The format.</param>
+            <param name="args">The args.</param>
+            <returns>System.String.</returns>
+            <exception cref="T:System.ArgumentNullException">format</exception>
+        </member>
+        <member name="T:System.Collections.Generic.MSExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.MSExtensions.ToDelimList(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Convers a string enumerable to a delimited list.
+            </summary>
+            <param name="enumerable">The enumerable.</param>
+            <param name="delim">The delim.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.MSExtensions.Each``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            provides a handle for executing functions on each item in the specified enumberable.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="enumberable">The enumberable.</param>
+            <param name="action">The action.</param>
+        </member>
+        <member name="T:System.Linq.Extensions">
+            <summary>
+            Extension methods for the system.Linq namespace
+            </summary>
+        </member>
+        <member name="M:System.Linq.Extensions.IsInEnum(System.String,System.Enum)">
+            <summary>
+            Determines whether [is in enum] [the specified o].
+            </summary>
+            <param name="o">The o.</param>
+            <param name="e">The e.</param>
+            <returns>
+            	<c>true</c> if [is in enum] [the specified o]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:System.Linq.Extensions.GetItemByIndex``1(System.Linq.IQueryable{``0},System.Int32)">
+            <summary>
+            Gets the listing.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="items">The items.</param>
+            <param name="index">The index.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Linq.Extensions.Find``1(System.Data.Linq.DataContext,System.Func{``0,System.Boolean})">
+            <summary>
+            Finds a linq object using the specified search function.
+            </summary>
+            <typeparam name="TLinq">The type of linq object to be returned.</typeparam>
+            <param name="context">The data context in which to search for the entity.</param>
+            <param name="searchFunction">The search condition to meet in order to find the linq object.</param>
+            <returns>
+            The first or default linq object found by the search; otherwise null.
+            </returns>
+            <remarks>This method should be used when
+            it is not known whether the linq object you are looking for is new or existing. This will
+            first search the new list, if this returns null then the existing list is searched. </remarks>
+        </member>
+        <member name="M:System.Linq.Extensions.Find``1(System.Data.Linq.DataContext,System.Func{``0,System.Boolean},System.Int32)">
+            <summary>
+            Finds a linq object using an entity id.
+            </summary>
+            <typeparam name="TLinq">The type of the linq.</typeparam>
+            <param name="context">The data context in which to search for the entity.</param>
+            <param name="searchFunction">The search condition to meet in order to find the linq object.</param>
+            <param name="id">The id.</param>
+            <returns>
+            The first or default linq object found by the search.
+            </returns>
+        </member>
+        <member name="M:System.Linq.Extensions.Find``1(System.Data.Linq.DataContext,System.Func{``0,System.Boolean},System.Boolean)">
+            <summary>
+            Finds an linq object of the specified type by first searching for any objects that have been
+            added to the data context changeset or looking in the linq table for a single row that
+            meets the specified search function.
+            </summary>
+            <typeparam name="TLinq">The type of linq object to be returned.</typeparam>
+            <param name="context">The data context in which to search for the entity.</param>
+            <param name="searchFunction">The search condition to meet in order to find the linq object.</param>
+            <param name="isNew">if set to <c>true</c> the object to find is new.</param>
+            <returns>
+            The first or default linq object found by the search.
+            </returns>
+        </member>
+        <member name="M:System.Linq.Extensions.Count``1(System.Data.Linq.DataContext,System.Func{``0,System.Boolean})">
+            <summary>
+            Counts the number of linq objects of the given type within the specified context.
+            </summary>
+            <typeparam name="TLinq">The type of the linq.</typeparam>
+            <param name="context">The context.</param>
+            <param name="searchFunction">The search function used to match the objects.</param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:System.Linq.Extensions.GetPendingInserts``1(System.Data.Linq.DataContext)" -->
+        <member name="M:System.Linq.Extensions.Get``1(System.Collections.Generic.IEnumerable{System.Object},System.Func{``0,System.Boolean})">
+            <summary>
+            Gets the first or default linq object from the collection of objects using the specified 
+            search function.
+            </summary>
+            <param name="objects">The object collection to search.</param>
+            <param name="searchFunction">The function to use to search.</param>
+            <returns>A linq object matching the condition.</returns>
+        </member>
+        <member name="T:System.Xml.Serialization.Extenstions">
+            <summary>    </summary>
+        </member>
+        <member name="M:System.Xml.Serialization.Extenstions.ToXMLString(System.Xml.Serialization.IXmlSerializable)">
+            <summary> returns an xml fromatted string representing the serialized object implementing IXmlSerializable   </summary>
+            <param name="ixs">The ixs.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Common.IXmlSerializableHelper">
+            <summary>Static helper that returns an xml fromatted string representing the serialized object implementing IXmlSerializable </summary>
+        </member>
+        <member name="M:Common.IXmlSerializableHelper.ToXMLString(System.Xml.Serialization.IXmlSerializable)">
+            <summary>Static helper that returns an xml fromatted string representing the serialized object implementing IXmlSerializable   </summary>
+            <param name="ixs">The ixs.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.IXmlSerializableHelper.ToXml``1(``0)">
+            <summary>  Static helper that eturns an xml fromatted string representing the serialized object implementing IXmlSerializable </summary>
+            <param name="o">The o.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.IXmlSerializableHelper.FromXMLString``1(System.String)">
+            <summary>Statis helper that  returns the object of type IXmlSerializable deserialized from  the XML string.   </summary>
+            <param name="ixs">The ixs.</param>
+            <param name="xml">The XML.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.IXmlSerializableHelper.FromXml``1(System.String)">
+            <summary>Statis helper that  returns the object of type IXmlSerializable deserialized from  the XML string.   </summary>
+            <param name="ixs">The ixs.</param>
+            <param name="xml">The XML.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Common.ITenantTrackable">
+            <summary> Interface ITenantTrackable </summary>
+        </member>
+        <member name="T:Common.ITrackable">
+            <summary>an interface to support object portability for Business objects</summary>
+        </member>
+        <member name="P:Common.ITrackable.Tracker">
+            <summary>Gets or sets a Unigue Instance Identifier for tracking the objects activities.</summary>
+        </member>
+        <member name="P:Common.ITrackable.Status">
+            <summary>Provides a current reference to the object's internal or private Common.Status field</summary>
+            <returns>a Common Status</returns>
+        </member>
+        <member name="P:Common.ITenantTrackable.TenantId">
+            <summary> Gets or sets the TenanatId (v5 _clientid) for tenant specific transactions </summary>
+        </member>
+        <member name="T:Common.Net.Wcf.WcfExtensions">
+            <summary>Static Helper class for Common.WCF extension methods</summary>
+        </member>
+        <member name="M:Common.Net.Wcf.WcfExtensions.ToReturnInfo(Common.Status)">
+            <summary>Returns the failure flag, status code and message of a Common.Status as a ReturnInfo datacontract for WCF.</summary>
+            <param name="status">The status.</param>
+            <returns>Commmon.Net.Wcf.<see cref="T:Common.Net.Wcf.ReturnInfo">ReturnInfo</see></returns>
+        </member>
+        <member name="M:Common.Net.Wcf.WcfExtensions.ToReturnInfo(Common.Status,System.Int32,System.String)">
+            <summary>Updates the Status and returns a Commmon.Net.Wcf.ReturnInfo object</summary>
+            <param name="status">The status.</param>
+            <returns>Commmon.Net.Wcf.<see cref="T:Common.Net.Wcf.ReturnInfo">ReturnInfo</see></returns>
+        </member>
+        <member name="M:Common.Net.Wcf.WcfExtensions.ToStatus(Common.Net.Wcf.ReturnInfo)">
+            <summary>Creates a new Commmon.Status from a Common.Net.Wcf.ReturnInfo object</summary>
+            <param name="returnInfo">The existing Net.Wcf.ReturnInfo object</param>
+            <returns>Commmon.<see cref="T:Common.Status">Status</see></returns>    
+        </member>
+        <member name="M:Common.Net.Wcf.WcfExtensions.ToStatus(Common.Net.Wcf.ReturnInfo,Common.Status)">
+            <summary>Updates an existing Commmon.Status from a Common.Net.Wcf.ReturnInfo object</summary>
+            <param name="returnInfo">The existing Net.Wcf.ReturnInfo object</param>
+            <param name="status">The existing Common.Status object</param>
+            <returns>Commmon.<see cref="T:Common.Status">Status</see></returns>   
+        </member>
+        <member name="T:Common.IAuditable">
+            <summary>ITrackable enhancement that provides automated rules based Status publishing.</summary>
+        </member>
+        <member name="M:Common.IAuditable.OnStatusChanged(System.Object,Common.StatusChangedEventArgs)">
+            <summary>Called when there page Status object has a change of status.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:Common.StatusChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="E:Common.IAuditable.StatusChanged">
+            <summary> Occurs whenever a Common.Status.StatusCode is Changed.
+            generates StatusChangedEventArgs: OldStatusCode, NewStatusCode, Message [queued event is raised].   </summary>
+        </member>
+        <member name="T:Common.IStatus">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Common.IStatus.Update(System.Int32,System.String)">
+            <summary>
+            Updates the specified status code and message.
+            </summary>
+            <param name="statusCode">The status code.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:Common.IStatus.FromException(System.Exception)">
+            <summary>
+            loads the status from the exception.
+            </summary>
+            <param name="ex">The exception.</param>
+        </member>
+        <member name="P:Common.IStatus.Failure">
+            <summary>
+            Gets a value indicating whether this <see cref="T:Common.IStatus"/> is failure.
+            </summary>
+            <value><c>true</c> if failure; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Common.IStatus.StatusCode">
+            <summary>
+            Gets or sets the status code.
+            </summary>
+            <value>The status code.</value>
+        </member>
+        <member name="P:Common.IStatus.StatusText">
+            <summary>
+            Gets the status text.
+            </summary>
+            <value>The status text.</value>
+        </member>
+        <member name="P:Common.IStatus.Message">
+            <summary>
+            Gets or sets the message.
+            </summary>
+            <value>The message.</value>
+        </member>
+        <member name="P:Common.IStatus.TimeSet">
+            <summary>
+            Gets or sets the time the satatus was set.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Common.IStatus.Source">
+            <summary>
+            Gets the status text.
+            </summary>
+            <value>The status text.</value>
+        </member>
+        <member name="P:Common.IStatus.Description">
+            <summary>
+            Gets or sets the message.
+            </summary>
+            <value>The message.</value>
+        </member>
+        <member name="T:Common.IStatusReturn">
+            <summary>
+            A companion interface to IStatus for WCF Services
+            </summary>
+        </member>
+        <member name="P:Common.IStatusReturn.SuccessFailure">
+            <summary>
+            Gets a value indicating whether this <see cref="T:Common.IStatus"/> is failure.
+            </summary>
+            <value><c>true</c> if failure; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Common.IStatusReturn.ErrorCode">
+            <summary>
+            Gets or sets the status code.
+            </summary>
+            <value>The status code.</value>
+        </member>
+        <member name="P:Common.IStatusReturn.ErrorDescription">
+            <summary>
+            Gets or sets the message.
+            </summary>
+            <value>The message.</value>
+        </member>
+        <member name="T:Common.Constants.RegexConstants">
+            <summary>
+            Regular Expression Constants
+            </summary>
+        </member>
+        <member name="F:Common.Constants.RegexConstants.FIND__NAME_COLON_SPACE_VALUE_NO_DELIMITER">
+            <summary>pase a classic form post " name : value \n "</summary>
+        </member>
+        <member name="F:Common.Constants.RegexConstants.REPLACE__GROUP1_TAG_GROUP2_VALUE">
+            <summary>create a "tag"</summary>
+        </member>
+        <member name="F:Common.Constants.RegexConstants.XML_TAG_VALUE">
+            <summary>Find </summary>
+        </member>
+        <member name="F:Common.Constants.RegexConstants.NO_DIGITS">
+            <summary>string excluding numbers</summary>
+        </member>
+        <member name="F:Common.Constants.RegexConstants.ONLY_DIGITS">
+            <summary>string exclusivley comprised of numbers</summary>
+        </member>
+        <member name="F:Common.Constants.RegexConstants.VALID_URL">
+            <summary>use to validate a url</summary>
+        </member>
+        <member name="F:Common.Constants.RegexConstants.XML_PROCESSING_INSTRUCTION">
+            <summary> use to remove the encoding from an xml file</summary>
+        </member>
+        <member name="F:Common.Constants.RegexConstants.XML_SCHEMA_NAMESPACE">
+            <summary></summary>
+        </member>
+        <member name="T:Common.SerializableDictionary`2">
+            <summary>A Serializable version of a generic dictionary</summary>
+            <typeparam name="TKey">The type of the key.</typeparam>
+            <typeparam name="TValue">The type of the value.</typeparam>
+        </member>
+        <member name="M:Common.SerializableDictionary`2.#ctor(System.Collections.Generic.Dictionary{`0,`1})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Common.SerializableDictionary`2"/> class from an existing non-serializable dictionary.
+            </summary>
+            <param name="stringDictionary">The string dictionary.</param>
+        </member>
+        <member name="M:Common.SerializableDictionary`2.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:Common.SerializableDictionary`2"/> class.
+            </summary>
+        </member>
+        <member name="T:Common.Status">
+            <summary>
+              Common.Status contains a rolling history of informational message and <see cref="T:Common.Codes">Common.Codes</see>
+              constant pairs with a timestamp and origin information for reference. 
+              <para/>This core component can be used as a message envelope, exception manager, logging vehicle, 
+              return construct and object public state property.
+            <img src="../icons/status.png"/>
+            </summary>
+        </member>
+        <member name="M:Common.Status.Update(System.Int32,System.String)">
+            <summary>  updates the code and message for this instance of the <see cref="T:Common.Status"/> class. this also raises the <see cref="E:Common.Status.StatusCodeChange">StatusCodeChange</see> event. </summary>
+            <param name="statusCode">The int value of a constant in the <see cref="T:Common.Codes">Common.Codes</see> List.</param>
+            <param name="message">The informational message associated with this status change.</param>
+            <example><code source="..\demo\CommonStatusTest\StatusTest.cs" lang="c#" title="Example #1" numberLines="true" keepSeeTags="true" region="e.g. Status.Update(int statusCode, string message)"/></example>
+        </member>
+        <member name="M:Common.Status.FromException(System.Exception)">
+             <summary> Initializes a new instance of the <see cref="T:Common.Status"/> class.   </summary>
+            <example><code source="..\demo\CommonStatusTest\StatusTest.cs" numberLines="true" keepSeeTags="true" region="e.g. Status.FromException(Exception ex)" lang="C#" title="Update Status with Serialized Exception Details"/></example>
+        </member>
+        <member name="M:Common.Status.Update(System.Int32,System.String,System.Int32)">
+            <summary>
+            updates the code and message for this instance of the <see cref="T:Common.Status"/> class.
+            </summary>
+            <param name="statusCode">The status code.</param>
+            <param name="message">The message.</param>
+            <param name="backFrames">The back frames.</param>
+        </member>
+        <member name="M:Common.Status.Update``1(System.Int32,System.String,``0)">
+            <summary>updates the code and message for this instance of the <see cref="T:Common.Status"/> class.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="statusCode">The status code.</param>
+            <param name="message">The message.</param>
+            <param name="mb">The mb.</param>
+        </member>
+        <member name="M:Common.Status.System#Xml#Serialization#IXmlSerializable#GetSchema">
+            <summary> This method is reserved and should not be used. When implementing the IXmlSerializable interface, you should return null (Nothing in Visual Basic) from this method, and instead, if specifying a custom schema is required, apply the <see cref = "T:System.Xml.Serialization.XmlSchemaProviderAttribute" /> to the class.   </summary>
+            <returns>
+              An <see cref = "T:System.Xml.Schema.XmlSchema" /> that describes the XML representation of the object that is produced by the <see cref = "M:System.Xml.Serialization.IXmlSerializable.WriteXml(System.Xml.XmlWriter)" /> method and consumed by the <see cref = "M:System.Xml.Serialization.IXmlSerializable.ReadXml(System.Xml.XmlReader)" /> method.
+            </returns>
+        </member>
+        <member name="M:Common.Status.System#Xml#Serialization#IXmlSerializable#ReadXml(System.Xml.XmlReader)">
+            <summary> Generates an object from its XML representation.   </summary>
+            <param name = "reader">The <see cref = "T:System.Xml.XmlReader" /> stream from which the object is deserialized.</param>
+        </member>
+        <member name="M:Common.Status.System#Xml#Serialization#IXmlSerializable#WriteXml(System.Xml.XmlWriter)">
+            <summary> Converts an object into its XML representation.   </summary>
+            <param name = "writer">The <see cref = "T:System.Xml.XmlWriter" /> stream to which the object is serialized.</param>
+        </member>
+        <member name="M:Common.Status.#ctor(System.Int32)">
+            <summary> Initializes a new instance of the <see cref="T:Common.Status"/> class.   </summary>
+            <param name="statusCode">The int value of a constant in the <see cref="T:Common.Codes">Common.Codes</see> List.</param>
+        </member>
+        <member name="M:Common.Status.#ctor(System.Int32,System.String)">
+            <summary> Initializes a new instance of the <see cref="T:Common.Status"/> class with a messaage.   </summary>
+            <param name="statusCode">The int value of a constant in the <see cref="T:Common.Codes">Common.Codes</see> List.</param>
+            <param name="message">The informational message associated with this status change.</param>
+        </member>
+        <member name="M:Common.Status.#ctor">
+            <summary> Initializes a new instance of the <see cref="T:Common.Status"/> class with a <see cref="F:Common.Codes.UNPROCESSED">Codes.UNPROCESSED</see> status code.   </summary>
+        </member>
+        <member name="M:Common.Status.#ctor(System.Exception)">
+            <summary> Initializes a new instance of the <see cref="T:Common.Status"/> class with a <see cref="F:Common.Codes.ERROR">Codes.ERROR</see> status code.   </summary>
+            <param name="ex">The <see cref="T:System.Exception">System.Exception</see> ex.</param>
+            <remarks>
+              The content of the Exception is serialized using <see cref="M:System.SystemExtensions.ToXmlString(System.Exception)">System.SystemExtensions.ToXmlString(Exception)</see>
+            </remarks>
+        </member>
+        <member name="M:Common.Status.ToString">
+            <summary> Returns a <see cref="T:System.String"/> of xml that represents this instance.   </summary>
+        </member>
+        <member name="M:Common.Status.FromString(System.String)">
+            <summary> Initializes the status object from a string of xml.</summary>
+        </member>
+        <member name="M:Common.Status.ClearChanges">
+            <summary> Clears the status StatusChanges history log.   </summary>
+        </member>
+        <member name="M:Common.Status.SetMessageQueueStatus(System.Int32,System.String,System.Reflection.MethodBase)">
+            <summary>  Sets the message queue status by an integer reference.  sed to validate the integer statuscode against the Codes Contstants </summary>
+            <param name = "codeRef">The _code ref.</param>
+        </member>
+        <member name="M:Common.Status.GetSourceAndDescription(System.Reflection.MethodBase,System.Boolean)">
+            <summary>
+            Gets the source and description.
+            </summary>
+            <param name="methodbase">The methodbase.</param>
+            <param name="excplicitSource">if set to <c>true</c> [excplicit source].</param>
+            <returns></returns>
+        </member>
+        <member name="F:Common.Status._statusChanges">
+            <summary> A List of status codes prior status codes and messages with timestampswhen each was set   </summary>
+        </member>
+        <member name="F:Common.Status._bSourceSet">
+            <summary> This is set to true if the Source is explicitly defined </summary>
+        </member>
+        <member name="F:Common.Status._description">
+            <summary> The intended usage and purpose of this status entry   </summary>
+        </member>
+        <member name="F:Common.Status._message">
+            <summary> Runtime information and context   </summary>
+        </member>
+        <member name="F:Common.Status._source">
+            <summary> The originator of this status entry   </summary>
+        </member>
+        <member name="F:Common.Status._statusCode">
+            <summary> the integer value representing the current status code   </summary>
+        </member>
+        <member name="F:Common.Status._statusText">
+            <summary> the text value of the current status code   </summary>
+        </member>
+        <member name="F:Common.Status._timeset">
+            <summary> The create or update time of this status entry   </summary>
+        </member>
+        <member name="P:Common.Status.Range">
+            <summary> Gets an  <see cref="T:Common.Constants.Assessment">Assessment</see> value that the current StatusCode falls into.</summary>
+            <value><c>true</c> if failure; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Common.Status.FrameOffset">
+            <summary>Gets or sets a negative integer offset that is applied to the stackframe index to determine source and description.</summary>
+        </member>
+        <member name="P:Common.Status.Source">
+            <summary> Gets or sets the source of the entry.</summary>
+        </member>
+        <member name="P:Common.Status.Description">
+            <summary> Gets or Sets the Type of the entry.</summary>
+        </member>
+        <member name="P:Common.Status.StatusChanges">
+            <summary> A List of  prior status codes and messages with timestamps of when each was set   </summary>
+        </member>
+        <member name="P:Common.Status.TimeSet">
+            <summary> Gets or sets the time the satatus was set.   </summary>
+        </member>
+        <member name="P:Common.Status.StatusCode">
+            <summary> Gets or sets the status code value. This triggers a StatusChange.   </summary>
+            <value>The status code.</value>
+        </member>
+        <member name="P:Common.Status.StatusText">
+            <summary> Gets or sets the status text.   </summary>
+            <value>The status text.</value>
+        </member>
+        <member name="P:Common.Status.Message">
+            <summary> Gets or sets the optional detail message.   </summary>
+            <value>The message.</value>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Common.Status.Failure" -->
+        <member name="E:Common.Status.StatusCodeChange">
+            <summary> Handles <see cref="E:Common.Status.StatusCodeChange"/> events.</summary>
+        </member>
+        <member name="T:Common.Status.StatusChange">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:Common.Status.StatusChange.Description">
+            <summary> Gets or Sets the type of the status entry.   </summary>
+        </member>
+        <member name="F:Common.Status.StatusChange.Message">
+            <summary> Gets or sets the message.   </summary>
+            <value>The message.</value>
+        </member>
+        <member name="F:Common.Status.StatusChange.Source">
+            <summary> Gets or sets the source of the entry.   </summary>
+        </member>
+        <member name="F:Common.Status.StatusChange.StatusCode">
+            <summary> Gets or sets the status code.   </summary>
+            <value>The status code.</value>
+        </member>
+        <member name="F:Common.Status.StatusChange.StatusText">
+            <summary> Gets or sets the status code.   </summary>
+            <value>The status code.</value>
+        </member>
+        <member name="F:Common.Status.StatusChange.TimeSet">
+            <summary> Gets the time set.   </summary>
+            <value>The time set.</value>
+        </member>
+        <member name="M:Common.Status.StatusChange.#ctor(System.Int32,System.String,System.String,System.String,System.String)">
+            <summary> Initializes a new instance of the <see cref="T:Common.Status.StatusChange"/> class.   </summary>
+            <param name="statusCode">The status code.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="T:Common.StatusChangedEventArgs">
+            <summary>Common.Status.StatusCodeChange event arguments: OldStatusCode, NewStatusCode, Message</summary>
+        </member>
+        <member name="M:Common.StatusChangedEventArgs.#ctor(System.Int32)">
+            <summary> Initializes a new instance of the <see cref="T:Common.StatusChangedEventArgs"/> class.   </summary>
+            <param name="newStatusCode">The new status code.</param>
+        </member>
+        <member name="M:Common.StatusChangedEventArgs.#ctor(System.Int32,System.String)">
+            <summary> Initializes a new instance of the <see cref="T:Common.StatusChangedEventArgs"/> class.   </summary>
+            <param name="newStatusCode">The new status code.</param>
+            <param name="message">The new status message.</param>
+        </member>
+        <member name="M:Common.StatusChangedEventArgs.#ctor(System.Int32,System.Int32,System.String)">
+            <summary> Initializes a new instance of the <see cref="T:Common.StatusChangedEventArgs"/> class.   </summary>
+            <param name="oldStatusCode">The old status code.</param>
+            <param name="newStatusCode">The new status code.</param>
+            <param name="message">The new status message.</param>
+        </member>
+        <member name="P:Common.StatusChangedEventArgs.Message">
+            <summary> Gets the new status message.   </summary>
+            <value>The message.</value>
+        </member>
+        <member name="P:Common.StatusChangedEventArgs.OldStatusCode">
+            <summary> Gets the old status code.   </summary>
+            <value>The old status code.</value>
+        </member>
+        <member name="P:Common.StatusChangedEventArgs.NewStatusCode">
+            <summary> Gets the new status code.   </summary>
+            <value>The new status code.</value>
+        </member>
+    </members>
+</doc>

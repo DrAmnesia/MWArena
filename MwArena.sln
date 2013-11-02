@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{391CD1CF-F020-4467-91C4-D89FA3398529}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{4880AA36-C914-43BF-AFB7-E5B02DBCBB82}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{C278FE3A-B801-4DAB-A676-01CFF18EEA89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{195CA63B-88F4-49B9-9A22-AB72AB6326F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{F774BD93-1C57-4B83-8AD8-1AE38A235444}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchLogger", "MWArena\Clients\MWAMatchLogger\MatchLogger.csproj", "{8792DAF6-F69E-4A39-BA64-FB87BA36745B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8792DAF6-F69E-4A39-BA64-FB87BA36745B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8792DAF6-F69E-4A39-BA64-FB87BA36745B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8792DAF6-F69E-4A39-BA64-FB87BA36745B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8792DAF6-F69E-4A39-BA64-FB87BA36745B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8792DAF6-F69E-4A39-BA64-FB87BA36745B} = {C278FE3A-B801-4DAB-A676-01CFF18EEA89}
+	EndGlobalSection
+EndGlobal

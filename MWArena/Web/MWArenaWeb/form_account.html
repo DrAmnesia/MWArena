@@ -1,0 +1,343 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>MWO:Arena - Registration</title>
+    <link href="css/application.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+   
+</head>
+<body class="background-dark">
+    <div class="logo">
+        <h4><a href="index.html">MWO:<strong>Arena</strong></a></h4>
+    </div>
+
+    <div class="wrap">
+        <header class="page-header">
+            <div class="navbar">
+                <ul class="nav navbar-nav navbar-right pull-right">
+
+                    <li class="hidden-xs">
+                        <a href="#" id="settings"
+                           title="Settings"
+                           data-toggle="popover"
+                           data-placement="bottom">
+                            <i class="icon-cog"></i>
+                        </a>
+                    </li>
+                    <li class="hidden-xs dropdown">
+                        <a href="#" title="Account" id="account"
+                           class="dropdown-toggle"
+                           data-toggle="dropdown">
+                            <i class="icon-user"></i>
+                        </a>
+                        <ul id="account-menu" class="dropdown-menu account" role="menu">
+                            <li role="presentation" class="account-picture">
+                                <img src="img/2.jpg" alt="">
+                                Philip Daineka
+                            </li>
+                            <li role="presentation">
+                                <a href="form_account.html" class="link">
+                                    <i class="icon-user"></i>
+                                    Profile
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="component_calendar.html" class="link">
+                                    <i class="icon-calendar"></i>
+                                    Calendar
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#" class="link">
+                                    <i class="icon-inbox"></i>
+                                    Inbox
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="visible-xs">
+                        <a href="#"
+                           class="btn-navbar"
+                           data-toggle="collapse"
+                           data-target=".sidebar"
+                           title="">
+                            <i class="icon-reorder"></i>
+                        </a>
+                    </li>
+                    <li class="hidden-xs"><a href="ClosedBeta.html"><i class="icon-signout"></i></a></li>
+                </ul>
+
+            </div>
+        </header>
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="page-title">Pilot Info <small>and options</small></h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <section class="widget">
+                        <header>
+                            <h4><i class="icon-user"></i> Account Profile <small>Create new or edit existing user</small></h4>
+                        </header>
+                        <div class="body">
+                            <form id="user-form" class="form-horizontal label-left"
+                                  novalidate="novalidate"
+                                  method="post"
+                                  data-validate="parsley">
+                                <div class="row" style="display: none">
+                                    <div class="col-md-4">
+                                        <div class="text-align-center">
+                                            <img class="img-circle" src="img/15.jpg" alt="64x64" style="height: 112px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h3 class="no-margin">Maryna Dorash</h3>
+                                        <address>
+                                            <strong>Development manager</strong> at <strong><a href="#">Allspana Inc.</a></strong><br>
+                                            <abbr title="Work email">e-mail:</abbr> <a href="mailto:#">maryna.dorash@allspana.by</a><br>
+                                            <abbr title="Work Phone">phone:</abbr> (123) 456-7890
+                                        </address>
+                                    </div>
+                                </div>
+                                <fieldset>
+                                    <legend>Pilot information <small>account details</small></legend>
+                                </fieldset>
+                                <fieldset>
+                                    <legend class="section">Personal Info</legend>
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="mwo-pilot-name">MWO Pilot Name <span class="required">*</span></label>
+                                        <div class="controls form-group">
+                                            <input type="text" id="mwo-pilot-name" name="mwo-pilot-name" required="required" class="col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="faction" class="control-label">Faction <span class="required">*</span></label>
+                                        <div class="controls form-group">
+                                            <select id="faction-select" data-placeholder="Select Faction" required="required" class="col-xs-12 col-sm-6 chzn-select" name="faction">
+                                                <option>Davion</option>
+                                                <option>Rasalhague</option>
+                                                <option>Kurita</option>
+                                                <option>Liao</option>
+                                                <option>Marik</option>
+                                                <option>Steiner</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="first-name">First Name <span class="required">*</span></label>
+                                        <div class="controls form-group">
+                                            <input type="text" id="first-name" name="first-name" required="required" class="col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="last-name">Last Name <span class="required">*</span></label>
+                                        <div class="controls form-group">
+                                            <input type="text" id="last-name" name="last-name" required="required" class="col-xs-12">
+                                        </div>
+                                    </div>
+                                   
+                                </fieldset>
+                                <fieldset>
+                                    <legend class="section">Contact Info</legend>
+                                    <div class="control-group">
+                                        <label id="email-label" for="email" class="control-label">Email <span class="required">*</span></label>
+                                        <div class="controls form-group">
+                                            <div class="col-xs-12 col-sm-8">
+                                                <div class="input-group">
+                                                    <input id="email" type="email"
+                                                           data-trigger="change" required="required"
+                                                           class="form-control"
+                                                           name="email">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-success" type="button">Write an email</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </fieldset>
+ 
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">Validate &amp; Submit</button>
+                                    <button type="button" class="btn btn-default">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-md-5">
+                    <section class="widget">
+                        <header>
+                            <h4><i class="icon-cogs"></i> Account settings</h4>
+                            <div class="actions">
+                                <button class="btn btn-xs btn-inverse"><i class="icon-arrow-down"></i> View more</button>
+                            </div>
+                        </header>
+                        <div class="body">
+                            <form method="post">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label for="exp">Account expiration date</label>
+                                        <input id="exp" class="form-control date-picker" type="text" name="exp" value="">
+                                        <p class="help-block">Bootstrap datepicker</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="website">Associate to Website</label>
+                                        <select id="website" class="chzn-select select-block-level"
+                                                data-width="off"
+                                                data-minimum-results-for-search="10"
+                                                name="website">
+                                            <option selected="selected" value="0">Admin</option>
+                                            <option value="1">Main Website</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="created_by">Created By</label>
+
+                                        <input id="created_by" class="form-control" type="text" name="created_by"
+                                               value="Admin" disabled="disabled">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="groups">Account Group</label>
+                                        <select id="groups" name="groups" class="chzn-select select-block-level" multiple
+                                                data-placeholder="Choose one or more groups for account"
+                                                data-width="off">
+                                            <option value="0">Subscriber</option>
+                                            <option value="1">Retailer</option>
+                                            <option value="2">Supplier</option>
+                                            <option value="3">Manager</option>
+                                        </select>
+
+                                    </div>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <label class="checkbox" for="change-password">
+                                                <input type="checkbox" id="change-password" name="change-password">
+                                                Request password change
+                                            </label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jquery and friends -->
+    <script src="lib/jquery/jquery.1.9.0.min.js"> </script>
+    <script src="lib/jquery/jquery-migrate-1.1.0.min.js"> </script>
+
+    <!-- jquery plugins -->
+    <script src="lib/jquery-maskedinput/jquery.maskedinput.js"></script>
+    <script src="lib/parsley/parsley.js"> </script>
+    <script src="lib/icheck.js/jquery.icheck.js"></script>
+    <script src="lib/select2.js"></script>
+
+
+    <!--backbone and friends -->
+    <script src="lib/backbone/underscore-min.js"></script>
+
+    <!-- bootstrap default plugins -->
+    <script src="lib/bootstrap/transition.js"></script>
+    <script src="lib/bootstrap/collapse.js"></script>
+    <script src="lib/bootstrap/alert.js"></script>
+    <script src="lib/bootstrap/tooltip.js"></script>
+    <script src="lib/bootstrap/popover.js"></script>
+    <script src="lib/bootstrap/button.js"></script>
+    <script src="lib/bootstrap/dropdown.js"></script>
+    <script src="lib/bootstrap/modal.js"></script>
+
+    <!-- bootstrap custom plugins -->
+    <script src="lib/bootstrap-datepicker.js"></script>
+    <script src="lib/bootstrap-select/bootstrap-select.js"></script>
+    <script src="lib/wysihtml5/wysihtml5-0.3.0_rc2.js"></script>
+    <script src="lib/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+
+    <!-- basic application js-->
+    <script src="js/app.js"></script>
+    <script src="js/settings.js"></script>
+
+    <!-- page specific -->
+    <script src="js/forms.js"></script>
+
+    <script type="text/template" id="settings-template">
+        <div class="setting clearfix">
+            <div>Background</div>
+            <div id="background-toggle" class="pull-left btn-group" data-toggle="buttons-radio">
+                <% dark = background == 'dark'; light = background == 'light';%>
+                <button type="button" data-value="dark" class="btn btn-sm btn-transparent <%= dark? 'active' : '' %>">Dark</button>
+                <button type="button" data-value="light" class="btn btn-sm btn-transparent <%= light? 'active' : '' %>">Light</button>
+            </div>
+        </div>
+        <div class="setting clearfix">
+            <div>Sidebar on the</div>
+            <div id="sidebar-toggle" class="pull-left btn-group" data-toggle="buttons-radio">
+                <% onRight = sidebar == 'right'%>
+                <button type="button" data-value="left" class="btn btn-sm btn-transparent <%= onRight? '' : 'active' %>">Left</button>
+                <button type="button" data-value="right" class="btn btn-sm btn-transparent <%= onRight? 'active' : '' %>">Right</button>
+            </div>
+        </div>
+        <div class="setting clearfix">
+            <div>Sidebar</div>
+            <div id="display-sidebar-toggle" class="pull-left btn-group" data-toggle="buttons-radio">
+                <% display = displaySidebar%>
+                <button type="button" data-value="true" class="btn btn-sm btn-transparent <%= display? 'active' : '' %>">Show</button>
+                <button type="button" data-value="false" class="btn btn-sm btn-transparent <%= display? '' : 'active' %>">Hide</button>
+            </div>
+        </div>
+    </script>
+    <script>
+        $(function () {
+            $('#faction-select.chzn-select').select2({
+                formatResult: format,
+                formatSelection: format,
+                escapeMarkup: function (m) { return m; }
+            });
+            alert('hello');
+            function format(faction) {
+
+                return "<img style='height:20px ;width:20px;left:-20px;top:-4px;margin-right:10px;' src='img/icons/" + faction.text.toLowerCase() + "-icon.png'/>" + faction.text;
+            }
+
+        });
+    </script>
+
+    <script type="text/template" id="sidebar-settings-template">
+        <% auto = sidebarState == 'auto'%>
+        <% if (auto) {%>
+        <button type="button"
+                data-value="icons"
+                class="btn-icons btn btn-transparent btn-sm">
+            Icons
+        </button>
+        <button type="button"
+                data-value="auto"
+                class="btn-auto btn btn-transparent btn-sm">
+            Auto
+        </button>
+        <%} else {%>
+        <button type="button"
+                data-value="auto"
+                class="btn btn-transparent btn-sm">
+            Auto
+        </button>
+        <% } %>
+    </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.IO</name>
+    </assembly>
+    <members>
+        <member name="T:Common.IO.FileSystemHelper">
+            <summary>Class FileSystemHelper </summary>
+        </member>
+        <member name="M:Common.IO.FileSystemHelper.EmptyAndDeleteDirectory(System.IO.DirectoryInfo)">
+            <summary>Empties directoryToClean.
+            </summary>
+            <param name="directoryToClean">The directory to clean.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:Common.IO.FileSystemHelper.EmptyAndDeleteDirectory(System.IO.DirectoryInfo,System.Boolean)">
+            <summary>Empties directoryToClean then deletes directory if flag is set.
+            </summary>
+            <param name="directoryToClean">The directory to clean.</param>
+            <param name="deleteThisDir">if set to <c>true</c> [delete this dir].</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:Common.IO.FileSystemHelper.DeleteDirectoriesAndFilesOlderThan(System.IO.DirectoryInfo,System.DateTime)">
+            <summary>Empties rootDir of files and directories older than maxdate </summary>
+            <param name="rootDir">The root dir.</param>
+            <param name="maxDate">The max date.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:Common.IO.FileSystemHelper.SafeFileDelete(System.IO.FileInfo)">
+            <summary>Safes the file delete.
+            </summary>
+            <param name="file">The file.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+        </member>
+    </members>
+</doc>

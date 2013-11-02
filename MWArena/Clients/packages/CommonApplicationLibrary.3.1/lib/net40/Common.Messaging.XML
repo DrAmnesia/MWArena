@@ -1,0 +1,798 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.Messaging</name>
+    </assembly>
+    <members>
+        <member name="T:Common.Messaging.TenantHandlerConfiguration">
+            <summary>Class HandlerConfiguration
+            </summary>
+        </member>
+        <member name="T:Common.Messaging.HandlerConfiguration">
+            <summary>Class HandlerConfiguration
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.HandlerConfiguration.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:Common.Messaging.HandlerConfiguration"/> class.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.HandlerConfiguration.#ctor(System.Type)">
+            <summary>Initializes a new instance of the <see cref="T:Common.Messaging.HandlerConfiguration"/> class.
+            </summary>
+            <param name="messageHandlerType">Type of the message handler.</param>
+        </member>
+        <member name="P:Common.Messaging.HandlerConfiguration.MessageSourceNode">
+            <summary>Gets or sets the message source nodename.
+            </summary>
+            <value>The message source node.</value>
+        </member>
+        <member name="P:Common.Messaging.HandlerConfiguration.MessageSource">
+            <summary>Gets or sets the message source.
+            </summary>
+            <value>The message source.</value>
+        </member>
+        <member name="P:Common.Messaging.HandlerConfiguration.MessageTypeNode">
+            <summary>Gets or sets the message type nodename.
+            </summary>
+            <value>The message type node.</value>
+        </member>
+        <member name="P:Common.Messaging.HandlerConfiguration.MessageType">
+            <summary>Gets or sets the type of the message.
+            </summary>
+            <value>The type of the message.</value>
+        </member>
+        <member name="P:Common.Messaging.HandlerConfiguration.MessageIdNode">
+            <summary>Gets or sets the message id nodename. This identifier is used in logging and message publishing, if it is empty a system generated Guid wil be used</summary>
+            <value>The message id node.</value>
+        </member>
+        <member name="P:Common.Messaging.HandlerConfiguration.RequiredNodes">
+            <summary>Gets or sets the required nodes.
+            </summary>
+            <value>The required nodes.</value>
+        </member>
+        <member name="P:Common.Messaging.HandlerConfiguration.MessageHandlerType">
+            <summary>Gets or sets the type of the message handler.
+            </summary>
+            <value>The type of the message handler.</value>
+        </member>
+        <member name="P:Common.Messaging.TenantHandlerConfiguration.TenantIdNode">
+            <summary>Gets or sets the tenantid nodename.
+            </summary>
+            <value>The tenant id node.</value>
+        </member>
+        <member name="T:Common.Messaging.HandlesTenantMessageAttribute">
+            <summary> Common.Messaging.HandlesTenantMessageAttribute class implements the <see cref="!:Common.Messaging.IHandlesTenantMessageAttribute">Common.Messaging.IHandlesTenantMessageAttribute</see> interface</summary>
+        </member>
+        <member name="T:Common.Messaging.HandlesMessageAttribute">
+            <summary>Class HandlesMessageAttribute
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.HandlesMessageAttribute.#ctor(System.String,System.String,System.String,System.String,System.String,System.String[])">
+            <summary>Initializes a new instance of the <see cref="T:Common.Messaging.HandlesMessageAttribute"/> class.
+            </summary>
+            <param name="messageSourceNode">The message source node.</param>
+            <param name="messageSource">The message source.</param>
+            <param name="messageTypeNode">The message type node.</param>
+            <param name="messageType">Type of the message.</param>
+            <param name="messageIdNode">The message id node.</param>
+            <param name="requiredNodes">The required nodes.</param>
+        </member>
+        <member name="P:Common.Messaging.HandlesMessageAttribute.MessageSourceNode">
+            <summary>Gets or sets the message source nodename.
+            </summary>
+            <value>The message source node.</value>
+        </member>
+        <member name="P:Common.Messaging.HandlesMessageAttribute.MessageSource">
+            <summary>Gets or sets the message source.
+            </summary>
+            <value>The message source.</value>
+        </member>
+        <member name="P:Common.Messaging.HandlesMessageAttribute.MessageTypeNode">
+            <summary>Gets or sets the message type nodename.
+            </summary>
+            <value>The message type node.</value>
+        </member>
+        <member name="P:Common.Messaging.HandlesMessageAttribute.MessageType">
+            <summary>Gets or sets the type of the message.
+            </summary>
+            <value>The type of the message.</value>
+        </member>
+        <member name="P:Common.Messaging.HandlesMessageAttribute.MessageIdNode">
+            <summary>Gets or sets the message id nodename. This identifier is used in logging and message publishing, if it is empty a system generated Guid wil be used
+            </summary>
+            <value>The message id node.</value>
+        </member>
+        <member name="P:Common.Messaging.HandlesMessageAttribute.RequiredNodes">
+            <summary>Gets or sets the required nodes.
+            </summary>
+            <value>The required nodes.</value>
+        </member>
+        <member name="M:Common.Messaging.HandlesTenantMessageAttribute.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String[])">
+            <summary>Initializes a new instance of the <see cref="T:Common.Messaging.HandlesMessageAttribute"/> class.
+            </summary>
+            <param name="messageSourceNode">The message source node.</param>
+            <param name="messageSource">The message source.</param>
+            <param name="messageTypeNode">The message type node.</param>
+            <param name="messageType">Type of the message.</param>
+            <param name="messageIdNode">The message id node.</param>
+            <param name="requiredNodes">The required nodes.</param>
+        </member>
+        <member name="P:Common.Messaging.HandlesTenantMessageAttribute.TenantIdNode">
+            <summary>Gets or sets the tenant id. </summary>
+            <value>The tenant id.</value>
+        </member>
+        <member name="T:Common.Messaging.HandlesTenantqEventAttribute">
+            <summary> Common.Messaging.HandlesTenantqEventAttribute class iinherits from the <see cref="!:Common.Messaging.IHandlesTenantMessageAttribute">Common.Messaging.IHandlesTenantMessageAttribute</see> class and provides default qEvent parameters for </summary>
+        </member>
+        <member name="M:Common.Messaging.HandlesTenantqEventAttribute.#ctor(System.String,System.String,System.String,System.String[])">
+            <summary>Initializes a new instance of the <see cref="T:Common.Messaging.HandlesTenantqEventAttribute">Common.Messaging.HandlesTenantqEventAttribute</see> with no parameters.
+            </summary>
+        </member>
+        <member name="T:Common.Messaging.ITenantMessageHandler">
+            <summary>A "Tenant Aware" version of IMessageHandler</summary>
+        </member>
+        <member name="T:Common.Messaging.IMessageHandler">
+            <summary>Interface IMessageHandler
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.IMessageHandler.PreValidateMessage">
+            <summary>Compares the MessageSource and MessageType against the Handler's Configurations to determine if the Handler can process the message </summary>
+            <remarks>Validates that all required fields are present and contain values</remarks>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:Common.Messaging.IMessageHandler.ValidateMessage">
+            <summary>Validates the message.
+            </summary>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:Common.Messaging.IMessageHandler.ProcessMessage">
+            <summary>Processes the message.
+            </summary>
+        </member>
+        <member name="P:Common.Messaging.IMessageHandler.Message">
+            <summary>A string containing an XML Message to be processed </summary>
+        </member>
+        <member name="P:Common.Messaging.IMessageHandler.TrackableMessage">
+            <summary>Gets or sets the instance of ITrackableMessage to be processed.
+            </summary>
+            <value>The message id.</value>
+        </member>
+        <member name="T:Common.Messaging.ITenantXmlMessage">
+            <summary> Common.Messaging.ITenantXmlMessage designates the members required to implement a(an) ITenantXmlMessage</summary>
+        </member>
+        <member name="T:Common.Messaging.IXmlMessage">
+            <summary>Interface ITrackableMessage
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.IXmlMessage.ParseMessage(System.String)">
+            <summary>Parses the message string into an XmlDocument.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:Common.Messaging.IXmlMessage.ParseMessage(System.String,System.String,System.String,System.String)">
+            <summary>Parses the message string into an XmlDocument and populates MessageSource,MesssageType and MessageId.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="messageSourceNode">The message source nodename.</param>
+            <param name="messageTypeNode">The message type nodename.</param>
+            <param name="messageIdNode">The message id nodename.</param>
+        </member>
+        <member name="M:Common.Messaging.IXmlMessage.GetMessageSourceFromXml(System.String)">
+            <summary>Gets the message source.
+            </summary>
+            <param name="messageSourceNode">The message source node.</param>
+            <returns>System.String.</returns>
+            <exception cref="T:System.ApplicationException">MessageSource is Null or Empty</exception>
+        </member>
+        <member name="M:Common.Messaging.IXmlMessage.GetMessageTypeFromXml(System.String)">
+            <summary>Gets the type of the message.
+            </summary>
+            <param name="messageTypeNode">The message type node.</param>
+            <returns>System.String.</returns>
+            <exception cref="T:System.ApplicationException">MessageSource is Null or Empty</exception>
+        </member>
+        <member name="M:Common.Messaging.IXmlMessage.GetMessageIdFromXml(System.String)">
+            <summary>Gets the message id.
+            </summary>
+            <param name="messageIdNode">The message id node.</param>
+            <returns>System.String.</returns>
+            <exception cref="T:System.ApplicationException">MessageSource is Null or Empty</exception>
+        </member>
+        <member name="M:Common.Messaging.IXmlMessage.HasNode(System.String)">
+            <summary>Determines whether the specified node name has node.
+            </summary>
+            <param name="nodeName">Name of the node.</param>
+            <returns><c>true</c> if the specified node name has node; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Common.Messaging.IXmlMessage.NodeValue(System.String,System.String)">
+            <summary>Nodes the value.
+            </summary>
+            <param name="nodeName">Name of the node.</param>
+            <param name="defaultValue">The default value.</param>
+            <returns>System.String.</returns>
+        </member>
+        <member name="M:Common.Messaging.IXmlMessage.NodeXml(System.String,System.String)">
+            <summary>Nodes the XML.
+            </summary>
+            <param name="nodeName">Name of the node.</param>
+            <param name="defaultValue">The default value.</param>
+            <returns>System.String.</returns>
+        </member>
+        <member name="M:Common.Messaging.IXmlMessage.NodeValueMatch(System.String,System.String)">
+            <summary>Nodes the value match.
+            </summary>
+            <param name="nodeName">Name of the node.</param>
+            <param name="matchValue">The match value.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:Common.Messaging.IXmlMessage.HasNodeWithValue(System.String)">
+            <summary>Determines whether [has node with value] [the specified node name].
+            </summary>
+            <param name="nodeName">Name of the node.</param>
+            <returns><c>true</c> if [has node with value] [the specified node name]; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="P:Common.Messaging.IXmlMessage.Message">
+            <summary>Gets or sets the message (an XMl string) to be processed.
+            </summary>
+            <value>The message.</value>
+        </member>
+        <member name="P:Common.Messaging.IXmlMessage.MessageSource">
+            <summary>Gets or sets the message source or publisher of the message.
+            </summary>
+            <value>The message source.</value>
+        </member>
+        <member name="P:Common.Messaging.IXmlMessage.MessageType">
+            <summary>Gets or sets the type of the IXmlMessage.
+            </summary>
+            <value>The type of the message.</value>
+        </member>
+        <member name="P:Common.Messaging.IXmlMessage.MessageId">
+            <summary>Gets or sets the uniqueidentifier of the IXmlMessage.
+            </summary>
+            <value>The message id.</value>
+        </member>
+        <member name="P:Common.Messaging.IXmlMessage.IsGuidMessageId">
+            <summary>Gets or sets a flag denoting whether or not the  IXmlMessage.MessageId is a valid <see cref="T:System.Guid">System.Guid</see>.
+            </summary>
+            <value><c>true</c> if this instance is GUID message id; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Common.Messaging.IXmlMessage.MessageXml">
+            <summary>Gets or sets the message XML.
+            </summary>
+            <value>The message XML.</value>
+        </member>
+        <member name="P:Common.Messaging.IXmlMessage.MessageRoot">
+            <summary>Gets or sets the message root.
+            </summary>
+            <value>The message root.</value>
+        </member>
+        <member name="M:Common.Messaging.ITenantXmlMessage.ParseMessage(System.String,System.String,System.String,System.String,System.String)">
+            <summary>Parses the message string into an XmlDocument and populates MessageSource,MesssageType and MessageId.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="messageSourceNode">The message source nodename.</param>
+            <param name="messageTypeNode">The message type nodename.</param>
+            <param name="messageIdNode">The message id nodename.</param>
+        </member>
+        <member name="P:Common.Messaging.ITenantXmlMessage.TenantId">
+            <summary>Gets or sets the tenant id. </summary>
+            <value>The tenant id.</value>
+        </member>
+        <member name="T:Common.Messaging.TenantMessageHandlerBase">
+            <summary>Class TenantMessageHandlerBase
+            </summary>
+        </member>
+        <member name="T:Common.Messaging.MessageHandlerBase">
+            <summary>     Class MessageHandlerBase - For typical when dealing with client specific messages see <see cref="T:Common.Messaging.TenantMessageHandlerBase"/><br/>   <img src="../icons/Common.Messaging.png"/></summary>
+            <remarks>MessageHandlerBase provides core non-typed XML message handling functions such as:
+            <list type="table">
+            <listheader><term>function</term><description>description</description></listheader>
+            <item><term>RequiredNodes</term><description>A list of nodes that are used to pre-validate that a message should be processed by the handler.</description></item>
+            <item><term>Prevalidation</term><description>XML document validation, RequiredNodes matching and handler configuration initialization</description></item>
+            <item><term>Validation</term><description>Virtual method to be implemented by the handler developer</description></item>
+            <item><term>Processing</term><description>The only implementation really required of the handler developer. This is where the xml message is processed.</description></item>
+            </list></remarks>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Common.Messaging.MessageHandlerBase"/> class.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.#ctor(System.String,Common.Status)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Common.Messaging.MessageHandlerBase"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="status">The status.</param>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.PreValidateMessage">
+            <summary>
+                Compares the MessageSource and MessageType against the Handler's Configurations to determine if the Handler can process the message
+            </summary>
+            <returns>
+                <c>true</c> if XXXX, <c>false</c> otherwise
+            </returns>
+            <remarks>Validates that all required fields are present and contain values</remarks>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.ValidateMessage">
+            <summary>
+                Validates the message.
+            </summary>
+            <returns>
+                <c>true</c> if XXXX, <c>false</c> otherwise
+            </returns>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.ProcessMessage">
+            <summary>
+                Processes the message.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.PreValidateMessage(System.Collections.Generic.List{Common.Messaging.HandlerConfiguration})">
+            <summary>
+                Pres the validate message.
+            </summary>
+            <param name="configSet">The config set.</param>
+            <returns>
+                <c>true</c> if XXXX, <c>false</c> otherwise
+            </returns>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.PreValidateNode(System.String)">
+            <summary>
+                Pres the validate node.
+            </summary>
+            <param name="nodeName">Name of the node.</param>
+            <returns>
+                <c>true</c> if XXXX, <c>false</c> otherwise
+            </returns>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.IsHandlerMessageType(System.String,System.String,System.String,System.String)">
+            <summary>
+                Determines whether [is handler message type] [the specified message source node].
+            </summary>
+            <param name="messageSourceNode">The message source node.</param>
+            <param name="messageSource">The message source.</param>
+            <param name="messageTypeNode">The message type node.</param>
+            <param name="messageType">Type of the message.</param>
+            <returns>
+                <c>true</c> if [is handler message type] [the specified message source node]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.TransformBeforePreValidate">
+            <summary>
+                Transforms the before pre validate.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.LoadTrackableMessage">
+            <summary>
+                Loads Message into (IXmlMessage)TrackableMessage and Parses the TrackableMessage.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.TransformAfterPreValidate">
+            <summary>
+                Transforms the after pre validate.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.PublishqEventMessage">
+            <summary>
+                Publishes a qEvent using default settings with an eventname of CurrentConfig.MessageType+".MessageProcessed"
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.PublishqEventMessage(System.String)">
+            <summary>
+                Publishqs the event message.
+            </summary>
+            <param name="eventName">Name of the event.</param>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.PublishqEventMessage(System.String,System.String,System.Xml.Linq.XElement,System.String)">
+            <summary>
+                Publishqs the event message.
+            </summary>
+            <param name="connectionString">The connection string.</param>
+            <param name="eventName">Name of the event.</param>
+            <param name="extdata">The extdata.</param>
+            <param name="sourceoverride">The sourceoverride.</param>
+            <exception cref="T:System.ApplicationException"></exception>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.ValidateqEventParams(System.String,System.String)">
+            <summary>
+                Validateqs the event params.
+            </summary>
+            <param name="connectionString">The connection string.</param>
+            <param name="eventname">The eventname.</param>
+            <returns>
+                <c>true</c> if XXXX, <c>false</c> otherwise
+            </returns>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.CreateRequiredXml(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>Creates an xml string containing the <see cref="P:Common.Messaging.MessageHandlerBase.CurrentConfig">CurrentConfig</see> required fields and their values. </summary>
+            <param name="payloadRoot">The payload root.</param>
+            <param name="requiredNodes">The required nodes.</param>
+            <returns>System.String.</returns>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.CreateRequiredXmlElement(System.String,System.Collections.Generic.Dictionary{System.String,System.String},Common.Messaging.IXmlMessage)">
+            <summary>Creates the required XML element.
+            </summary>
+            <param name="payloadRoot">The payload root.</param>
+            <param name="requiredNodes">The required nodes.</param>
+            <param name="xmlMessage">The XML message.</param>
+            <returns>XElement.</returns>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.LoadAttributeHandlerConfigurations">
+            <summary>
+                Loads the attribute handler configurations.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.LoadAttributeHandlerConfigurations(System.Attribute[])">
+            <summary>
+                Loads the attribute handler configurations.
+            </summary>
+            <param name="attrs">The attrs.</param>
+            <returns>List{HandlerConfiguration}.</returns>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.LoadFileHandlerConfigurations">
+            <summary>
+                Loads the file handler configurations.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.MessageHandlerBase.LoadFileHandlerConfigurations(System.Collections.Generic.List{Common.Messaging.HandlerConfiguration},System.Collections.Specialized.NameValueCollection)">
+            <summary>
+                Loads the file handler configurations.
+            </summary>
+            <param name="configset">The configset.</param>
+            <returns>List{HandlerConfiguration}.</returns>
+        </member>
+        <member name="F:Common.Messaging.MessageHandlerBase._message">
+            <summary>The message (containing and xml string) to be processed </summary>
+        </member>
+        <member name="F:Common.Messaging.MessageHandlerBase.statusmsg">
+            <summary>A temporate string used for formatting status updates </summary>
+        </member>
+        <member name="P:Common.Messaging.MessageHandlerBase.Status">
+            <summary>
+                Provides a current reference to the object's internal or private Common.Status field
+            </summary>
+            <value>The status.</value>
+            <returns>a Common Status</returns>
+        </member>
+        <member name="P:Common.Messaging.MessageHandlerBase.Tracker">
+            <summary>
+                Gets or sets a Unigue Instance Identifier for tracking the objects activities.
+            </summary>
+            <value>The tracker.</value>
+        </member>
+        <member name="P:Common.Messaging.MessageHandlerBase.TrackableMessage">
+            <summary>Gets or sets the instance of IXmlMessage to be processed.</summary>
+            <value>The message id.</value>
+        </member>
+        <member name="P:Common.Messaging.MessageHandlerBase.Message">
+            <summary>A string containing an XML Message to be processed </summary>
+            <value>The message.</value>
+        </member>
+        <member name="P:Common.Messaging.MessageHandlerBase.ConfigSet">
+            <summary>
+                Gets or sets the a list of Handler Configurations for this MessageHandler.
+            </summary>
+            <value>The config set.</value>
+        </member>
+        <member name="P:Common.Messaging.MessageHandlerBase.CurrentConfig">
+            <summary>
+                Gets or sets the HandlerConfiguration being used to process the current message.
+            </summary>
+            <value>The current config.</value>
+        </member>
+        <member name="P:Common.Messaging.MessageHandlerBase.IsqEventMessage">
+            <summary>
+                Gets a value indicating whether [isq event message].
+            </summary>
+            <value>
+                <c>true</c> if [isq event message]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Common.Messaging.MessageHandlerBase.IsqEventHandlerType">
+            <summary>
+                Gets a value indicating whether [isq event handler type].
+            *temporarily dasabled *
+            </summary>
+            <value>
+                <c>true</c> if [isq event handler type]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Common.Messaging.TenantMessageHandlerBase.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:Common.Messaging.TenantMessageHandlerBase"/> class.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.TenantMessageHandlerBase.#ctor(System.String,Common.Status)">
+            <summary>Initializes a new instance of the <see cref="T:Common.Messaging.MessageHandlerBase"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="status">The status.</param>
+        </member>
+        <member name="M:Common.Messaging.TenantMessageHandlerBase.PreValidateMessage">
+            <summary>Compares the MessageSource and MessageType against the Handler's Configurations to determine if the Handler can process the message
+            </summary>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+            <remarks>Validates that all required fields are present and contain values</remarks>
+        </member>
+        <member name="M:Common.Messaging.TenantMessageHandlerBase.PreValidateMessage(System.Collections.Generic.List{Common.Messaging.TenantHandlerConfiguration})">
+            <summary>Pres the validate message.
+            </summary>
+            <param name="configSet">The config set.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:Common.Messaging.TenantMessageHandlerBase.LoadAttributeHandlerConfigurations">
+            <summary>Loads the attribute handler configurations.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.TenantMessageHandlerBase.LoadAttributeHandlerConfigurations(System.Attribute[])">
+            <summary>Loads the attribute handler configurations.
+            </summary>
+            <param name="attrs">The attrs.</param>
+            <returns>List{TenantHandlerConfiguration}.</returns>
+        </member>
+        <member name="M:Common.Messaging.TenantMessageHandlerBase.LoadFileHandlerConfigurations">
+            <summary>Loads the file handler configurations.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.TenantMessageHandlerBase.LoadFileHandlerConfigurations(System.Collections.Generic.List{Common.Messaging.TenantHandlerConfiguration},System.Collections.Specialized.NameValueCollection)">
+            <summary>Loads the file handler configurations.
+            </summary>
+            <param name="configset">The configset.</param>
+            <param name="appSettings">The app settings.</param>
+            <returns>List{HandlerConfiguration}.</returns>
+        </member>
+        <member name="F:Common.Messaging.TenantMessageHandlerBase._tenantId">
+            <summary>The _tenant id
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.TenantMessageHandlerBase.LoadClientNodeConnections">
+            <summary>Loads the client node connections.
+            </summary>
+            <exception cref="T:System.ApplicationException"></exception>
+        </member>
+        <member name="M:Common.Messaging.TenantMessageHandlerBase.PublishqEventMessage(System.String,System.Xml.Linq.XElement,System.String)">
+            <summary>Publishqs the event message.
+            </summary>
+            <param name="eventName">Name of the event.</param>
+            <param name="extdata">The extdata.</param>
+            <param name="sourceoverride">The sourceoverride.</param>
+            <exception cref="T:System.ApplicationException"></exception>
+        </member>
+        <member name="M:Common.Messaging.TenantMessageHandlerBase.PublishqEventMessage(System.String,System.Xml.Linq.XElement)">
+            <summary>Publishqs the event message.
+            </summary>
+            <param name="eventName">Name of the event.</param>
+            <param name="extdata">The extdata.</param>
+            <exception cref="T:System.ApplicationException"></exception>
+        </member>
+        <member name="M:Common.Messaging.TenantMessageHandlerBase.LoadTrackableMessage">
+            <summary>Loads Message into (IXmlMessage)TrackableMessage and Parses the TrackableMessage.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.TenantMessageHandlerBase.CreateRequiredXml(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>Creates the required XML.
+            </summary>
+            <param name="payloadRoot">The payload root.</param>
+            <param name="requiredNodes">The required nodes.</param>
+            <returns>System.String.</returns>
+        </member>
+        <member name="F:Common.Messaging.TenantMessageHandlerBase._thcs">
+            <summary>The _THCS
+            </summary>
+        </member>
+        <member name="F:Common.Messaging.TenantMessageHandlerBase._hcs">
+            <summary>The _HCS
+            </summary>
+        </member>
+        <member name="P:Common.Messaging.TenantMessageHandlerBase.MasterConnectionString">
+            <summary>Gets or sets the master connection string.
+            </summary>
+            <value>The master connection string.</value>
+        </member>
+        <member name="P:Common.Messaging.TenantMessageHandlerBase.Cnc">
+            <summary>Gets or sets the ClientNodeConnector to be used for federated data access.
+            </summary>
+            <value>The CNC.</value>
+        </member>
+        <member name="P:Common.Messaging.TenantMessageHandlerBase.TenantId">
+            <summary>Gets or sets the TenanatId (v5 _clientid) for tenant specific transactions
+            </summary>
+            <value>The tenant id.</value>
+            <exception cref="T:System.ApplicationException"></exception>
+        </member>
+        <member name="P:Common.Messaging.TenantMessageHandlerBase.TrackableMessage">
+            <summary>Gets or sets the instance of IXmlMessage to be processed.
+            </summary>
+            <value>The message id.</value>
+        </member>
+        <member name="P:Common.Messaging.TenantMessageHandlerBase.TenantConfigSet">
+            <summary>Gets or sets the a list of Handler Configurations for this MessageHandler.
+            </summary>
+            <value>The config set.</value>
+        </member>
+        <member name="P:Common.Messaging.TenantMessageHandlerBase.ConfigSet">
+            <summary>Gets or sets the a list of Handler Configurations for this MessageHandler.
+            </summary>
+            <value>The config set.</value>
+        </member>
+        <member name="P:Common.Messaging.TenantMessageHandlerBase.CurrentConfig">
+            <summary>Gets or sets the HandlerConfiguration being used to process the current message.
+            </summary>
+            <value>The current config.</value>
+        </member>
+        <member name="P:Common.Messaging.TenantMessageHandlerBase.TenantCurrentConfig">
+            <summary>Gets or sets the HandlerConfiguration being used to process the current message.
+            </summary>
+            <value>The current config.</value>
+        </member>
+        <member name="T:Common.Messaging.HandlesqEventAttribute">
+            <summary> Class HandlesqEventAttribute designates an <see cref="T:Common.Messaging.IMessageHandler"/> as one that handles qEvent Messages.
+            <br/> It provides metadata used to populate a <see cref="T:Common.Messaging.HandlesqEventAttribute"/> with qEvent defaults for the MessageSourceNode, MessageTypeNode and MessageIdNode properties. </summary>
+        </member>
+        <member name="M:Common.Messaging.HandlesqEventAttribute.#ctor(System.String,System.String,System.String[])">
+            <summary>Initializes a new instance of the <see cref="T:Common.Messaging.HandlesqEventAttribute"/> class. </summary>
+            <param name="messageSource">A string identifier for the source that published the message.</param>
+            <param name="messageType">A string identifier for type of message.</param>
+            <param name="requiredNodes">String Array containing the names of nodes that must exist in the message for it to pass PreValidation <see cref="M:Common.Messaging.IMessageHandler.PreValidateMessage"/></param>
+        </member>
+        <member name="T:Common.Messaging.TenantXmlMessage">
+            <summary>Common.Messaging.TrackableMessage class implements the <see cref="!:Common.Messaging.ITenantTrackableMessage">Common.Messaging.ITenantTrackableMessage</see> interface
+            </summary>
+        </member>
+        <member name="T:Common.Messaging.XmlMessage">
+            <summary>Common.Messaging.TrackableMessage class implements the <see cref="T:Common.Messaging.IXmlMessage">Common.Messaging.ITrackableMessage</see> interface
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.XmlMessage.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:Common.Messaging.XmlMessage">Common.Messaging.TrackableMessage</see> with no parameters. </summary>
+        </member>
+        <member name="M:Common.Messaging.XmlMessage.#ctor(System.String)">
+            <summary>Initializes a new instance of the <see cref="T:Common.Messaging.XmlMessage"/> class with an xml string.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.XmlMessage.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>Initializes a new instance of the <see cref="T:Common.Messaging.XmlMessage"/> class with an xml string and property nodenames.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.XmlMessage.ParseMessage(System.String)">
+            <summary>Parses the message string into an XmlDocument. If the Message IsqEventMessage then load the Source,Type and Id properties using the qEvent default element names. </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:Common.Messaging.XmlMessage.ParseMessage(System.String,System.String,System.String,System.String)">
+            <summary>Parses the message string into an XmlDocument and populates MessageSource,MesssageType and MessageId.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="messageSourceNode">The message source nodename.</param>
+            <param name="messageTypeNode">The message type nodename.</param>
+            <param name="messageIdNode">The message id nodename.</param>
+        </member>
+        <member name="M:Common.Messaging.XmlMessage.GetMessageSourceFromXml(System.String)">
+            <summary>Gets the message source.
+            </summary>
+            <param name="messageSourceNode">The message source node.</param>
+            <returns>System.String.</returns>
+            <exception cref="T:System.ApplicationException">MessageSource is Null or Empty</exception>
+        </member>
+        <member name="M:Common.Messaging.XmlMessage.GetMessageTypeFromXml(System.String)">
+            <summary>Gets the type of the message.
+            </summary>
+            <param name="messageTypeNode">The message type node.</param>
+            <returns>System.String.</returns>
+            <exception cref="T:System.ApplicationException">MessageSource is Null or Empty</exception>
+        </member>
+        <member name="M:Common.Messaging.XmlMessage.GetMessageIdFromXml(System.String)">
+            <summary>Gets the message id.
+            </summary>
+            <param name="messageIdNode">The message id node.</param>
+            <returns>System.String.</returns>
+            <exception cref="T:System.ApplicationException">MessageSource is Null or Empty</exception>
+        </member>
+        <member name="M:Common.Messaging.XmlMessage.HasNode(System.String)">
+            <summary>Determines whether the specified node name has node.
+            </summary>
+            <param name="nodeName">Name of the node.</param>
+            <returns><c>true</c> if the specified node name has node; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Common.Messaging.XmlMessage.NodeValue(System.String,System.String)">
+            <summary>Nodes the value.
+            </summary>
+            <param name="nodeName">Name of the node.</param>
+            <param name="defaultValue">The default value.</param>
+            <returns>System.String.</returns>
+        </member>
+        <member name="M:Common.Messaging.XmlMessage.NodeXml(System.String,System.String)">
+            <summary>Nodes the XML.
+            </summary>
+            <param name="nodeName">Name of the node.</param>
+            <param name="defaultValue">The default value.</param>
+            <returns>System.String.</returns>
+        </member>
+        <member name="M:Common.Messaging.XmlMessage.NodeValueMatch(System.String,System.String)">
+            <summary>Nodes the value match.
+            </summary>
+            <param name="nodeName">Name of the node.</param>
+            <param name="matchValue">The match value.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:Common.Messaging.XmlMessage.HasNodeWithValue(System.String)">
+            <summary>Determines whether [has node with value] [the specified node name].
+            </summary>
+            <param name="nodeName">Name of the node.</param>
+            <returns><c>true</c> if [has node with value] [the specified node name]; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="P:Common.Messaging.XmlMessage.Message">
+            <summary>Gets or sets the message (an XMl string) to be processed.
+            </summary>
+            <value>The message.</value>
+        </member>
+        <member name="P:Common.Messaging.XmlMessage.MessageXml">
+            <summary>Gets or sets the message XML.
+            </summary>
+            <value>The message XML.</value>
+        </member>
+        <member name="P:Common.Messaging.XmlMessage.MessageRoot">
+            <summary>Gets or sets the message root.
+            </summary>
+            <value>The message root.</value>
+        </member>
+        <member name="P:Common.Messaging.XmlMessage.MessageSource">
+            <summary>Gets or sets the message source or publisher of the message. </summary>
+        </member>
+        <member name="P:Common.Messaging.XmlMessage.MessageType">
+            <summary>Gets or sets the type of the IXmlMessage. </summary>
+        </member>
+        <member name="P:Common.Messaging.XmlMessage.MessageId">
+            <summary>Gets or sets the uniqueidentifier of the IXmlMessage. </summary>
+        </member>
+        <member name="P:Common.Messaging.XmlMessage.IsGuidMessageId">
+            <summary>Gets or sets a flag denoting whether or not the  IXmlMessage.MessageId is a valid <see cref="T:System.Guid">System.Guid</see>.
+            </summary>
+            <value><c>true</c> if this instance is GUID message id; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Common.Messaging.XmlMessage.IsqEventMessage">
+            <summary>
+                Gets a value indicating whether [isq event message].
+            </summary>
+            <value>
+                <c>true</c> if [isq event message]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Common.Messaging.TenantXmlMessage.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:Common.Messaging.TenantXmlMessage"/> class.
+            </summary>
+        </member>
+        <member name="M:Common.Messaging.TenantXmlMessage.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>Initializes a new instance of the <see cref="T:Common.Messaging.TenantXmlMessage"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="messageSourceNode">The message source node.</param>
+            <param name="messageTypeNode">The message type node.</param>
+            <param name="messageIdNode">The message id node.</param>
+            <param name="tenantIdNode">The tenant id node.</param>
+        </member>
+        <member name="M:Common.Messaging.TenantXmlMessage.GetTenantIdFromXml(System.String)">
+            <summary>Gets the message id.
+            </summary>
+            <param name="tenantIdNode">The tenant id node.</param>
+            <returns>System.String.</returns>
+            <exception cref="T:System.ApplicationException">MessageSource is Null or Empty</exception>
+        </member>
+        <member name="M:Common.Messaging.TenantXmlMessage.ParseMessage(System.String,System.String,System.String,System.String,System.String)">
+            <summary>Parses the message string into an XmlDocument and populates MessageSource,MesssageType and MessageId.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="messageSourceNode">The message source nodename.</param>
+            <param name="messageTypeNode">The message type nodename.</param>
+            <param name="messageIdNode">The message id nodename.</param>
+            <param name="tenantIdNode">The tenant id node.</param>
+        </member>
+        <member name="F:Common.Messaging.TenantXmlMessage._tenantId">
+            <summary>The _tenant id
+            </summary>
+        </member>
+        <member name="P:Common.Messaging.TenantXmlMessage.TenantId">
+            <summary>Gets or sets the TenanatId (v5 _clientid) for tenant specific transactions
+            </summary>
+            <value>The tenant id.</value>
+        </member>
+    </members>
+</doc>

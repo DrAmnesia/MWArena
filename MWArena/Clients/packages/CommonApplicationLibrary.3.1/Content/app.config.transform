@@ -1,0 +1,27 @@
+<configuration>
+  <configSections>
+    <sectionGroup name="commonConfiguration">
+      <section name="providers" type="Common.Configuration.StatusConfiguration, Common" />
+    </sectionGroup>
+  </configSections>
+  <commonConfiguration>
+    <providers defaultProvider="sqlLogtable">
+      <xmlLogfile destination="c:\temp\Logs\" filename="CommonLogFile" prependServerName="true"   threshold="200" throttle="100" mode="On" />
+      <sqlLogtable destination="audit_log" connectionString="Log" threshold="0" throttle="100" />
+      <windowsEvent destination="Common" serverName="." threshold="199" throttle="100" logName="Application" mode="triggered" />
+    </providers>
+  </commonConfiguration>
+  <appSettings>
+    <add key="LogColOffset" value="1"/>
+    <add key="colOffsetExt" value="0"/>
+	<add key="MasterConnectionString" value="AppMaster"/>
+    <add key="qMailConnectionString" value="qMail"/>
+  </appSettings>
+  <connectionStrings>
+   <!-- Sample Required Connection Strings
+	<add name="AppMaster" connectionString="Data Source=v5-Dev\Master;Initial Catalog=Action_CCT;Integrated Security=SSPI;" providerName="System.Data.SqlClient" />
+	<add name="Log" connectionString="Data Source=v5-Dev\Master;Initial Catalog=CDW_Log;Integrated Security=SSPI;" providerName="System.Data.SqlClient" />
+	<add name="qMail" connectionString="Data Source=v5-Dev\Master;Initial Catalog=qMail;Integrated Security=SSPI;" providerName="System.Data.SqlClient" />
+	-->
+  </connectionStrings>
+</configuration>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>CommonApplicationLibrary</id>
+    <version>3.1</version>
+    <title>Common Application Library</title>
+    <authors>Daniel R. Bowden</authors>
+    <owners>Allscripts</owners>
+    <licenseUrl>http://10.101.248.201/Common.Documentation</licenseUrl>
+    <projectUrl>http://10.101.248.201/Common.Documentation</projectUrl>
+    <iconUrl>http://10.101.248.201/Common.Documentation/icons/Common_48x48.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A set of class libraries designed to enable the rapid development of highly scalable applications. Focused on Extensibility, Federated Execution, Asynchronous Processing, Multi-Tenant Data Access and Security.</description>
+    <summary>Allscripts Common Application Framework</summary>
+    <copyright>Allscripts 2013</copyright>
+    <language>en-US</language>
+    <tags>Common Application Framework Library C#</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="System.ComponentModel.Composition" targetFramework=".NETFramework4.0" />
+    </frameworkAssemblies>
+  </metadata>
+</package>
