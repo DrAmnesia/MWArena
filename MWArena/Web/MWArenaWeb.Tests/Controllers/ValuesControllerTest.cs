@@ -45,6 +45,7 @@ namespace MWArenaWeb.Tests.Controllers
         [TestMethod]
         public void Post()
         {
+            MWArenaWeb.Models.
             // Arrange
             ValuesController controller = new ValuesController();
 
@@ -53,29 +54,6 @@ namespace MWArenaWeb.Tests.Controllers
 
             // Assert
         }
-
-        [TestMethod]
-        public void Put()
-        {
-            // Arrange
-            ValuesController controller = new ValuesController();
-
-            // Act
-            controller.Put(5, "value");
-
-            // Assert
-        }
-
-        [TestMethod]
-        public void Delete()
-        {
-            // Arrange
-            ValuesController controller = new ValuesController();
-
-            // Act
-            controller.Delete(5);
-
-            // Assert
-        }
+         
     }
 }

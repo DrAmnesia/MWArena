@@ -21,19 +21,16 @@ namespace MWArenaWeb.Controllers
         {
             return db.MwoAMatchMetrics;
         }
-
-        // GET api/MwoAMatchMetric/5
-        [ResponseType(typeof(MwoAMatchMetric))]
-        public IHttpActionResult GetMwoAMatchMetric(int id)
+        [HttpGet]
+        public IQueryable<MwoAMatchMetric> FindPilotMatches(string id)
         {
-            MwoAMatchMetric mwoamatchmetric = db.MwoAMatchMetrics.Find(id);
-            if (mwoamatchmetric == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(mwoamatchmetric);
+            if(!(id==null))
+                return db.MwoAMatchMetrics.Where(m => m.name == id && m.PublishingUserName==true).OrderBy(o=>o.time).AsQueryable().Take(20);
+            else
+                return db.MwoAMatchMetrics.OrderBy(o => o.time).AsQueryable().Take(20);
+            
         }
+       
 
         // PUT api/MwoAMatchMetric/5
         public IHttpActionResult PutMwoAMatchMetric(int id, MwoAMatchMetric mwoamatchmetric)

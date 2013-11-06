@@ -1,0 +1,564 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B4902775-731E-4C56-BBD4-F156FE0BFFF7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GW2Stuff</RootNamespace>
+    <AssemblyName>MWOverlay</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>Custom</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>assets\Assemblies\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.15\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.15\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="OverlaySettings.cs" />
+    <Compile Include="Misc\FontChooser.xaml.cs">
+      <DependentUpon>FontChooser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Misc\FontSettings.cs" />
+    <Compile Include="Misc\MarginEditor.xaml.cs">
+      <DependentUpon>MarginEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OptionsWindow.xaml.cs">
+      <DependentUpon>OptionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="TaskQueue.cs" />
+    <Page Include="EventItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="API.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EventItem.xaml.cs">
+      <DependentUpon>EventItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Misc\FontChooser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Misc\MarginEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OptionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="assets\Icons\32x32\add.xcf" />
+    <None Include="assets\Icons\32x32\Thumbs.db" />
+    <None Include="assets\Icons\48x48\Mech.1.1x48.xcf" />
+    <None Include="assets\Icons\48x48\Thumbs.db" />
+    <None Include="assets\Icons\64x64\Thumbs.db" />
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\header.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\event-active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\event-inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\tick.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\black-splotch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\MWA.Models\MWA.Models.csproj">
+      <Project>{a1ac9371-0a78-4108-8171-6c02740148cc}</Project>
+      <Name>MWA.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MWAMatchLogger\MatchLogger.csproj">
+      <Project>{8792daf6-f69e-4a39-ba64-fb87ba36745b}</Project>
+      <Name>MatchLogger</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\images\ArenaDynamic.png" />
+    <Resource Include="assets\images\ArenaSimple.png" />
+    <Resource Include="assets\images\ArenaSimple2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\images\favicon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\images\LW_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\images\Bar_y24x240.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\Icons\32x32\add.png" />
+    <Resource Include="assets\Icons\32x32\arrow_left.png" />
+    <Resource Include="assets\Icons\32x32\arrow_right.png" />
+    <Resource Include="assets\Icons\32x32\bank.png" />
+    <Resource Include="assets\Icons\32x32\bar_chart.png" />
+    <Resource Include="assets\Icons\32x32\battery.png" />
+    <Resource Include="assets\Icons\32x32\bridge.png" />
+    <Resource Include="assets\Icons\32x32\briefcase.png" />
+    <Resource Include="assets\Icons\32x32\building.png" />
+    <Resource Include="assets\Icons\32x32\bus_stop.png" />
+    <Resource Include="assets\Icons\32x32\calculator.png" />
+    <Resource Include="assets\Icons\32x32\calendar.png" />
+    <Resource Include="assets\Icons\32x32\calendar_blank.png" />
+    <Resource Include="assets\Icons\32x32\chat.png" />
+    <Resource Include="assets\Icons\32x32\checkmark.png" />
+    <Resource Include="assets\Icons\32x32\church.png" />
+    <Resource Include="assets\Icons\32x32\circle_compass.png" />
+    <Resource Include="assets\Icons\32x32\city_area.png" />
+    <Resource Include="assets\Icons\32x32\clock.png" />
+    <Resource Include="assets\Icons\32x32\coffee_break.png" />
+    <Resource Include="assets\Icons\32x32\compass_rose.png" />
+    <Resource Include="assets\Icons\32x32\computer.png" />
+    <Resource Include="assets\Icons\32x32\courthouse.png" />
+    <Resource Include="assets\Icons\32x32\database.png" />
+    <Resource Include="assets\Icons\32x32\delete.png" />
+    <Resource Include="assets\Icons\32x32\dollar.png" />
+    <Resource Include="assets\Icons\32x32\down_arrow.png" />
+    <Resource Include="assets\Icons\32x32\drawing.png" />
+    <Resource Include="assets\Icons\32x32\email.png" />
+    <Resource Include="assets\Icons\32x32\engineer.png" />
+    <Resource Include="assets\Icons\32x32\engineer_close.png" />
+    <Resource Include="assets\Icons\32x32\engineer_helmet.png" />
+    <Resource Include="assets\Icons\32x32\euro.png" />
+    <Resource Include="assets\Icons\32x32\factory.png" />
+    <Resource Include="assets\Icons\32x32\farm.png" />
+    <Resource Include="assets\Icons\32x32\first_aid_kit.png" />
+    <Resource Include="assets\Icons\32x32\fountain.png" />
+    <Resource Include="assets\Icons\32x32\hill_region.png" />
+    <Resource Include="assets\Icons\32x32\home.png" />
+    <Resource Include="assets\Icons\32x32\home_garden.png" />
+    <Resource Include="assets\Icons\32x32\hospital.png" />
+    <Resource Include="assets\Icons\32x32\house_building.png" />
+    <Resource Include="assets\Icons\32x32\id_card.png" />
+    <Resource Include="assets\Icons\32x32\level.png" />
+    <Resource Include="assets\Icons\32x32\library.png" />
+    <Resource Include="assets\Icons\32x32\lock.png" />
+    <Resource Include="assets\Icons\32x32\mail.png" />
+    <Resource Include="assets\Icons\32x32\map.png" />
+    <Resource Include="assets\Icons\32x32\map_pin.png" />
+    <Resource Include="assets\Icons\32x32\measuring_tape.png" />
+    <Resource Include="assets\Icons\32x32\Mech.png" />
+    <Resource Include="assets\Icons\32x32\men_at_work.png" />
+    <Resource Include="assets\Icons\32x32\monument.png" />
+    <Resource Include="assets\Icons\32x32\mountain_region.png" />
+    <Resource Include="assets\Icons\32x32\museum.png" />
+    <Resource Include="assets\Icons\32x32\neighbourhood.png" />
+    <Resource Include="assets\Icons\32x32\notebook.png" />
+    <Resource Include="assets\Icons\32x32\page.png" />
+    <Resource Include="assets\Icons\32x32\paint_brush_and_palette.png" />
+    <Resource Include="assets\Icons\32x32\park.png" />
+    <Resource Include="assets\Icons\32x32\pencil.png" />
+    <Resource Include="assets\Icons\32x32\phone.png" />
+    <Resource Include="assets\Icons\32x32\photos.png" />
+    <Resource Include="assets\Icons\32x32\pie_chart.png" />
+    <Resource Include="assets\Icons\32x32\post_office.png" />
+    <Resource Include="assets\Icons\32x32\pound.png" />
+    <Resource Include="assets\Icons\32x32\question_mark.png" />
+    <Resource Include="assets\Icons\32x32\rulers.png" />
+    <Resource Include="assets\Icons\32x32\save.png" />
+    <Resource Include="assets\Icons\32x32\screw.png" />
+    <Resource Include="assets\Icons\32x32\search.png" />
+    <Resource Include="assets\Icons\32x32\settings.png" />
+    <Resource Include="assets\Icons\32x32\shopping_cart.png" />
+    <Resource Include="assets\Icons\32x32\smart_phone.png" />
+    <Resource Include="assets\Icons\32x32\star.png" />
+    <Resource Include="assets\Icons\32x32\theatre.png" />
+    <Resource Include="assets\Icons\32x32\tool_box.png" />
+    <Resource Include="assets\Icons\32x32\trash.png" />
+    <Resource Include="assets\Icons\32x32\tube_drawing_holder.png" />
+    <Resource Include="assets\Icons\32x32\under_construction.png" />
+    <Resource Include="assets\Icons\32x32\unlock.png" />
+    <Resource Include="assets\Icons\32x32\up_arrow.png" />
+    <Resource Include="assets\Icons\32x32\usb.png" />
+    <Resource Include="assets\Icons\32x32\video_camera.png" />
+    <Resource Include="assets\Icons\32x32\volume_high.png" />
+    <Resource Include="assets\Icons\32x32\volume_low.png" />
+    <Resource Include="assets\Icons\32x32\warning_sign.png" />
+    <Resource Include="assets\Icons\32x32\wifi.png" />
+    <Resource Include="assets\Icons\32x32\winter_mountain_region.png" />
+    <Resource Include="assets\Icons\32x32\working_gloves.png" />
+    <Resource Include="assets\Icons\32x32\yen.png" />
+    <Resource Include="assets\Icons\48x48\add.png" />
+    <Resource Include="assets\Icons\48x48\arrow_left.png" />
+    <Resource Include="assets\Icons\48x48\arrow_right.png" />
+    <Resource Include="assets\Icons\48x48\bank.png" />
+    <Resource Include="assets\Icons\48x48\bar_chart.png" />
+    <Resource Include="assets\Icons\48x48\battery.png" />
+    <Resource Include="assets\Icons\48x48\bridge.png" />
+    <Resource Include="assets\Icons\48x48\briefcase.png" />
+    <Resource Include="assets\Icons\48x48\building.png" />
+    <Resource Include="assets\Icons\48x48\bus_stop.png" />
+    <Resource Include="assets\Icons\48x48\calculator.png" />
+    <Resource Include="assets\Icons\48x48\calendar.png" />
+    <Resource Include="assets\Icons\48x48\calendar_blank.png" />
+    <Resource Include="assets\Icons\48x48\chat.png" />
+    <Resource Include="assets\Icons\48x48\checkmark.png" />
+    <Resource Include="assets\Icons\48x48\church.png" />
+    <Resource Include="assets\Icons\48x48\circle_compass.png" />
+    <Resource Include="assets\Icons\48x48\city_area.png" />
+    <Resource Include="assets\Icons\48x48\clock.png" />
+    <Resource Include="assets\Icons\48x48\coffee_break.png" />
+    <Resource Include="assets\Icons\48x48\compass_rose.png" />
+    <Resource Include="assets\Icons\48x48\computer.png" />
+    <Resource Include="assets\Icons\48x48\courthouse.png" />
+    <Resource Include="assets\Icons\48x48\database.png" />
+    <Resource Include="assets\Icons\48x48\delete.png" />
+    <Resource Include="assets\Icons\48x48\dollar.png" />
+    <Resource Include="assets\Icons\48x48\down_arrow.png" />
+    <Resource Include="assets\Icons\48x48\drawing.png" />
+    <Resource Include="assets\Icons\48x48\email.png" />
+    <Resource Include="assets\Icons\48x48\engineer.png" />
+    <Resource Include="assets\Icons\48x48\engineer_close.png" />
+    <Resource Include="assets\Icons\48x48\engineer_helmet.png" />
+    <Resource Include="assets\Icons\48x48\euro.png" />
+    <Resource Include="assets\Icons\48x48\factory.png" />
+    <Resource Include="assets\Icons\48x48\farm.png" />
+    <Resource Include="assets\Icons\48x48\first_aid_kit.png" />
+    <Resource Include="assets\Icons\48x48\fountain.png" />
+    <Resource Include="assets\Icons\48x48\hill_region.png" />
+    <Resource Include="assets\Icons\48x48\home.png" />
+    <Resource Include="assets\Icons\48x48\home_garden.png" />
+    <Resource Include="assets\Icons\48x48\hospital.png" />
+    <Resource Include="assets\Icons\48x48\house_building.png" />
+    <Resource Include="assets\Icons\48x48\id_card.png" />
+    <Resource Include="assets\Icons\48x48\level.png" />
+    <Resource Include="assets\Icons\48x48\library.png" />
+    <Resource Include="assets\Icons\48x48\lock.png" />
+    <Resource Include="assets\Icons\48x48\mail.png" />
+    <Resource Include="assets\Icons\48x48\map.png" />
+    <Resource Include="assets\Icons\48x48\map_pin.png" />
+    <Resource Include="assets\Icons\48x48\measuring_tape.png" />
+    <Resource Include="assets\Icons\48x48\men_at_work.png" />
+    <Resource Include="assets\Icons\48x48\monument.png" />
+    <Resource Include="assets\Icons\48x48\mountain_region.png" />
+    <Resource Include="assets\Icons\48x48\museum.png" />
+    <Resource Include="assets\Icons\48x48\neighbourhood.png" />
+    <Resource Include="assets\Icons\48x48\notebook.png" />
+    <Resource Include="assets\Icons\48x48\page.png" />
+    <Resource Include="assets\Icons\48x48\paint_brush_and_palette.png" />
+    <Resource Include="assets\Icons\48x48\park.png" />
+    <Resource Include="assets\Icons\48x48\pencil.png" />
+    <Resource Include="assets\Icons\48x48\phone.png" />
+    <Resource Include="assets\Icons\48x48\photos.png" />
+    <Resource Include="assets\Icons\48x48\pie_chart.png" />
+    <Resource Include="assets\Icons\48x48\post_office.png" />
+    <Resource Include="assets\Icons\48x48\pound.png" />
+    <Resource Include="assets\Icons\48x48\question_mark.png" />
+    <Resource Include="assets\Icons\48x48\rulers.png" />
+    <Resource Include="assets\Icons\48x48\save.png" />
+    <Resource Include="assets\Icons\48x48\screw.png" />
+    <Resource Include="assets\Icons\48x48\search.png" />
+    <Resource Include="assets\Icons\48x48\settings.png" />
+    <Resource Include="assets\Icons\48x48\shopping_cart.png" />
+    <Resource Include="assets\Icons\48x48\smart_phone.png" />
+    <Resource Include="assets\Icons\48x48\star.png" />
+    <Resource Include="assets\Icons\48x48\theatre.png" />
+    <Resource Include="assets\Icons\48x48\tool_box.png" />
+    <Resource Include="assets\Icons\48x48\trash.png" />
+    <Resource Include="assets\Icons\48x48\tube_drawing_holder.png" />
+    <Resource Include="assets\Icons\48x48\under_construction.png" />
+    <Resource Include="assets\Icons\48x48\unlock.png" />
+    <Resource Include="assets\Icons\48x48\up_arrow.png" />
+    <Resource Include="assets\Icons\48x48\usb.png" />
+    <Resource Include="assets\Icons\48x48\video_camera.png" />
+    <Resource Include="assets\Icons\48x48\volume_high.png" />
+    <Resource Include="assets\Icons\48x48\volume_low.png" />
+    <Resource Include="assets\Icons\48x48\warning_sign.png" />
+    <Resource Include="assets\Icons\48x48\wifi.png" />
+    <Resource Include="assets\Icons\48x48\winter_mountain_region.png" />
+    <Resource Include="assets\Icons\48x48\working_gloves.png" />
+    <Resource Include="assets\Icons\48x48\yen.png" />
+    <Resource Include="assets\Icons\64x64\add.png" />
+    <Resource Include="assets\Icons\64x64\arrow_left.png" />
+    <Resource Include="assets\Icons\64x64\arrow_right.png" />
+    <Resource Include="assets\Icons\64x64\bank.png" />
+    <Resource Include="assets\Icons\64x64\bar_chart.png" />
+    <Resource Include="assets\Icons\64x64\battery.png" />
+    <Resource Include="assets\Icons\64x64\bridge.png" />
+    <Resource Include="assets\Icons\64x64\briefcase.png" />
+    <Resource Include="assets\Icons\64x64\building.png" />
+    <Resource Include="assets\Icons\64x64\bus_stop.png" />
+    <Resource Include="assets\Icons\64x64\calculator.png" />
+    <Resource Include="assets\Icons\64x64\calendar.png" />
+    <Resource Include="assets\Icons\64x64\calendar_blank.png" />
+    <Resource Include="assets\Icons\64x64\chat.png" />
+    <Resource Include="assets\Icons\64x64\checkmark.png" />
+    <Resource Include="assets\Icons\64x64\church.png" />
+    <Resource Include="assets\Icons\64x64\circle_compass.png" />
+    <Resource Include="assets\Icons\64x64\city_area.png" />
+    <Resource Include="assets\Icons\64x64\clock.png" />
+    <Resource Include="assets\Icons\64x64\coffee_break.png" />
+    <Resource Include="assets\Icons\64x64\compass_rose.png" />
+    <Resource Include="assets\Icons\64x64\computer.png" />
+    <Resource Include="assets\Icons\64x64\courthouse.png" />
+    <Resource Include="assets\Icons\64x64\database.png" />
+    <Resource Include="assets\Icons\64x64\delete.png" />
+    <Resource Include="assets\Icons\64x64\dollar.png" />
+    <Resource Include="assets\Icons\64x64\down_arrow.png" />
+    <Resource Include="assets\Icons\64x64\drawing.png" />
+    <Resource Include="assets\Icons\64x64\email.png" />
+    <Resource Include="assets\Icons\64x64\engineer.png" />
+    <Resource Include="assets\Icons\64x64\engineer_close.png" />
+    <Resource Include="assets\Icons\64x64\engineer_helmet.png" />
+    <Resource Include="assets\Icons\64x64\euro.png" />
+    <Resource Include="assets\Icons\64x64\factory.png" />
+    <Resource Include="assets\Icons\64x64\farm.png" />
+    <Resource Include="assets\Icons\64x64\first_aid_kit.png" />
+    <Resource Include="assets\Icons\64x64\fountain.png" />
+    <Resource Include="assets\Icons\64x64\hill_region.png" />
+    <Resource Include="assets\Icons\64x64\home.png" />
+    <Resource Include="assets\Icons\64x64\home_garden.png" />
+    <Resource Include="assets\Icons\64x64\hospital.png" />
+    <Resource Include="assets\Icons\64x64\house_building.png" />
+    <Resource Include="assets\Icons\64x64\id_card.png" />
+    <Resource Include="assets\Icons\64x64\level.png" />
+    <Resource Include="assets\Icons\64x64\library.png" />
+    <Resource Include="assets\Icons\64x64\lock.png" />
+    <Resource Include="assets\Icons\64x64\mail.png" />
+    <Resource Include="assets\Icons\64x64\map.png" />
+    <Resource Include="assets\Icons\64x64\map_pin.png" />
+    <Resource Include="assets\Icons\64x64\measuring_tape.png" />
+    <Resource Include="assets\Icons\64x64\men_at_work.png" />
+    <Resource Include="assets\Icons\64x64\monument.png" />
+    <Resource Include="assets\Icons\64x64\mountain_region.png" />
+    <Resource Include="assets\Icons\64x64\museum.png" />
+    <Resource Include="assets\Icons\64x64\neighbourhood.png" />
+    <Resource Include="assets\Icons\64x64\notebook.png" />
+    <Resource Include="assets\Icons\64x64\page.png" />
+    <Resource Include="assets\Icons\64x64\paint_brush_and_palette.png" />
+    <Resource Include="assets\Icons\64x64\park.png" />
+    <Resource Include="assets\Icons\64x64\pencil.png" />
+    <Resource Include="assets\Icons\64x64\phone.png" />
+    <Resource Include="assets\Icons\64x64\photos.png" />
+    <Resource Include="assets\Icons\64x64\pie_chart.png" />
+    <Resource Include="assets\Icons\64x64\post_office.png" />
+    <Resource Include="assets\Icons\64x64\pound.png" />
+    <Resource Include="assets\Icons\64x64\question_mark.png" />
+    <Resource Include="assets\Icons\64x64\rulers.png" />
+    <Resource Include="assets\Icons\64x64\save.png" />
+    <Resource Include="assets\Icons\64x64\screw.png" />
+    <Resource Include="assets\Icons\64x64\search.png" />
+    <Resource Include="assets\Icons\64x64\settings.png" />
+    <Resource Include="assets\Icons\64x64\shopping_cart.png" />
+    <Resource Include="assets\Icons\64x64\smart_phone.png" />
+    <Resource Include="assets\Icons\64x64\star.png" />
+    <Resource Include="assets\Icons\64x64\theatre.png" />
+    <Resource Include="assets\Icons\64x64\tool_box.png" />
+    <Resource Include="assets\Icons\64x64\trash.png" />
+    <Resource Include="assets\Icons\64x64\tube_drawing_holder.png" />
+    <Resource Include="assets\Icons\64x64\under_construction.png" />
+    <Resource Include="assets\Icons\64x64\unlock.png" />
+    <Resource Include="assets\Icons\64x64\up_arrow.png" />
+    <Resource Include="assets\Icons\64x64\usb.png" />
+    <Resource Include="assets\Icons\64x64\video_camera.png" />
+    <Resource Include="assets\Icons\64x64\volume_high.png" />
+    <Resource Include="assets\Icons\64x64\volume_low.png" />
+    <Resource Include="assets\Icons\64x64\warning_sign.png" />
+    <Resource Include="assets\Icons\64x64\wifi.png" />
+    <Resource Include="assets\Icons\64x64\winter_mountain_region.png" />
+    <Resource Include="assets\Icons\64x64\working_gloves.png" />
+    <Resource Include="assets\Icons\64x64\yen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\Icons\24x24\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\Icons\16x16\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\images\mapback.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\Assemblies\Newtonsoft.Json.dll" />
+    <Resource Include="favicon.ico" />
+    <Resource Include="assets\Icons\16x16\Imgur.png" />
+    <Resource Include="assets\Icons\16x16\MWO_icon.png" />
+    <Resource Include="assets\Icons\16x16\MWS_icon.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <Import Project="..\..\..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

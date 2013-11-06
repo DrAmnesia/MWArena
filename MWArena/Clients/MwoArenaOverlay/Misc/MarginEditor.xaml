@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="GW2Stuff.MarginEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Height="74" Width="110" MaxHeight="74" MaxWidth="110" MinHeight="74" MinWidth="110">
+    <Grid Margin="0,0,0,0">
+		<Rectangle Fill="#FFF4F4F5" Stroke="#FF323232"/>
+		<TextBox x:Name="bottomMargin" HorizontalAlignment="Left" Height="24" Margin="37,47,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="36" HorizontalContentAlignment="Center" MaxLength="2" Padding="0" VerticalContentAlignment="Center" LostFocus="bottomMargin_LostFocus"/>
+		<TextBox x:Name="topMargin" HorizontalAlignment="Left" Height="22" Margin="37,3,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="36" HorizontalContentAlignment="Center" MaxLength="2" Padding="0" VerticalContentAlignment="Center" LostFocus="topMargin_LostFocus"/>
+		<TextBox x:Name="leftMargin" HorizontalAlignment="Left" Height="22" Margin="3,25,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="34" HorizontalContentAlignment="Center" MaxLength="2" Padding="0" VerticalContentAlignment="Center" LostFocus="leftMargin_LostFocus"/>
+		<TextBox x:Name="rightMargin" HorizontalAlignment="Left" Height="22" Margin="73,25,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="34" HorizontalContentAlignment="Center" MaxLength="2" Padding="0" VerticalContentAlignment="Center" LostFocus="rightMargin_LostFocus"/>
+
+	</Grid>
+</UserControl>

@@ -17,11 +17,14 @@ namespace MWA.MatchLoggerTester
     public partial class TestingForm : Form
     {
         public MatchStat match;
+      
         public SampleTrackable MwoATrackable;
         public TestingForm()
         {
             InitializeComponent();
             
+            string testername = (tbPilotName.Text == null || tbPilotName.Text == "") ? "TestPilot" : tbPilotName.Text;
+ 
             tbInfo.AppendText("Log file is set in MwoALogWarriorTester.exe.config." + System.Environment.NewLine + "Check the Windows.Application Event Log and/or the log file for debug information.");
             Guid t = System.Guid.NewGuid();
             Status s = new Status();
@@ -62,6 +65,9 @@ namespace MWA.MatchLoggerTester
             tbMatch.AppendText(Environment.NewLine + s);
             tbMatch.AppendText(Environment.NewLine + MwoATrackable.Status.StatusText);
             tbLogs.Text = MwoATrackable.Status.ToString();
+            string testername = (tbPilotName.Text == null || tbPilotName.Text == "") ? "TestPilot" : tbPilotName.Text;
+            MatchLogger.MatchLogger.SetPlayerName(testername);
+            tbApiUrl.Text = MatchLogger.MatchLogger.GetApiUrl();
             MwoATrackable.PublishStatus();
         }
 
@@ -72,7 +78,9 @@ namespace MWA.MatchLoggerTester
 
             try
             {
-                string testername = (tbPilotName.Text== null ||tbPilotName.Text == "")? "TestPilot": tbPilotName.Text;
+                string testername = (tbPilotName.Text == null || tbPilotName.Text == "") ? "TestPilot" : tbPilotName.Text;
+                MatchLogger.MatchLogger.SetPlayerName(testername);
+                tbApiUrl.Text = MatchLogger.MatchLogger.GetApiUrl();
                 MwoATrackable.Status.Update(Codes.CONTINUE,
                                             String.Format("Creating test match for pilot: {0}", testername));
                 int dmg = 1000000;
@@ -99,8 +107,8 @@ namespace MWA.MatchLoggerTester
                 string matchinfo = String.Format("Sending Match... Pilot:{0}, Mech:{1}, Damage:{2}, Time:{3}",
                                                  match.name, match.mech, match.damage, match.time);
                 MwoATrackable.Status.Update(Codes.CONTINUE, matchinfo);
-                MatchLogger.MatchLogger.SetPlayerName(tbPilotName.Text);
-                MatchLogger.MatchLogger.httpPostMatchMetricTest(match);
+ 
+                MatchLogger.MatchLogger.httpPostMatchMetric(match);
   
                 MwoATrackable.Status.Update(Codes.SUCCESS, "Match sent, contact DrAmnesia for confirmation.");
             }
@@ -120,6 +128,44 @@ namespace MWA.MatchLoggerTester
 
         private void tbPilotName_Enter(object sender, EventArgs e) { if (tbPilotName.Text == "Your Pilot Name") tbPilotName.Text = ""; }
 
-        
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+            try
+            {
+                string testername = (tbPilotName.Text == null || tbPilotName.Text == "") ? "TestPilot" : tbPilotName.Text;
+                MatchLogger.MatchLogger.SetPlayerName(testername);
+                tbApiUrl.Text = MatchLogger.MatchLogger.GetApiUrl("LoggedMatch");
+                MwoATrackable.Status.Update(Codes.CONTINUE,
+                                            String.Format("Creating test match for pilot: {0}", testername));
+ 
+                LoggedMatch lm = new LoggedMatch();
+                lm.AssociationName = "TEST";
+                lm.PublishingUserName = "DrAmnesia";
+                lm.LoadTestMatchStats("lavaworld");
+                MatchLogger.MatchLogger.httpPostLoggedMatch(lm);
+                string matchinfo = String.Format("Sending Full LoggedMatch... Pilot:{0}, Association:{1}",testername,
+                                                 lm.AssociationName);
+                MwoATrackable.Status.Update(Codes.CONTINUE, matchinfo);
+   
+  
+                MwoATrackable.Status.Update(Codes.SUCCESS, "LoggedMatch sent, contact DrAmnesia for confirmation.");
+            }
+            catch (Exception ex)
+            {
+                MwoATrackable.Status.FromException(ex);
+            }
+            finally
+            {
+                string s = Environment.NewLine + MwoATrackable.Status.CurrentStatusEntry.Message;
+                tbMatch.AppendText(Environment.NewLine + s);
+                tbMatch.AppendText(Environment.NewLine + MwoATrackable.Status.StatusText);
+                tbLogs.Text = MwoATrackable.Status.ToString();
+                MwoATrackable.PublishStatus();
+            }
+        }
+
+  
     }
+     
 }

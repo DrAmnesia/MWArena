@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MatchLogger")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("MWAMatchLogger")]
+[assembly: AssemblyDescription("A Logwarrior MatchLogger for MWApis")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MatchLogger")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCompany("MWA")]
+[assembly: AssemblyProduct("MWAMatchLogger")]
+[assembly: AssemblyCopyright("Copyright © Tilt and DrAmnesia  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

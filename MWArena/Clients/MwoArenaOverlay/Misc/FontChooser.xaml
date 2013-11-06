@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="GW2Stuff.FontChooser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:System="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" Width="430">
+    <Grid Margin="5">
+		<ComboBox x:Name="fontFace" Height="23" Margin="0,0,161,0" VerticalAlignment="Top"/>
+		<ComboBox x:Name="fontSize" Height="23" Margin="0,0,89,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="67">
+			<System:String>8</System:String>
+			<System:String>9</System:String>
+			<System:String>10</System:String>
+			<System:String>11</System:String>
+			<System:String>12</System:String>
+			<System:String>13</System:String>
+			<System:String>14</System:String>
+			<System:String>15</System:String>
+			<System:String>16</System:String>
+		</ComboBox>
+		<ComboBox Height="23" VerticalAlignment="Top" HorizontalAlignment="Right" Width="84" IsReadOnly="True" IsTextSearchEnabled="False" SelectedIndex="0">
+			<Button Content="Style" Visibility="Collapsed"/>
+			<CheckBox x:Name="fontBold" Content="Bold"/>
+			<CheckBox x:Name="fontUnderline" Content="Underline"/>
+			<CheckBox x:Name="fontItalic" Content="Italic"/>
+		</ComboBox>
+		<TextBox x:Name="fontColour" HorizontalAlignment="Right" Height="23" Margin="0,28,77,0" TextWrapping="Wrap" Text="FFFFFFFF" VerticalAlignment="Top" Width="72" CharacterCasing="Upper" LostFocus="fontColour_LostFocus" FontFamily="Courier New" VerticalContentAlignment="Center"/>
+		<TextBox x:Name="shadowColour" Height="23" Margin="0,28,0,0" TextWrapping="Wrap" Text="000000FF" VerticalAlignment="Top" CharacterCasing="Upper" HorizontalAlignment="Right" Width="72" LostFocus="shadowColour_LostFocus" FontFamily="Courier New" VerticalContentAlignment="Center"/>
+		<Label Content="Font / Shadow Colour (RGBA):" HorizontalAlignment="Right" Height="23" Margin="0,28,154,0" VerticalAlignment="Top" Width="204" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="5,0"/>
+	</Grid>
+</UserControl>

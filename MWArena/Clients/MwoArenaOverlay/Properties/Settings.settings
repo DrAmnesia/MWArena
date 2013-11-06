@@ -1,0 +1,117 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GW2Stuff.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="activeEventTitleFont" Type="GW2Stuff.FontSettings" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="activeEventStatusFont" Type="GW2Stuff.FontSettings" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="activeEventTimerFont" Type="GW2Stuff.FontSettings" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="activeEventBackgroundImage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">active</Value>
+    </Setting>
+    <Setting Name="activeEventBackgroundOpacity" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="inactiveEventTitleFont" Type="GW2Stuff.FontSettings" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="inactiveEventStatusFont" Type="GW2Stuff.FontSettings" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="inactiveEventTimerFont" Type="GW2Stuff.FontSettings" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="inactiveEventBackgroundImage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">inactive</Value>
+    </Setting>
+    <Setting Name="inactiveEventBackgroundOpacity" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.6</Value>
+    </Setting>
+    <Setting Name="windowEventTitleFont" Type="GW2Stuff.FontSettings" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="windowEventStatusFont" Type="GW2Stuff.FontSettings" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="windowEventTimerFont" Type="GW2Stuff.FontSettings" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="windowEventBackgroundImage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">inactive</Value>
+    </Setting>
+    <Setting Name="windowEventBackgroundOpacity" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="hideTitleInGame" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="activeEventMargins" Type="System.Windows.Thickness" Scope="User">
+      <Value Profile="(Default)">10,5,10,20</Value>
+    </Setting>
+    <Setting Name="inactiveEventMargins" Type="System.Windows.Thickness" Scope="User">
+      <Value Profile="(Default)">10,5,10,20</Value>
+    </Setting>
+    <Setting Name="windowEventMargins" Type="System.Windows.Thickness" Scope="User">
+      <Value Profile="(Default)">10,5,10,20</Value>
+    </Setting>
+    <Setting Name="defaultWorldId" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="clickThroughInGame" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="language" Type="System.String" Scope="User">
+      <Value Profile="(Default)">en</Value>
+    </Setting>
+    <Setting Name="filterAssociation" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="filterShowBuilds" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="filterEventInactive" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="filterEventBoss" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="filterEventTemple" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="positionLeft" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="positionTop" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="positionWidth" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="positionHeight" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="dailyCompletionTime" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="dailyCompletionList" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="UserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PILOT NAME</Value>
+    </Setting>
+    <Setting Name="Faction" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Merc Corps</Value>
+    </Setting>
+    <Setting Name="Company" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Association" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PUG</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

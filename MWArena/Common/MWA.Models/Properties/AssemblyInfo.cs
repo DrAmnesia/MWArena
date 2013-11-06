@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MWA.Models")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Classes used for  MWAPIs custom Mech Warrior API")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MWA.Models")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCompany("MWAPIs")]
+[assembly: AssemblyProduct("MechWarrior API Object Model")]
+[assembly: AssemblyCopyright("Copyright ©  MWAPIs   2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

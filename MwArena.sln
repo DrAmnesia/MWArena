@@ -25,6 +25,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MWArenaWeb", "MWArena\Web\M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MWArenaWeb.Tests", "MWArena\Web\MWArenaWeb.Tests\MWArenaWeb.Tests.csproj", "{726464C2-0DAB-46AA-957D-E0994741E927}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Icons", "Icons", "{0EA1F47C-5BCC-43AA-B262-4239CD4CC76A}"
+	ProjectSection(SolutionItems) = preProject
+		MWArena\Assets\Icons\MWAML.ico = MWArena\Assets\Icons\MWAML.ico
+		MWArena\Assets\Icons\settings.ico = MWArena\Assets\Icons\settings.ico
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MWOverlay", "MWArena\Clients\MwoArenaOverlay\MWOverlay.csproj", "{B4902775-731E-4C56-BBD4-F156FE0BFFF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchCompletedPublishingTestForm", "MatchCompletedPublishingTestForm\MatchCompletedPublishingTestForm.csproj", "{75E53D89-A5DE-4210-949B-E515F309B8AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +65,14 @@ Global
 		{726464C2-0DAB-46AA-957D-E0994741E927}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{726464C2-0DAB-46AA-957D-E0994741E927}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{726464C2-0DAB-46AA-957D-E0994741E927}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4902775-731E-4C56-BBD4-F156FE0BFFF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4902775-731E-4C56-BBD4-F156FE0BFFF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4902775-731E-4C56-BBD4-F156FE0BFFF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4902775-731E-4C56-BBD4-F156FE0BFFF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75E53D89-A5DE-4210-949B-E515F309B8AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75E53D89-A5DE-4210-949B-E515F309B8AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75E53D89-A5DE-4210-949B-E515F309B8AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75E53D89-A5DE-4210-949B-E515F309B8AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,5 +84,7 @@ Global
 		{8792DAF6-F69E-4A39-BA64-FB87BA36745B} = {C278FE3A-B801-4DAB-A676-01CFF18EEA89}
 		{FAF945A8-760A-4E6B-9FA5-7E67834606F8} = {C278FE3A-B801-4DAB-A676-01CFF18EEA89}
 		{19629E7C-0A72-4952-A02C-7BF0C8E8D83D} = {C278FE3A-B801-4DAB-A676-01CFF18EEA89}
+		{B4902775-731E-4C56-BBD4-F156FE0BFFF7} = {C278FE3A-B801-4DAB-A676-01CFF18EEA89}
+		{0EA1F47C-5BCC-43AA-B262-4239CD4CC76A} = {F774BD93-1C57-4B83-8AD8-1AE38A235444}
 	EndGlobalSection
 EndGlobal
