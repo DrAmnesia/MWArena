@@ -1,0 +1,3 @@
+GW2Stuff Overlay license:
+
+I provide the source code for review purposes. You may compile it, and even make changes for PERSONAL USE. You may not redistribute the source or binaries (modified or otherwise) under any circumstances.
