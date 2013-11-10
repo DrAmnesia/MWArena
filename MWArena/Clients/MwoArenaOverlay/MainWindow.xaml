@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:GW2Stuff" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:GW2Stuff.Properties"
     x:Name="MWAOverlay" mc:Ignorable="d" x:Class="GW2Stuff.MainWindow"
-        Title="GW2 Stuff" Width="320" AllowsTransparency="true" WindowStyle="None" IsHitTestVisible="True" MinHeight="440" MinWidth="320" MaxHeight="480"  BorderThickness="3" Background="Transparent" MaxWidth="800" Icon="Resources/icon.ico" UseLayoutRounding="True" Topmost="True" Closed="Window_Closed_1" Loaded="Window_Loaded" d:DesignHeight="420" Height="420" VerticalAlignment="Top">
+        Title="GW2 Stuff" Width="320" AllowsTransparency="false" WindowStyle="None" IsHitTestVisible="True" MinHeight="440" MinWidth="320" MaxHeight="480"  BorderThickness="3" Background="Transparent" MaxWidth="800" Icon="Resources/icon.ico" UseLayoutRounding="True" Topmost="True" Closed="Window_Closed_1" Loaded="Window_Loaded" d:DesignHeight="420" Height="420" VerticalAlignment="Top">
     <Window.Resources>
         <Style x:Key="Flat">
             <Setter Property="Control.Background" Value="{x:Null}" />
@@ -108,7 +108,7 @@
         <ItemsControl x:Name="eventContainer" Margin="2,0,6,10" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" SizeChanged="eventContainer_SizeChanged" Grid.Row="2" BorderThickness="3">
             <Grid Margin="0,0,10,0" Height="110">
                 <Label  Foreground="#FF000942" FontWeight="Bold" FontSize="14" Padding="2,0,2,2" Grid.Column="0" Margin="15,10" ToolTip="Info Panel">
-                    <TextBlock x:Name="InfoBlock" Text="Monitor your match statistics and skill progress. Watch the community drop deck trends and contribute to the MWA community statistics library," TextWrapping="Wrap" Margin="0,0,0,0" Height="94" Width="272" Background="Transparent" />
+                    <TextBlock x:Name="InfoBlock" Text="Monitor your match statistics and skill progress. Watch the community drop deck trends and contribute to the MWA community statistics library," TextWrapping="Wrap" Margin="0,0,0,0" Height="94" Width="272" Background="Transparent" Foreground="#FFB8BEE4" />
                 </Label>
             </Grid>
         </ItemsControl>
@@ -130,7 +130,7 @@
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
-        <WebBrowser HorizontalAlignment="Left" Height="250" Margin="0,2,0,0" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" Width="314" x:Name="MainBrowser" Opacity="100" IsEnabled="True" OpacityMask="White"  Source="http://mwoarenaapidemo.azurewebsites.net/duels.html"/>
+        <WebBrowser HorizontalAlignment="Left" Height="250" Margin="0,2,0,0" Grid.Row="1" Grid.RowSpan="2" Visibility="Hidden" VerticalAlignment="Top" Width="314" x:Name="MainBrowser" Opacity="100" IsEnabled="True" OpacityMask="White"  Source="http://mwoarenaapidemo.azurewebsites.net/duels.html"/>
 
         <Button x:Name="btnApiConn" HorizontalAlignment="Right" Margin="0,1,36,1" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnApiConn_MouseEnter" Padding="-4"  MouseLeave="btnApiConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Click="btnApiConn_Click" Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White">
             <StackPanel HorizontalAlignment="Center">
@@ -147,7 +147,7 @@
         </Button>
         <Button x:Name="btnBuildConn" HorizontalAlignment="Right" Margin="0,1,86,1" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnBuildConn_MouseEnter" Padding="-4"  MouseLeave="btnBuildConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent"   Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White" Click="btnBuildConn_Click">
             <StackPanel HorizontalAlignment="Center">
-                <Image x:Name="imgBuildConn" Source="assets\Icons\16x16\MWS_icon.png" Opacity="0.4"    Height="16" Width="16" />
+                <Image x:Name="imgBuildConn" Source="assets\Icons\32x32\bar_chart.png" Opacity="0.5"    Height="16" Width="16" />
                 <Rectangle x:Name="tbBuildStatus" HorizontalAlignment="Center"   Width="16" Height="3" VerticalAlignment="Center" Margin="0,1" Fill="DimGray"/>
             </StackPanel>
         </Button>

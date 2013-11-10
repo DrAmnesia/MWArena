@@ -17,9 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/// <summary>
-/// The Models namespace.
-/// </summary>
+/// <summary> The Models namespace. </summary>
 namespace MWA.Models
 {
 
@@ -605,6 +603,17 @@ namespace MWA.Models
         public Association Association { get; set; }
 
         public Map Map { get; set; }
+
+        public int Victor { get; set; }
+        public string VictoryType { get; set; }
+        public string MatchType { get; set; }
+        public string EnemyCommanderName { get; set; }
+        public int? EnemyCommanderId { get; set; }
+        public int? EnemyTeamId { get; set; }
+        public string FriendlyCommanderName { get; set; }
+        public int? FriendlyCommanderId { get; set; }
+        public int? FriendlyTeamId { get; set; }
+
     }
 
     /// <summary>
@@ -661,6 +670,11 @@ namespace MWA.Models
         /// </summary>
         /// <value>The name of the association.</value>
         public string AssociationName { get; set; }
+
+        public string Assoc { get; set; }
+
+        public string IconUrl { get; set; }
+     
     }
 
     /// <summary>
@@ -749,6 +763,165 @@ namespace MWA.Models
         public string UserName { get; set; }
     }
 
+    public partial class MechLoadout
+    {
+        public int Id { get; set; }
+        public string Content { get; set; }
+        public string Name { get; set; }
+        public string ChassisName { get; set; }
+        public string VariantName { get; set; }
+        public string UserName { get; set; }
+        public Nullable<int> UserProfileId { get; set; }
+        public Nullable<int> ChassisId { get; set; }
+
+        public virtual UserProfile UserProfile { get; set; }
+    }
+    public partial class UserProfile
+    {
+        public UserProfile()
+        {
+            this.MechLoadouts = new HashSet<MechLoadout>();
+        }
+
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string PilotImage { get; set; }
+        public int RankId { get; set; }
+        public string RankName { get; set; }
+        public int LanceId { get; set; }
+        public string LanceName { get; set; }
+        public int CompanyId { get; set; }
+        public string CompanyName { get; set; }
+        public int FactionId { get; set; }
+        public string FactionName { get; set; }
+
+        public virtual ICollection<MechLoadout> MechLoadouts { get; set; }
+    }
+    /******* Views ****************************************************/
+    public partial class vwVariantAssocMetric
+    {
+        public int vwVariantAssocMetricId { get; set; }
+        public int ChassisId { get; set; }
+        public string WeightClass { get; set; }
+        public int Tonnage { get; set; }
+        public string ChassisName { get; set; }
+        public string BaseVariantName { get; set; }
+        public string AssociationName { get; set; }
+        public string Assoc { get; set; }
+        public string iconUrl { get; set; }
+        public Nullable<int> matches { get; set; }
+        public Nullable<int> WinPerc { get; set; }
+        public Nullable<decimal> KDR { get; set; }
+        public Nullable<decimal> DmgPM { get; set; }
+        public Nullable<decimal> KPM { get; set; }
+        public Nullable<decimal> DPM { get; set; }
+        public Nullable<decimal> wins { get; set; }
+        public Nullable<decimal> losses { get; set; }
+        public Nullable<int> deaths { get; set; }
+        public Nullable<int> kills { get; set; }
+    }
+   
+    public partial class vwVariantAssocMapMetric
+    {
+        public  int  id { get; set; }
+        public int ChassisId { get; set; }
+        public string WeightClass { get; set; }
+        public int Tonnage { get; set; }
+        public string ChassisName { get; set; }
+        public string BaseVariantName { get; set; }
+        public string AssociationName { get; set; }
+        public string MapName { get; set; }
+        public string Assoc { get; set; }
+        public string iconUrl { get; set; }
+        public string MapIconUrl { get; set; }
+        public Nullable<int> matches { get; set; }
+        public Nullable<int> WinPerc { get; set; }
+        public Nullable<decimal> KDR { get; set; }
+        public Nullable<decimal> DmgPM { get; set; }
+        public Nullable<decimal> KPM { get; set; }
+        public Nullable<decimal> DPM { get; set; }
+        public Nullable<decimal> wins { get; set; }
+        public Nullable<decimal> losses { get; set; }
+        public Nullable<int> deaths { get; set; }
+        public Nullable<int> kills { get; set; }
+    }
+    public partial class vwMatchDropDeckMetric
+    {
+        public int MatchDropId { get; set; }
+        public string MatchHash { get; set; }
+        public string AssociationName { get; set; }
+        public string MapName { get; set; }
+        public string name { get; set; }
+        public string mech { get; set; }
+        public int damage { get; set; }
+        public bool PublishingUserName { get; set; }
+        public int MwoAMatchMetricId { get; set; }
+        public int Tonnage { get; set; }
+        public int Expr1 { get; set; }
+        public int victory { get; set; }
+        public string matchType { get; set; }
+        public string victoryType { get; set; }
+        public string team { get; set; }
+    }
+    public partial class vwVariantMatchStatsSummary
+    {
+        public Nullable<int> matches { get; set; }
+        public string WeightClass { get; set; }
+        public int Tonnage { get; set; }
+        public string ChassisName { get; set; }
+        public string BaseVariantName { get; set; }
+        public Nullable<int> WinPerc { get; set; }
+        public Nullable<decimal> KDR { get; set; }
+        public Nullable<decimal> DmgPM { get; set; }
+        public Nullable<decimal> KPM { get; set; }
+        public Nullable<decimal> DPM { get; set; }
+        public Nullable<decimal> wins { get; set; }
+        public Nullable<decimal> losses { get; set; }
+        public Nullable<int> deaths { get; set; }
+        public Nullable<int> kills { get; set; }
+    }
+    public partial class vwWeightClassMatchStatsSummary
+    {
+        public Nullable<int> matches { get; set; }
+        public string WeightClass { get; set; }
+        public Nullable<int> tonnage { get; set; }
+        public string mech { get; set; }
+        public Nullable<int> WinPerc { get; set; }
+        public Nullable<decimal> KDR { get; set; }
+        public Nullable<decimal> DmgPM { get; set; }
+        public Nullable<decimal> KPM { get; set; }
+        public Nullable<decimal> DPM { get; set; }
+        public Nullable<decimal> wins { get; set; }
+        public Nullable<decimal> losses { get; set; }
+        public Nullable<int> deaths { get; set; }
+        public Nullable<int> kills { get; set; }
+    }
+ /****** for testing *************************************************/
+    public partial class MwoAMatchMetrics_import
+    {
+        public int MwoAMatchMetrics_importId { get; set; }
+        public string time { get; set; }
+        public string level { get; set; }
+        public int victory { get; set; }
+        public string victoryType { get; set; }
+        public string matchType { get; set; }
+        public string team { get; set; }
+        public string name { get; set; }
+        public string mech { get; set; }
+        public int status { get; set; }
+        public int matchscore { get; set; }
+        public int kills { get; set; }
+        public int assists { get; set; }
+        public int damage { get; set; }
+        public int ping { get; set; }
+        public int lance { get; set; }
+        public string AssociationName { get; set; }
+        public int AssociationId { get; set; }
+        public int PublishFlag { get; set; }
+        public bool PublishingUserName { get; set; }
+        public string MatchHash { get; set; }
+    }
 }
 
 

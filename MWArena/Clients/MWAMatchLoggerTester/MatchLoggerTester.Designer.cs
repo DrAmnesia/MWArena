@@ -96,7 +96,6 @@
             this.btnMatchSend.TabIndex = 5;
             this.btnMatchSend.Text = "Send";
             this.btnMatchSend.UseVisualStyleBackColor = true;
-            this.btnMatchSend.Click += new System.EventHandler(this.btnMatchSend_Click);
             // 
             // tbMatch
             // 
@@ -187,8 +186,13 @@
             this.label7.Size = new System.Drawing.Size(40, 13);
             this.label7.TabIndex = 15;
             this.label7.Text = "API Url";
-        
- 
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(0, 0);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 18;
             // 
             // label8
             // 

@@ -16,7 +16,7 @@ namespace MWA.Models
         }
          * */
 
-        public static MatchDrop GetLoggedMatchDrop(this LoggedMatch value, MwoADbContext db)
+        public static MatchDrop GetLoggedMatchDrop(this MatchLogger.MatchLogger.LoggedMatch value, MwoADbContext db)
         {       
                 
                 List<String> friendlyMechs = value.FriendlyMatchStats.Select(f => f.mech).OrderBy(m => m).ToList();
@@ -307,6 +307,15 @@ namespace MWA.Models
         static int keyCompare(KeyValuePair<int, string> a, KeyValuePair<int, string> b)
         {
             return a.Key.CompareTo(b.Key);
+        }
+
+        public static string CalcMatchHash(this MwoAMatchMetrics_import ms)
+        {
+            string matchHash = String.Empty;
+           
+                matchHash = String.Format("{0}{1}{2}{3}{4}:0-0", System.DateTime.UtcNow.Year,
+                    System.DateTime.UtcNow.DayOfYear, ms.level,ms.matchType,ms.victoryType );
+            return matchHash;
         }
     }
 }

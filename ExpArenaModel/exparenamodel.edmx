@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ExpArenaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MechLoadout">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="varchar(max)" />
+          <Property Name="Name" Type="varchar" MaxLength="255" />
+          <Property Name="ChassisName" Type="varchar" MaxLength="255" />
+          <Property Name="VariantName" Type="varchar" MaxLength="255" />
+          <Property Name="UserName" Type="varchar" MaxLength="255" />
+          <Property Name="UserProfileId" Type="int" />
+          <Property Name="ChassisId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="PilotImage" Type="nvarchar(max)" />
+          <Property Name="RankId" Type="int" Nullable="false" />
+          <Property Name="RankName" Type="nvarchar(max)" />
+          <Property Name="LanceId" Type="int" Nullable="false" />
+          <Property Name="LanceName" Type="nvarchar(max)" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar(max)" />
+          <Property Name="FactionId" Type="int" Nullable="false" />
+          <Property Name="FactionName" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ExpArena.dbo.vwMatchMetrics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwMatchMetrics">
+          <Key>
+            <PropertyRef Name="victory" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="matchscore" />
+            <PropertyRef Name="kills" />
+            <PropertyRef Name="assists" />
+            <PropertyRef Name="damage" />
+            <PropertyRef Name="ping" />
+            <PropertyRef Name="lance" />
+            <PropertyRef Name="AssociationId" />
+            <PropertyRef Name="PublishFlag" />
+            <PropertyRef Name="PublishingUserName" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Tonnage" />
+            <PropertyRef Name="ChassisId" />
+          </Key>
+          <Property Name="vwMatchMetricId" Type="int" />
+          <Property Name="time" Type="nvarchar(max)" />
+          <Property Name="level" Type="nvarchar(max)" />
+          <Property Name="victory" Type="int" Nullable="false" />
+          <Property Name="victoryType" Type="nvarchar(max)" />
+          <Property Name="matchType" Type="nvarchar(max)" />
+          <Property Name="team" Type="nvarchar(max)" />
+          <Property Name="name" Type="nvarchar(max)" />
+          <Property Name="mech" Type="nvarchar(max)" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="matchscore" Type="int" Nullable="false" />
+          <Property Name="kills" Type="int" Nullable="false" />
+          <Property Name="assists" Type="int" Nullable="false" />
+          <Property Name="damage" Type="int" Nullable="false" />
+          <Property Name="ping" Type="int" Nullable="false" />
+          <Property Name="lance" Type="int" Nullable="false" />
+          <Property Name="AssociationName" Type="nvarchar(max)" />
+          <Property Name="AssociationId" Type="int" Nullable="false" />
+          <Property Name="PublishFlag" Type="int" Nullable="false" />
+          <Property Name="PublishingUserName" Type="bit" Nullable="false" />
+          <Property Name="MatchHash" Type="nvarchar(max)" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="PilotImage" Type="nvarchar(max)" />
+          <Property Name="LanceName" Type="nvarchar(max)" />
+          <Property Name="CompanyName" Type="nvarchar(max)" />
+          <Property Name="FactionName" Type="nvarchar(max)" />
+          <Property Name="ChassisName" Type="nvarchar(max)" />
+          <Property Name="VariantName" Type="nvarchar(max)" />
+          <Property Name="Tonnage" Type="int" Nullable="false" />
+          <Property Name="WeightClass" Type="nvarchar(max)" />
+          <Property Name="ChassisId" Type="int" Nullable="false" />
+          <Property Name="RankName" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ExpArena.dbo.vwVariantAssocMetrics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwVariantAssocMetrics">
+          <Key>
+            <PropertyRef Name="ChassisId" />
+            <PropertyRef Name="Tonnage" />
+          </Key>
+          <Property Name="vwVariantAssocMetricId" Type="int" />
+          <Property Name="ChassisId" Type="int" Nullable="false" />
+          <Property Name="WeightClass" Type="nvarchar(max)" />
+          <Property Name="Tonnage" Type="int" Nullable="false" />
+          <Property Name="ChassisName" Type="nvarchar(max)" />
+          <Property Name="BaseVariantName" Type="nvarchar(max)" />
+          <Property Name="AssociationName" Type="nvarchar(max)" />
+          <Property Name="Assoc" Type="nvarchar(max)" />
+          <Property Name="iconUrl" Type="nvarchar(max)" />
+          <Property Name="matches" Type="int" />
+          <Property Name="WinPerc" Type="int" />
+          <Property Name="KDR" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="DmgPM" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="KPM" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="DPM" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="wins" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="losses" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="deaths" Type="int" />
+          <Property Name="kills" Type="int" />
+        </EntityType>
+        <Association Name="FK_MechLoadout_UserProfile">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="MechLoadout" Type="Self.MechLoadout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MechLoadout">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExpArenaModelStoreContainer">
+          <EntitySet Name="MechLoadout" EntityType="Self.MechLoadout" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwMatchMetrics" EntityType="Self.vwMatchMetrics" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwMatchMetrics].[vwMatchMetricId] AS [vwMatchMetricId], 
+    [vwMatchMetrics].[time] AS [time], 
+    [vwMatchMetrics].[level] AS [level], 
+    [vwMatchMetrics].[victory] AS [victory], 
+    [vwMatchMetrics].[victoryType] AS [victoryType], 
+    [vwMatchMetrics].[matchType] AS [matchType], 
+    [vwMatchMetrics].[team] AS [team], 
+    [vwMatchMetrics].[name] AS [name], 
+    [vwMatchMetrics].[mech] AS [mech], 
+    [vwMatchMetrics].[status] AS [status], 
+    [vwMatchMetrics].[matchscore] AS [matchscore], 
+    [vwMatchMetrics].[kills] AS [kills], 
+    [vwMatchMetrics].[assists] AS [assists], 
+    [vwMatchMetrics].[damage] AS [damage], 
+    [vwMatchMetrics].[ping] AS [ping], 
+    [vwMatchMetrics].[lance] AS [lance], 
+    [vwMatchMetrics].[AssociationName] AS [AssociationName], 
+    [vwMatchMetrics].[AssociationId] AS [AssociationId], 
+    [vwMatchMetrics].[PublishFlag] AS [PublishFlag], 
+    [vwMatchMetrics].[PublishingUserName] AS [PublishingUserName], 
+    [vwMatchMetrics].[MatchHash] AS [MatchHash], 
+    [vwMatchMetrics].[UserId] AS [UserId], 
+    [vwMatchMetrics].[PilotImage] AS [PilotImage], 
+    [vwMatchMetrics].[LanceName] AS [LanceName], 
+    [vwMatchMetrics].[CompanyName] AS [CompanyName], 
+    [vwMatchMetrics].[FactionName] AS [FactionName], 
+    [vwMatchMetrics].[ChassisName] AS [ChassisName], 
+    [vwMatchMetrics].[VariantName] AS [VariantName], 
+    [vwMatchMetrics].[Tonnage] AS [Tonnage], 
+    [vwMatchMetrics].[WeightClass] AS [WeightClass], 
+    [vwMatchMetrics].[ChassisId] AS [ChassisId], 
+    [vwMatchMetrics].[RankName] AS [RankName]
+    FROM [dbo].[vwMatchMetrics] AS [vwMatchMetrics]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwVariantAssocMetrics" EntityType="Self.vwVariantAssocMetrics" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwVariantAssocMetrics].[vwVariantAssocMetricId] AS [vwVariantAssocMetricId], 
+    [vwVariantAssocMetrics].[ChassisId] AS [ChassisId], 
+    [vwVariantAssocMetrics].[WeightClass] AS [WeightClass], 
+    [vwVariantAssocMetrics].[Tonnage] AS [Tonnage], 
+    [vwVariantAssocMetrics].[ChassisName] AS [ChassisName], 
+    [vwVariantAssocMetrics].[BaseVariantName] AS [BaseVariantName], 
+    [vwVariantAssocMetrics].[AssociationName] AS [AssociationName], 
+    [vwVariantAssocMetrics].[Assoc] AS [Assoc], 
+    [vwVariantAssocMetrics].[iconUrl] AS [iconUrl], 
+    [vwVariantAssocMetrics].[matches] AS [matches], 
+    [vwVariantAssocMetrics].[WinPerc] AS [WinPerc], 
+    [vwVariantAssocMetrics].[KDR] AS [KDR], 
+    [vwVariantAssocMetrics].[DmgPM] AS [DmgPM], 
+    [vwVariantAssocMetrics].[KPM] AS [KPM], 
+    [vwVariantAssocMetrics].[DPM] AS [DPM], 
+    [vwVariantAssocMetrics].[wins] AS [wins], 
+    [vwVariantAssocMetrics].[losses] AS [losses], 
+    [vwVariantAssocMetrics].[deaths] AS [deaths], 
+    [vwVariantAssocMetrics].[kills] AS [kills]
+    FROM [dbo].[vwVariantAssocMetrics] AS [vwVariantAssocMetrics]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_MechLoadout_UserProfile" Association="Self.FK_MechLoadout_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="MechLoadout" EntitySet="MechLoadout" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ExpArenaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="vwMatchMetric">
+          <Key>
+            <PropertyRef Name="victory" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="matchscore" />
+            <PropertyRef Name="kills" />
+            <PropertyRef Name="assists" />
+            <PropertyRef Name="damage" />
+            <PropertyRef Name="ping" />
+            <PropertyRef Name="lance" />
+            <PropertyRef Name="AssociationId" />
+            <PropertyRef Name="PublishFlag" />
+            <PropertyRef Name="PublishingUserName" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Tonnage" />
+            <PropertyRef Name="ChassisId" />
+          </Key>
+          <Property Name="vwMatchMetricId" Type="Int32" />
+          <Property Name="time" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="level" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="victory" Type="Int32" Nullable="false" />
+          <Property Name="victoryType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="matchType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="team" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="mech" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="matchscore" Type="Int32" Nullable="false" />
+          <Property Name="kills" Type="Int32" Nullable="false" />
+          <Property Name="assists" Type="Int32" Nullable="false" />
+          <Property Name="damage" Type="Int32" Nullable="false" />
+          <Property Name="ping" Type="Int32" Nullable="false" />
+          <Property Name="lance" Type="Int32" Nullable="false" />
+          <Property Name="AssociationName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AssociationId" Type="Int32" Nullable="false" />
+          <Property Name="PublishFlag" Type="Int32" Nullable="false" />
+          <Property Name="PublishingUserName" Type="Boolean" Nullable="false" />
+          <Property Name="MatchHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="PilotImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LanceName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FactionName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChassisName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VariantName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tonnage" Type="Int32" Nullable="false" />
+          <Property Name="WeightClass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChassisId" Type="Int32" Nullable="false" />
+          <Property Name="RankName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="ExpArenaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="vwMatchMetrics" EntityType="Self.vwMatchMetric" />
+          <EntitySet Name="vwVariantAssocMetrics" EntityType="ExpArenaModel.vwVariantAssocMetric" />
+          <EntitySet Name="MechLoadouts" EntityType="ExpArenaModel.MechLoadout" />
+          <EntitySet Name="UserProfiles" EntityType="ExpArenaModel.UserProfile" />
+          <AssociationSet Name="FK_MechLoadout_UserProfile" Association="ExpArenaModel.FK_MechLoadout_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="MechLoadout" EntitySet="MechLoadouts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="vwVariantAssocMetric">
+          <Key>
+            <PropertyRef Name="ChassisId" />
+            <PropertyRef Name="Tonnage" />
+          </Key>
+          <Property Name="vwVariantAssocMetricId" Type="Int32" />
+          <Property Name="ChassisId" Type="Int32" Nullable="false" />
+          <Property Name="WeightClass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tonnage" Type="Int32" Nullable="false" />
+          <Property Name="ChassisName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BaseVariantName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AssociationName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Assoc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="iconUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="matches" Type="Int32" />
+          <Property Name="WinPerc" Type="Int32" />
+          <Property Name="KDR" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="DmgPM" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="KPM" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="DPM" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="wins" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="losses" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="deaths" Type="Int32" />
+          <Property Name="kills" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MechLoadout">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ChassisName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="VariantName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UserProfileId" Type="Int32" />
+          <Property Name="ChassisId" Type="Int32" />
+          <NavigationProperty Name="UserProfile" Relationship="ExpArenaModel.FK_MechLoadout_UserProfile" FromRole="MechLoadout" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PilotImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RankId" Type="Int32" Nullable="false" />
+          <Property Name="RankName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LanceId" Type="Int32" Nullable="false" />
+          <Property Name="LanceName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FactionId" Type="Int32" Nullable="false" />
+          <Property Name="FactionName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MechLoadouts" Relationship="ExpArenaModel.FK_MechLoadout_UserProfile" FromRole="UserProfile" ToRole="MechLoadout" />
+        </EntityType>
+        <Association Name="FK_MechLoadout_UserProfile">
+          <End Type="ExpArenaModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+          <End Type="ExpArenaModel.MechLoadout" Role="MechLoadout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MechLoadout">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ExpArenaModelStoreContainer" CdmEntityContainer="ExpArenaEntities">
+          <EntitySetMapping Name="vwMatchMetrics">
+            <EntityTypeMapping TypeName="ExpArenaModel.vwMatchMetric">
+              <MappingFragment StoreEntitySet="vwMatchMetrics">
+                <ScalarProperty Name="vwMatchMetricId" ColumnName="vwMatchMetricId" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="victory" ColumnName="victory" />
+                <ScalarProperty Name="victoryType" ColumnName="victoryType" />
+                <ScalarProperty Name="matchType" ColumnName="matchType" />
+                <ScalarProperty Name="team" ColumnName="team" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="mech" ColumnName="mech" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="matchscore" ColumnName="matchscore" />
+                <ScalarProperty Name="kills" ColumnName="kills" />
+                <ScalarProperty Name="assists" ColumnName="assists" />
+                <ScalarProperty Name="damage" ColumnName="damage" />
+                <ScalarProperty Name="ping" ColumnName="ping" />
+                <ScalarProperty Name="lance" ColumnName="lance" />
+                <ScalarProperty Name="AssociationName" ColumnName="AssociationName" />
+                <ScalarProperty Name="AssociationId" ColumnName="AssociationId" />
+                <ScalarProperty Name="PublishFlag" ColumnName="PublishFlag" />
+                <ScalarProperty Name="PublishingUserName" ColumnName="PublishingUserName" />
+                <ScalarProperty Name="MatchHash" ColumnName="MatchHash" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PilotImage" ColumnName="PilotImage" />
+                <ScalarProperty Name="LanceName" ColumnName="LanceName" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="FactionName" ColumnName="FactionName" />
+                <ScalarProperty Name="ChassisName" ColumnName="ChassisName" />
+                <ScalarProperty Name="VariantName" ColumnName="VariantName" />
+                <ScalarProperty Name="Tonnage" ColumnName="Tonnage" />
+                <ScalarProperty Name="WeightClass" ColumnName="WeightClass" />
+                <ScalarProperty Name="ChassisId" ColumnName="ChassisId" />
+                <ScalarProperty Name="RankName" ColumnName="RankName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwVariantAssocMetrics">
+            <EntityTypeMapping TypeName="ExpArenaModel.vwVariantAssocMetric">
+              <MappingFragment StoreEntitySet="vwVariantAssocMetrics">
+                <ScalarProperty Name="kills" ColumnName="kills" />
+                <ScalarProperty Name="deaths" ColumnName="deaths" />
+                <ScalarProperty Name="losses" ColumnName="losses" />
+                <ScalarProperty Name="wins" ColumnName="wins" />
+                <ScalarProperty Name="DPM" ColumnName="DPM" />
+                <ScalarProperty Name="KPM" ColumnName="KPM" />
+                <ScalarProperty Name="DmgPM" ColumnName="DmgPM" />
+                <ScalarProperty Name="KDR" ColumnName="KDR" />
+                <ScalarProperty Name="WinPerc" ColumnName="WinPerc" />
+                <ScalarProperty Name="matches" ColumnName="matches" />
+                <ScalarProperty Name="iconUrl" ColumnName="iconUrl" />
+                <ScalarProperty Name="Assoc" ColumnName="Assoc" />
+                <ScalarProperty Name="AssociationName" ColumnName="AssociationName" />
+                <ScalarProperty Name="BaseVariantName" ColumnName="BaseVariantName" />
+                <ScalarProperty Name="ChassisName" ColumnName="ChassisName" />
+                <ScalarProperty Name="Tonnage" ColumnName="Tonnage" />
+                <ScalarProperty Name="WeightClass" ColumnName="WeightClass" />
+                <ScalarProperty Name="ChassisId" ColumnName="ChassisId" />
+                <ScalarProperty Name="vwVariantAssocMetricId" ColumnName="vwVariantAssocMetricId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MechLoadouts">
+            <EntityTypeMapping TypeName="ExpArenaModel.MechLoadout">
+              <MappingFragment StoreEntitySet="MechLoadout">
+                <ScalarProperty Name="ChassisId" ColumnName="ChassisId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="VariantName" ColumnName="VariantName" />
+                <ScalarProperty Name="ChassisName" ColumnName="ChassisName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="ExpArenaModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="FactionName" ColumnName="FactionName" />
+                <ScalarProperty Name="FactionId" ColumnName="FactionId" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="LanceName" ColumnName="LanceName" />
+                <ScalarProperty Name="LanceId" ColumnName="LanceId" />
+                <ScalarProperty Name="RankName" ColumnName="RankName" />
+                <ScalarProperty Name="RankId" ColumnName="RankId" />
+                <ScalarProperty Name="PilotImage" ColumnName="PilotImage" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

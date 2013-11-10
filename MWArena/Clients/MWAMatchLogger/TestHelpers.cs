@@ -7,12 +7,12 @@ namespace MWA.Models
 {
     public static  class TestHelpers
     {
-        public static LoggedMatch LoadTestMatchStats(this LoggedMatch lm)
+        public static MatchLogger.MatchLogger.LoggedMatch LoadTestMatchStats(this MatchLogger.MatchLogger.LoggedMatch lm)
         {
             return lm.LoadTestMatchStats("rivercity_night");
         }
 
-        public static LoggedMatch LoadTestMatchStats(this LoggedMatch lm, string map)
+        public static MatchLogger.MatchLogger.LoggedMatch LoadTestMatchStats(this MatchLogger.MatchLogger.LoggedMatch lm, string map)
         {
             #region TESTDATA: create player lists,mech lists and matchhash
 

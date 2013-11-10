@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ExpArenaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ExpArena.dbo.vwVariantAssocMapMetrics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwVariantAssocMapMetrics">
+          <Key>
+            <PropertyRef Name="ChassisId" />
+            <PropertyRef Name="Tonnage" />
+          </Key>
+          <Property Name="id" Type="int" />
+          <Property Name="ChassisId" Type="int" Nullable="false" />
+          <Property Name="WeightClass" Type="nvarchar(max)" />
+          <Property Name="Tonnage" Type="int" Nullable="false" />
+          <Property Name="ChassisName" Type="nvarchar(max)" />
+          <Property Name="BaseVariantName" Type="nvarchar(max)" />
+          <Property Name="AssociationName" Type="nvarchar(max)" />
+          <Property Name="MapName" Type="nvarchar(max)" />
+          <Property Name="Assoc" Type="nvarchar(max)" />
+          <Property Name="iconUrl" Type="nvarchar(max)" />
+          <Property Name="MapIconUrl" Type="nvarchar(max)" />
+          <Property Name="matches" Type="int" />
+          <Property Name="WinPerc" Type="int" />
+          <Property Name="KDR" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="DmgPM" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="KPM" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="DPM" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="wins" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="losses" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="deaths" Type="int" />
+          <Property Name="kills" Type="int" />
+        </EntityType>
+        <EntityContainer Name="ExpArenaModelStoreContainer">
+          <EntitySet Name="vwVariantAssocMapMetrics" EntityType="Self.vwVariantAssocMapMetrics" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwVariantAssocMapMetrics].[id] AS [id], 
+    [vwVariantAssocMapMetrics].[ChassisId] AS [ChassisId], 
+    [vwVariantAssocMapMetrics].[WeightClass] AS [WeightClass], 
+    [vwVariantAssocMapMetrics].[Tonnage] AS [Tonnage], 
+    [vwVariantAssocMapMetrics].[ChassisName] AS [ChassisName], 
+    [vwVariantAssocMapMetrics].[BaseVariantName] AS [BaseVariantName], 
+    [vwVariantAssocMapMetrics].[AssociationName] AS [AssociationName], 
+    [vwVariantAssocMapMetrics].[MapName] AS [MapName], 
+    [vwVariantAssocMapMetrics].[Assoc] AS [Assoc], 
+    [vwVariantAssocMapMetrics].[iconUrl] AS [iconUrl], 
+    [vwVariantAssocMapMetrics].[MapIconUrl] AS [MapIconUrl], 
+    [vwVariantAssocMapMetrics].[matches] AS [matches], 
+    [vwVariantAssocMapMetrics].[WinPerc] AS [WinPerc], 
+    [vwVariantAssocMapMetrics].[KDR] AS [KDR], 
+    [vwVariantAssocMapMetrics].[DmgPM] AS [DmgPM], 
+    [vwVariantAssocMapMetrics].[KPM] AS [KPM], 
+    [vwVariantAssocMapMetrics].[DPM] AS [DPM], 
+    [vwVariantAssocMapMetrics].[wins] AS [wins], 
+    [vwVariantAssocMapMetrics].[losses] AS [losses], 
+    [vwVariantAssocMapMetrics].[deaths] AS [deaths], 
+    [vwVariantAssocMapMetrics].[kills] AS [kills]
+    FROM [dbo].[vwVariantAssocMapMetrics] AS [vwVariantAssocMapMetrics]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ExpArenaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ExpArenaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="vwVariantAssocMapMetrics" EntityType="ExpArenaModel.vwVariantAssocMapMetric" />
+        </EntityContainer>
+        <EntityType Name="vwVariantAssocMapMetric">
+          <Key>
+            <PropertyRef Name="ChassisId" />
+            <PropertyRef Name="Tonnage" />
+          </Key>
+          <Property Name="id" Type="Int32" />
+          <Property Name="ChassisId" Type="Int32" Nullable="false" />
+          <Property Name="WeightClass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tonnage" Type="Int32" Nullable="false" />
+          <Property Name="ChassisName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BaseVariantName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AssociationName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MapName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Assoc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="iconUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MapIconUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="matches" Type="Int32" />
+          <Property Name="WinPerc" Type="Int32" />
+          <Property Name="KDR" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="DmgPM" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="KPM" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="DPM" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="wins" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="losses" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="deaths" Type="Int32" />
+          <Property Name="kills" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ExpArenaModelStoreContainer" CdmEntityContainer="ExpArenaEntities">
+          <EntitySetMapping Name="vwVariantAssocMapMetrics">
+            <EntityTypeMapping TypeName="ExpArenaModel.vwVariantAssocMapMetric">
+              <MappingFragment StoreEntitySet="vwVariantAssocMapMetrics">
+                <ScalarProperty Name="kills" ColumnName="kills" />
+                <ScalarProperty Name="deaths" ColumnName="deaths" />
+                <ScalarProperty Name="losses" ColumnName="losses" />
+                <ScalarProperty Name="wins" ColumnName="wins" />
+                <ScalarProperty Name="DPM" ColumnName="DPM" />
+                <ScalarProperty Name="KPM" ColumnName="KPM" />
+                <ScalarProperty Name="DmgPM" ColumnName="DmgPM" />
+                <ScalarProperty Name="KDR" ColumnName="KDR" />
+                <ScalarProperty Name="WinPerc" ColumnName="WinPerc" />
+                <ScalarProperty Name="matches" ColumnName="matches" />
+                <ScalarProperty Name="MapIconUrl" ColumnName="MapIconUrl" />
+                <ScalarProperty Name="iconUrl" ColumnName="iconUrl" />
+                <ScalarProperty Name="Assoc" ColumnName="Assoc" />
+                <ScalarProperty Name="MapName" ColumnName="MapName" />
+                <ScalarProperty Name="AssociationName" ColumnName="AssociationName" />
+                <ScalarProperty Name="BaseVariantName" ColumnName="BaseVariantName" />
+                <ScalarProperty Name="ChassisName" ColumnName="ChassisName" />
+                <ScalarProperty Name="Tonnage" ColumnName="Tonnage" />
+                <ScalarProperty Name="WeightClass" ColumnName="WeightClass" />
+                <ScalarProperty Name="ChassisId" ColumnName="ChassisId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

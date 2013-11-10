@@ -184,7 +184,6 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiConnTestController.cs" />
-    <Compile Include="Controllers\AssociationController.cs" />
     <Compile Include="Controllers\ChassisController.cs" />
     <Compile Include="Controllers\DropDeck12Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -192,12 +191,13 @@
     <Compile Include="Controllers\MatchDropController.cs" />
     <Compile Include="Controllers\MwoAMatchMetricController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\VariantAssocMapMetricController.cs" />
+    <Compile Include="Controllers\VariantAssocMetricController.cs" />
     <Compile Include="Controllers\vwMatchMetricController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\MWA.Models.ModelHelper.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\MwoAContext.cs" />
@@ -213,6 +213,8 @@
     <Content Include="component_fileupload.html" />
     <Content Include="component_gallery.html" />
     <Content Include="component_maps.html" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="css\application.commented.css" />
@@ -454,6 +456,16 @@
     <Content Include="ClosedBeta.html" />
     <Content Include="login.html" />
     <Content Include="preview-transparent.png" />
+    <Content Include="Scripts\app\ajaxPrefilters.js" />
+    <Content Include="Scripts\app\app.datamodel.js" />
+    <Content Include="Scripts\app\app.viewmodel.js" />
+    <Content Include="Scripts\app\home.viewmodel.js" />
+    <Content Include="Scripts\app\login.viewmodel.js" />
+    <Content Include="Scripts\app\manage.viewmodel.js" />
+    <Content Include="Scripts\app\register.viewmodel.js" />
+    <Content Include="Scripts\app\registerExternal.viewmodel.js" />
+    <Content Include="Scripts\app\userInfo.viewmodel.js" />
+    <Content Include="Scripts\app\_run.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -820,7 +832,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -830,11 +844,22 @@
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml">
+      <SubType>
+      </SubType>
+    </Content>
+    <Content Include="Views\Home\Index.cshtml">
+      <SubType>
+      </SubType>
+    </Content>
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml">
+      <SubType>
+      </SubType>
+    </Content>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="server\php\index.php" />
     <Content Include="server\php\UploadHandler.php" />
@@ -921,6 +946,11 @@
     <Content Include="white\sass\_responsive.scss" />
     <Content Include="white\sass\_svg.scss" />
     <Content Include="white\sass\_variables.scss" />
+    <Content Include="Views\Home\_Home.cshtml" />
+    <Content Include="Views\Home\_Login.cshtml" />
+    <Content Include="Views\Home\_Manage.cshtml" />
+    <Content Include="Views\Home\_Register.cshtml" />
+    <Content Include="Views\Home\_RegisterExternal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -964,7 +994,7 @@
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/MwoArena</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost/MwoArena</IISAppRootUrl>
+          <IISAppRootUrl>http://v5-dev/MwoArena</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

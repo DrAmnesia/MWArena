@@ -72,17 +72,9 @@ namespace MatchLogger
             if (!File.Exists(matchCsvPath))
                 csv.AppendLine(MatchStat.GetFieldNames());
             foreach (MatchStat m in friendlyList)
-            {
-                httpPostMatchMetricTest(m);
                 csv.AppendLine(m.ToString());
-            }
-
             foreach (MatchStat m in enemyList)
-            {
-                httpPostMatchMetricTest(m);
                 csv.AppendLine(m.ToString());
-            }
-                
             File.AppendAllText(matchCsvPath, csv.ToString());
         }
 
@@ -241,47 +233,15 @@ namespace MatchLogger
             Log(string.Format("DeathBattleTime: {0}", s));
 #endif
         }
-        public static void httpPostMatchMetricTest(MatchStat m)
+
+        public class LoggedMatch
         {
-            MWA.Models.MwoAMatchMetric matchtopush = new MWA.Models.MwoAMatchMetric();
-            matchtopush.assists = m.assists;
-            matchtopush.damage = m.damage;
-            matchtopush.kills = m.kills;
-            matchtopush.lance = m.lance;
-            matchtopush.level = m.level;
-            matchtopush.matchType = m.matchType;
-            matchtopush.matchscore = m.matchscore;
-            matchtopush.mech = m.mech;
-            matchtopush.name = m.name;
-            matchtopush.ping = m.ping;
-            matchtopush.status = m.status;
-            matchtopush.team = m.team;
-            matchtopush.victory = m.victory;
-            matchtopush.victoryType = m.victoryType;
-            matchtopush.time = m.time.ToUniversalTime().ToString();
-            matchtopush.AssociationId = 0;
-            matchtopush.AssociationName = "PUG";
-            matchtopush.MatchHash = GetMatchHash(m);
-            matchtopush.PublishFlag = 1;
-            matchtopush.PublishingUserName = (playerNameSet) ? (((playerName == null | playerName == "") ? "bob" : playerName) == m.name) : false;
+            public string MatchHash { get; set; }
+            public string AssociationName { get; set; }
+            public List<MatchStat> FriendlyMatchStats { get; set; }
+            public List<MatchStat> EnemyMatchStats { get; set; }
 
-            // string apiUrl = (System.Configuration.ConfigurationManager.AppSettings["ApiUrl"] == "" || System.Configuration.ConfigurationManager.AppSettings["ApiUrl"] == null) ? "http://mwarena.azurewebsites.net/api/MwoAMatchMetric" : System.Configuration.ConfigurationManager.AppSettings["ApiUrl"];
-
-            HttpUtility.MakeRequest("http://mwarena.azurewebsites.net/api/MwoAMatchMetric", matchtopush, null,
-                                                   null, typeof(HttpResponseMessage));
-
-
-
-        }
-
-        public static void SetPlayerName(string pn)
-        {
-            playerName = pn;
-            playerNameSet = true;
-        }
-        public static string GetMatchHash(MatchStat m)
-        {
-            return String.Format("{0}~{1}~{2}~{3}~{4}~{5}~{6}~{7}", m.time.ToUniversalTime().Year, m.time.ToUniversalTime().DayOfYear, m.name, m.mech, m.status, m.level, m.matchscore, m.damage).Replace(" ", "_");
+            public string PublishingUserName { get; set; }
 
         }
     }

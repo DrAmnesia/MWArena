@@ -25,7 +25,7 @@ namespace MWArenaWeb.Controllers
         public IQueryable<MwoAMatchMetric> FindPilotMatches(string id)
         {
             if(!(id==null))
-                return db.MwoAMatchMetrics.Where(m => m.name == id && m.PublishingUserName==true).OrderBy(o=>o.time).AsQueryable().Take(20);
+                return db.MwoAMatchMetrics.Where(m => m.name == id  ).OrderBy(o=>o.time).AsQueryable().Take(20);
             else
                 return db.MwoAMatchMetrics.OrderBy(o => o.time).AsQueryable().Take(20);
             

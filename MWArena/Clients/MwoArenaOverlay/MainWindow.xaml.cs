@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,8 +22,9 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using MatchLogger;
 using Microsoft.Win32;
+using MWA.Integration;
 using MWA.Models;
- 
+
 
 namespace GW2Stuff
 {
@@ -41,30 +45,32 @@ namespace GW2Stuff
         private DispatcherTimer timerTick;
         private int worldId = 0;
         private List<WorldInformation> worlds;
-        public static MWApiConn mwApiConn;
-        public static LWConn lwConn;
-        public static BuildApiConn buildApiConn;
+        public static WebApiIntegrationConnector mwApiConn;
+        public static ExeIntegrationConnector lwConn;
+        public static WebApiIntegrationConnector buildApiConn;
         public static String UserName = String.Empty;
-        public MainWindow(){ 
-        
-        SetBrowserFeatureControl();
-      
+        public MainWindow()
+        {
+
+            SetBrowserFeatureControl();
 
 
-  
+
+
             InitializeComponent();
-            mwApiConn = new MWApiConn("MWApi");
-            buildApiConn = new BuildApiConn();
-            lwConn = new LWConn("Logwarrior.exe");
+            mwApiConn = new WebApiIntegrationConnector("MWApi");
+
+            buildApiConn = new WebApiIntegrationConnector();
+            lwConn = new ExeIntegrationConnector("Logwarrior.exe");
             //lwConn = new LWConn("MatchCompletedPublishingTestForm.exe");
- 
-            MatchLogger.MatchCompletedPublisher.OnMatchCompleted+= HandleMatch;
+
+            //MatchLogger.MatchCompletedPublisher.OnMatchCompleted+= HandleMatch;
             if (tbPilotName.Text != "Your Pilot Name")
             {
-                MatchLogger.MatchLogger.SetPlayerName(tbPilotName.Text);
+                //MatchLogger.MatchLogger.SetPlayerName(tbPilotName.Text);
                 UserName = tbPilotName.Text;
                 tbSystemMessages.Text = String.Format("MWApi:{0}", MatchLogger.MatchLogger.GetApiUrl());
-                mwApiConn = new MWApiConn("MWApi", new Uri(MatchLogger.MatchLogger.GetApiUrl()));
+                mwApiConn = new WebApiIntegrationConnector("MWApi", new Uri(MatchLogger.MatchLogger.GetApiUrl()));
             }
             else
                 ForcePilotNameEntry();
@@ -76,19 +82,19 @@ namespace GW2Stuff
             btnApiConn.BorderBrush = System.Windows.Media.Brushes.Transparent;
             btnApiConn.BorderThickness = new Thickness(0, 0, 0, 0);
             btnApiConn.Background = System.Windows.Media.Brushes.Transparent;
-         
+
             if (Properties.Settings.Default.dailyCompletionList == null)
             {
                 Properties.Settings.Default.dailyCompletionList = new System.Collections.Specialized.StringCollection();
             }
 
-
+            btnBuildConn_Click("", new RoutedEventArgs());
             eventDictionary = new Dictionary<String, EventItem>();
             eventList = new List<EventItem>();
             eventView = new ListCollectionView(eventList);
             taskQueue = new TaskQueue();
 
-            eventView.CustomSort = (IComparer) (new EventItemComparer());
+            eventView.CustomSort = (IComparer)(new EventItemComparer());
 
             taskQueue.taskQueueItemComplete += taskQueue_taskQueueItemComplete;
 
@@ -109,8 +115,8 @@ namespace GW2Stuff
 
             menuItem_filters_Association.IsChecked = Properties.Settings.Default.filterAssociation;
             menuItem_filters_ShowBuilds.IsChecked = Properties.Settings.Default.filterShowBuilds;
-        
-          
+
+
             if (Properties.Settings.Default.positionWidth > 0)
             {
                 Width = Properties.Settings.Default.positionWidth;
@@ -123,12 +129,12 @@ namespace GW2Stuff
 
         }
 
-        
-        private void HandleMatch(object sender, MatchCompletedEventArgs mce)
+
+        /*private void HandleMatch(object sender, MatchCompletedEventArgs mce)
         {
           // handle Logged Match events  
             tbSystemMessages.Text = "New Match Published";
-        }
+        }*/
         private void Window_Closed_1(object sender, EventArgs e) { Properties.Settings.Default.Save(); }
 
         // Every second, tick the timers
@@ -204,7 +210,7 @@ namespace GW2Stuff
             this.worldId = worldId;
             eventDictionary.Clear();
             eventList.Clear();
-            ((EventItemComparer) eventView.CustomSort).updateCurrentTimestamp();
+            ((EventItemComparer)eventView.CustomSort).updateCurrentTimestamp();
             eventView.Refresh();
             updateTimers();
         }
@@ -227,7 +233,7 @@ namespace GW2Stuff
         {
             IntPtr handle = new WindowInteropHelper(this).Handle;
             NativeMethods.SendMessage(handle, NativeMethods.WM_SYSCOMMAND,
-                                      (IntPtr) (NativeMethods.RESIZE_BASE + NativeMethods.ResizeDirection.BottomRight),
+                                      (IntPtr)(NativeMethods.RESIZE_BASE + NativeMethods.ResizeDirection.BottomRight),
                                       IntPtr.Zero);
         }
 
@@ -289,10 +295,10 @@ namespace GW2Stuff
         {
             if (sender is MenuItem)
             {
-                MenuItem menuItem = (MenuItem) sender;
+                MenuItem menuItem = (MenuItem)sender;
                 if (menuItem.Tag is WorldInformation)
                 {
-                    setWorldId(((WorldInformation) (menuItem.Tag)).worldId);
+                    setWorldId(((WorldInformation)(menuItem.Tag)).worldId);
                 }
             }
         }
@@ -315,7 +321,7 @@ namespace GW2Stuff
         private void menuItem_profile_UserName_Click(object sender, RoutedEventArgs e)
         {
             ForcePilotNameEntry();
-            
+
         }
 
         private void ForcePilotNameEntry()
@@ -329,22 +335,22 @@ namespace GW2Stuff
         }
         private void menuItem_tests_MCE_Click(object sender, RoutedEventArgs e)
         {
-            LoggedMatch lm = new LoggedMatch();
+            MatchLogger.MatchLogger.LoggedMatch lm = new MatchLogger.MatchLogger.LoggedMatch();
             lm.AssociationName = "TEST";
             lm.PublishingUserName = "DrAmnesia";
             lm.EnemyMatchStats = new List<MatchStat>();
             lm.FriendlyMatchStats = new List<MatchStat>();
-            MatchLogger.MatchCompletedPublisher.Publish(lm);
-            
+            // MatchLogger.MatchCompletedPublisher.Publish(lm);
+
         }
         private void menuItem_filters_Association_Click(object sender, RoutedEventArgs e) { Properties.Settings.Default.filterAssociation = menuItem_filters_Association.IsChecked; }
-        
-        private void menuItem_filters_ShowBuilds_Click(object sender, RoutedEventArgs e) { Properties.Settings.Default.filterShowBuilds = menuItem_filters_ShowBuilds.IsChecked; }
-  /*
-        private void menuItem_profile_Faction_Click(object sender, RoutedEventArgs e) { Properties.Settings.Default.filterShowBuilds = menuItem_filters_window.IsChecked; }
 
-        private void menuItem_profile_Company_Click(object sender, RoutedEventArgs e) { Properties.Settings.Default.filterEventInactive = menuItem_filters_inactive.IsChecked; }
- */
+        private void menuItem_filters_ShowBuilds_Click(object sender, RoutedEventArgs e) { Properties.Settings.Default.filterShowBuilds = menuItem_filters_ShowBuilds.IsChecked; }
+        /*
+              private void menuItem_profile_Faction_Click(object sender, RoutedEventArgs e) { Properties.Settings.Default.filterShowBuilds = menuItem_filters_window.IsChecked; }
+
+              private void menuItem_profile_Company_Click(object sender, RoutedEventArgs e) { Properties.Settings.Default.filterEventInactive = menuItem_filters_inactive.IsChecked; }
+       */
         private void menuItem_saveLocation_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.positionWidth = Width;
@@ -372,11 +378,11 @@ namespace GW2Stuff
             httpRequest.Timeout = 10000;
             httpRequest.Proxy = null;
 
-            HttpWebResponse response = (HttpWebResponse) httpRequest.GetResponse();
+            HttpWebResponse response = (HttpWebResponse)httpRequest.GetResponse();
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof (EventsRequestResponse));
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(EventsRequestResponse));
                 Object deserialized = serializer.ReadObject(response.GetResponseStream());
 
                 if (deserialized is EventsRequestResponse)
@@ -385,7 +391,7 @@ namespace GW2Stuff
                     if (serverDateString != null)
                     {
                         DateTime serverDate = DateTime.Parse(serverDateString);
-                        ((EventsRequestResponse) deserialized).currentTime = GW2StuffAPI.dateToUnix(serverDate);
+                        ((EventsRequestResponse)deserialized).currentTime = GW2StuffAPI.dateToUnix(serverDate);
                     }
                 }
 
@@ -405,16 +411,16 @@ namespace GW2Stuff
         private Object async_getStartupInformation(Object ignored)
         {
             HttpWebRequest httpRequest =
-                (HttpWebRequest) WebRequest.Create("http://" + OverlaySettings.dataServer + "/overlay-startup");
+                (HttpWebRequest)WebRequest.Create("http://" + OverlaySettings.dataServer + "/overlay-startup");
             httpRequest.Method = "GET";
             httpRequest.Timeout = 10000;
             httpRequest.Proxy = null;
 
-            HttpWebResponse response = (HttpWebResponse) httpRequest.GetResponse();
+            HttpWebResponse response = (HttpWebResponse)httpRequest.GetResponse();
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof (StartupInformation));
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(StartupInformation));
                 return serializer.ReadObject(response.GetResponseStream());
             }
             else
@@ -434,7 +440,7 @@ namespace GW2Stuff
                 if (args.exception != null) return;
                 if (args.result == null) return;
 
-                EventsRequestResponse response = (EventsRequestResponse) args.result;
+                EventsRequestResponse response = (EventsRequestResponse)args.result;
 
                 GW2StuffAPI.setCurrentTime(response.currentTime);
 
@@ -462,7 +468,7 @@ namespace GW2Stuff
                     eventItem.completed = Properties.Settings.Default.dailyCompletionList.Contains(eventInfo.id);
                 }
 
-                ((EventItemComparer) eventView.CustomSort).updateCurrentTimestamp();
+                ((EventItemComparer)eventView.CustomSort).updateCurrentTimestamp();
                 eventView.Refresh();
                 eventContainer.UpdateLayout();
                 limitVisibleEvents();
@@ -478,11 +484,11 @@ namespace GW2Stuff
                     return;
                 }
 
-                StartupInformation response = (StartupInformation) args.result;
+                StartupInformation response = (StartupInformation)args.result;
 
                 worlds = response.worlds;
                 Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-                int currentVersion = (version.Major*1000000) + (version.Minor*1000) + version.Revision;
+                int currentVersion = (version.Major * 1000000) + (version.Minor * 1000) + version.Revision;
 
                 if (currentVersion < response.minVersion)
                 {
@@ -539,7 +545,7 @@ namespace GW2Stuff
                 return;
 
             SetBrowserFeatureControlKey("FEATURE_BROWSER_EMULATION", fileName, GetBrowserEmulationMode());
-                // Webpages containing standards-based !DOCTYPE directives are displayed in IE10 Standards mode.
+            // Webpages containing standards-based !DOCTYPE directives are displayed in IE10 Standards mode.
             SetBrowserFeatureControlKey("FEATURE_AJAX_CONNECTIONEVENTS", fileName, 1);
             SetBrowserFeatureControlKey("FEATURE_ENABLE_CLIPCHILDREN_OPTIMIZATION", fileName, 1);
             SetBrowserFeatureControlKey("FEATURE_MANAGE_SCRIPT_CIRCULAR_REFS", fileName, 1);
@@ -572,7 +578,7 @@ namespace GW2Stuff
                 String.Concat(@"Software\Microsoft\Internet Explorer\Main\FeatureControl\", feature),
                 RegistryKeyPermissionCheck.ReadWriteSubTree))
             {
-                key.SetValue(appName, (UInt32) value, RegistryValueKind.DWord);
+                key.SetValue(appName, (UInt32)value, RegistryValueKind.DWord);
             }
         }
 
@@ -595,20 +601,20 @@ namespace GW2Stuff
             }
 
             UInt32 mode = 10000;
-                // Internet Explorer 10. Webpages containing standards-based !DOCTYPE directives are displayed in IE10 Standards mode. Default value for Internet Explorer 10.
+            // Internet Explorer 10. Webpages containing standards-based !DOCTYPE directives are displayed in IE10 Standards mode. Default value for Internet Explorer 10.
             switch (browserVersion)
             {
                 case 7:
                     mode = 7000;
-                        // Webpages containing standards-based !DOCTYPE directives are displayed in IE7 Standards mode. Default value for applications hosting the WebBrowser Control.
+                    // Webpages containing standards-based !DOCTYPE directives are displayed in IE7 Standards mode. Default value for applications hosting the WebBrowser Control.
                     break;
                 case 8:
                     mode = 8000;
-                        // Webpages containing standards-based !DOCTYPE directives are displayed in IE8 mode. Default value for Internet Explorer 8
+                    // Webpages containing standards-based !DOCTYPE directives are displayed in IE8 mode. Default value for Internet Explorer 8
                     break;
                 case 9:
                     mode = 9000;
-                        // Internet Explorer 9. Webpages containing standards-based !DOCTYPE directives are displayed in IE9 mode. Default value for Internet Explorer 9.
+                    // Internet Explorer 9. Webpages containing standards-based !DOCTYPE directives are displayed in IE9 mode. Default value for Internet Explorer 9.
                     break;
                 default:
                     // use IE10 mode by default
@@ -619,20 +625,20 @@ namespace GW2Stuff
             return mode;
         }
 
-       
- 
-      
+
+
+
         private void btnApiConn_MouseEnter(object sender, MouseEventArgs e)
         {
             imgMWApiConn.Opacity = 1;
-          //  btnApiConn.BorderBrush = System.Windows.Media.Brushes.DodgerBlue;
+            //  btnApiConn.BorderBrush = System.Windows.Media.Brushes.DodgerBlue;
         }
 
         private void btnLWConn_MouseEnter(object sender, MouseEventArgs e)
         {
             imgLWConn.Opacity = 1;
-           // btnLWConn.BorderBrush = System.Windows.Media.Brushes.DodgerBlue;
-           
+            // btnLWConn.BorderBrush = System.Windows.Media.Brushes.DodgerBlue;
+
         }
         private void btnSettings_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -645,7 +651,7 @@ namespace GW2Stuff
 
         private void btnBuildConn_MouseLeave(object sender, MouseEventArgs e)
         {
-         
+
             imgBuildConn.Opacity = .4;
             //  tbLWStatus.Background = lwConn.IsConnected ? System.Windows.Media.Brushes.DodgerBlue : System.Windows.Media.Brushes.DimGray;
         }
@@ -669,26 +675,27 @@ namespace GW2Stuff
         {
 
             imgLWConn.Opacity = (lwConn.IsConnected) ? 1 : .4;
-          //  tbLWStatus.Background = lwConn.IsConnected ? System.Windows.Media.Brushes.DodgerBlue : System.Windows.Media.Brushes.DimGray;
+            //  tbLWStatus.Background = lwConn.IsConnected ? System.Windows.Media.Brushes.DodgerBlue : System.Windows.Media.Brushes.DimGray;
         }
 
         private void btnApiConn_MouseLeave(object sender, MouseEventArgs e)
         {
             imgMWApiConn.Opacity = (mwApiConn.IsConnected) ? 1 : .4;
-       }
+        }
 
         private void btnLWConn_Click(object sender, RoutedEventArgs e)
         {
-             
+            InfoBlock.Text =
+   "This will launch mechwarrior with match logging enabled.";
             lwConn.ConnectionState = (lwConn.IsConnected) ? ConnState.DISCONNECTED : ConnState.CONNECTED;
             if (lwConn.IsConnected)
-                 lwConn.Connect();
+                lwConn.Connect();
             else
-               lwConn.Disconnect();
+                lwConn.Disconnect();
 
             tbLWStatus.Fill = lwConn.IsConnected ? System.Windows.Media.Brushes.LimeGreen : System.Windows.Media.Brushes.DimGray;
             imgLWConn.Opacity = (lwConn.IsConnected) ? 1 : .4;
-            btnLWConn.BorderThickness = new System.Windows.Thickness(0,0,0,0);
+            btnLWConn.BorderThickness = new System.Windows.Thickness(0, 0, 0, 0);
 
             MwaMainDataGrid.Focus();
         }
@@ -696,20 +703,29 @@ namespace GW2Stuff
         private void btnApiConn_Click(object sender, RoutedEventArgs e)
         {
             
-            mwApiConn.ConnectionState = (mwApiConn.IsConnected) ? ConnState.DISCONNECTED : ConnState.CONNECTED;
-            tbMWApiStatus.Fill = mwApiConn.IsConnected ? System.Windows.Media.Brushes.LimeGreen : System.Windows.Media.Brushes.DimGray;
-            imgMWApiConn.Opacity = (mwApiConn.IsConnected) ? 1 : .4;
-            btnApiConn.BorderThickness = new System.Windows.Thickness(0, 0, 0, 0);
-            MwaMainDataGrid.Focus();
-            if (mwApiConn.IsConnected)
+              
+            if (!mwApiConn.IsConnected)
             {
+                // ToDO: put in ConnectionState Handler
                 mwApiConn.ConnectionState = ConnState.CONNECTING;
                 tbMWApiStatus.Fill = System.Windows.Media.Brushes.Yellow;
-                GetMatchData();
+                tbMWApiStatus.Fill = mwApiConn.IsConnected ? System.Windows.Media.Brushes.LimeGreen : System.Windows.Media.Brushes.DimGray;
+                imgMWApiConn.Opacity = (mwApiConn.IsConnected) ? 1 : .4;
+                btnApiConn.BorderThickness = new System.Windows.Thickness(0, 0, 0, 0);
+                MwaMainDataGrid.Focus();
+          
 
+                InfoBlock.Text =
+                    " The data is a detail view of your recent matches.";
+
+
+                mwApiConn.ConnectAndRefreshEvery(60);
             }
-            
-            
+            else
+            {
+                mwApiConn.IsActive = false;
+            }
+
         }
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
@@ -724,9 +740,9 @@ namespace GW2Stuff
             tbPilotName.Background = Brushes.Transparent;
             Properties.Settings.Default.UserName = tbPilotName.Text;
             UserName = tbPilotName.Text;
-            MatchLogger.MatchLogger.SetPlayerName(UserName);
+            //MatchLogger.MatchLogger.SetPlayerName(UserName);
             tbSystemMessages.Text = String.Format("MWApi:{0}", MatchLogger.MatchLogger.GetApiUrl());
-            mwApiConn = new MWApiConn("MWApi", new Uri(MatchLogger.MatchLogger.GetApiUrl()));
+            mwApiConn = new WebApiIntegrationConnector("MWApi", new Uri(MatchLogger.MatchLogger.GetApiUrl()));
         }
 
         private void btnBuildConn_Click(object sender, RoutedEventArgs e)
@@ -736,11 +752,21 @@ namespace GW2Stuff
             imgBuildConn.Opacity = (buildApiConn.IsConnected) ? 1 : .4;
             btnBuildConn.BorderThickness = new System.Windows.Thickness(0, 0, 0, 0);
             MwaMainDataGrid.Focus();
+            if (buildApiConn.IsConnected)
+            {
+                InfoBlock.Text =
+                    " The data above aggregates all matches published to the MWApis. This is not just your data. Coming Soon 'You vs The World' view!";
+
+
+                buildApiConn.ConnectionState = ConnState.CONNECTING;
+                tbBuildStatus.Fill = System.Windows.Media.Brushes.Yellow;
+                GetVariantData();
+            }
         }
-        private async void GetMatchData( )
+        private async void GetMatchData()
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = mwApiConn.ApiUrl; 
+            client.BaseAddress = mwApiConn.ApiUrl;
             // Add an Accept header for JSON format.
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
@@ -751,8 +777,8 @@ namespace GW2Stuff
                 response = await client.GetAsync(endp);
                 response.EnsureSuccessStatusCode(); // Throw on error code.
                 var matches = await response.Content.ReadAsAsync<IEnumerable<MwoAMatchMetric>>();
-                MwaMainDataGrid.ItemsSource = matches.Select(o => new { o.level,o.matchType,o.mech,o.kills,o.damage });
-                 
+                MwaMainDataGrid.ItemsSource = matches.Select(o => new { o.level, o.matchType, o.mech, o.kills, o.damage });
+
             }
             catch (Newtonsoft.Json.JsonException jEx)
             {
@@ -762,53 +788,116 @@ namespace GW2Stuff
             }
             catch (HttpRequestException ex)
             {
-                InfoBlock.Text = "ERROR:" +ex.Message;
+                InfoBlock.Text = "ERROR:" + ex.Message;
                 mwApiConn.ConnectionState = ConnState.ERROR;
             }
             finally
             {
-                mwApiConn.ConnectionState=ConnState.CONNECTED;
+                mwApiConn.ConnectionState = ConnState.CONNECTED;
                 tbMWApiStatus.Fill = (mwApiConn.IsConnected) ? System.Windows.Media.Brushes.LimeGreen : (mwApiConn.ConnectionState == ConnState.ERROR) ? System.Windows.Media.Brushes.Red : System.Windows.Media.Brushes.DimGray; ;
-       
-                   }
-         
+
+            }
+
         }
- 
+
+        private async void GetVariantData()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = mwApiConn.ApiUrl;
+            // Add an Accept header for JSON format.
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response;
+            try
+            {
+
+                string endp = "VariantAssocMetric";
+                response = await client.GetAsync(endp);
+                response.EnsureSuccessStatusCode(); // Throw on error code.
+                var mechs = await response.Content.ReadAsAsync<IEnumerable<vwVariantAssocMetric>>();
+                MwaMainDataGrid.ItemsSource = mechs.Select(o => new { Mech = o.BaseVariantName, Drops = o.matches, o.WinPerc, K = o.kills, D = o.deaths, o.DmgPM });
+
+            }
+            catch (Newtonsoft.Json.JsonException jEx)
+            {
+                // This exception indicates a problem deserializing the request body.
+                InfoBlock.Text = "ERROR:" + jEx.Message;
+                buildApiConn.ConnectionState = ConnState.ERROR;
+            }
+            catch (HttpRequestException ex)
+            {
+                InfoBlock.Text = "ERROR:" + ex.Message;
+                buildApiConn.ConnectionState = ConnState.ERROR;
+            }
+            finally
+            {
+                buildApiConn.ConnectionState = ConnState.CONNECTED;
+                tbBuildStatus.Fill = (buildApiConn.IsConnected) ? System.Windows.Media.Brushes.LimeGreen : (mwApiConn.ConnectionState == ConnState.ERROR) ? System.Windows.Media.Brushes.Red : System.Windows.Media.Brushes.DimGray; ;
+
+            }
+
+        }
+
     }
 
-    public class MWApiConn: IntegrationConnector
+  
+
+    public class WebApiIntegrationConnector : IntegrationConnector
     {
         private bool debug = false;
-        public MWApiConn():base(){}
+        private Uri apiUrl;
 
-        public MWApiConn(string name):base(name){}
-
-        public MWApiConn(string name, Uri apiUrl):base(name,apiUrl){}
-
-      
-
-    }
-
-    public class BuildApiConn : IntegrationConnector
-    {
-        private bool debug = false;
-
-    }
-
-
-    public class LWConn : IntegrationConnector
-    {
-        private bool debug = false;
-
-
-        public LWConn(): this("")
+           public WebApiIntegrationConnector()
+            : base("")
         {
 
         }
- 
 
-        public LWConn(string name):base(name)
+           public WebApiIntegrationConnector(string name)
+            : base(name)
         {
+
+        }
+        public WebApiIntegrationConnector(string name,Uri ApiUrl):base(name,ApiUrl.ToString())
+        {
+    
+        }
+        public Uri ApiUrl
+        {
+            get { return apiUrl; }
+            set
+            {
+                if (value != this.apiUrl)
+                {
+                    this.apiUrl = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+    }
+
+
+    public class ExeIntegrationConnector : MWA.Integration.IntegrationConnector
+    {
+        private bool debug = false;
+
+
+        public ExeIntegrationConnector()
+            : base("")
+        {
+
+        }
+
+        public ExeIntegrationConnector(string name)
+            : base(name)
+        {
+
+        }
+        public ExeIntegrationConnector(string name, string connectorSource)
+            : base(name,connectorSource)
+        {
+
         }
 
 
@@ -844,34 +933,34 @@ namespace GW2Stuff
 
             if (!IsProcessRunning())
             {
-                AppDomain currentDomain = AppDomain.CurrentDomain;
-                currentDomain.ExecuteAssembly("logwarrior.exe");
+                //AppDomain currentDomain = AppDomain.CurrentDomain;
+                //currentDomain.ExecuteAssembly("logwarrior.exe");
+
+
+                ProcessStartInfo stinfo = new ProcessStartInfo();
+
+                // Assign file name
+
+                stinfo.FileName = this.Name;
+
+                // start the process without creating new window default is false
+
+                stinfo.CreateNoWindow = false;
+
+                // true to use the shell when starting the process; otherwise, the process is created directly from the executable file
+
+                stinfo.UseShellExecute = true;
+
+
+
+                // Creating Process class object to start process
+
+                Process myProcess = Process.Start(stinfo);
+
+                // start the process
+
+                myProcess.Start();
             }
-/*
-            ProcessStartInfo stinfo = new ProcessStartInfo();
-
-            // Assign file name
-
-            stinfo.FileName = this.Name;
-
-            // start the process without creating new window default is false
-
-            stinfo.CreateNoWindow = false;
-
-            // true to use the shell when starting the process; otherwise, the process is created directly from the executable file
-
-            stinfo.UseShellExecute = true;
-
-
-
-            // Creating Process class object to start process
-
-            Process myProcess = Process.Start(stinfo);
-
-            // start the process
-
-            myProcess.Start();
- * */
         }
 
         public override void Disconnect()
@@ -887,56 +976,11 @@ namespace GW2Stuff
         }
     }
 
-    public class IntegrationConnector
-    {
-
-         public IntegrationConnector() 
-        {
-            ConnectionState=ConnState.NOTINITIALIZED;
-        }
-        public IntegrationConnector(String Name, Uri apiUrl):this(Name)
-        {
-            ApiUrl = apiUrl;
-        }
-
-        public IntegrationConnector(string name):this()
-        {
-            Name = name;
-        }
-
-        public virtual void Disconnect()
-        {
-            
-        }
-
-        public virtual void Connect()
-        {
-
-        }
-        public string Name { get; set; }
-        
-        public Uri ApiUrl { get; set; }
-        public bool IsConnected { get { return ConnectionState == ConnState.CONNECTED; } }
-
-        public bool IsActive { get; set; }
-
-        public ConnState ConnectionState { get; set; } 
-    }
-
-    public enum ConnState
-    {
-        ACTIVE,
-        CONNECTED,
-        CONNECTING,
-        DISCONNECTING,
-        DISCONNECTED,
-        ERROR,
-        INITIALIZING,
-        NOTINITIALIZED,
-        UNKNOWN
-    }
-
     
-    
+
+   
+
+
+
 
 }

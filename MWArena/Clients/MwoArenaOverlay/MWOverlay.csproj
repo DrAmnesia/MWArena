@@ -41,19 +41,21 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>Custom</TargetZone>
@@ -232,6 +234,10 @@
     <Resource Include="Resources\black-splotch.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\MWA.Integration\MWA.Integration.csproj">
+      <Project>{4064b82b-98e5-48f9-a142-5cc6ff310d14}</Project>
+      <Name>MWA.Integration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\MWA.Models\MWA.Models.csproj">
       <Project>{a1ac9371-0a78-4108-8171-6c02740148cc}</Project>
       <Name>MWA.Models</Name>

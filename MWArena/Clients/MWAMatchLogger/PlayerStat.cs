@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MatchLogger
 {
-    class PlayerStat
+    public class PlayerStat
     {
         public DateTime time = DateTime.MinValue;
         public string level = "";
@@ -14,42 +14,42 @@ namespace MatchLogger
         public string matchType = "";
         public int status = -1;
         //cb
-        int basecb = -1;
-        int defensivekillcb = -1;
-        int killassistscb = -1;
-        int compdestructcb = -1;
-        int killscb = -1;
-        int saviorkillcb = -1;
-        int damagedonecb = -1;
-        int spottingassistcb = -1;
-        int tagnarcbonuscb = -1;
-        int salvagebonuscb = -1;
-        int subtotalcb = -1;
-        int mechbonuscb = -1;
-        int conquestbonuscb = -1;
-        int cadetbonuscb = -1;
-        int premiumbonuscb = -1;
-        int teamdamagecb = -1;
-        int teamkillcb = -1;
+        public int basecb = -1;
+        public int defensivekillcb = -1;
+        public int killassistscb = -1;
+        public int compdestructcb = -1;
+        public int killscb = -1;
+        public int saviorkillcb = -1;
+        public int damagedonecb = -1;
+        public int spottingassistcb = -1;
+        public int tagnarcbonuscb = -1;
+        public int salvagebonuscb = -1;
+        public int subtotalcb = -1;
+        public int mechbonuscb = -1;
+        public int conquestbonuscb = -1;
+        public int cadetbonuscb = -1;
+        public int premiumbonuscb = -1;
+        public int teamdamagecb = -1;
+        public int teamkillcb = -1;
 
         //xp
-        int basexp = -1;
-        int capturexp = -1;
-        int conquestwinxp = -1;
-        int captureassistxp = -1;
-        int compdestructxp = -1;
-        int killsxp = -1;
-        int killassistsxp = -1;
-        int saviorkillxp = -1;
-        int defensivekillxp = -1;
-        int spottingassistsxp = -1;
-        int uavkillxp = -1;
-        int tagnarcbonusxp = -1;
-        int firstvictoryxp = -1;
-        int subtotalxp = -1;
-        int mechbonusxp = -1;
-        int premiumbonusxp = -1;
-        int teamkillxp = -1;
+        public int basexp = -1;
+        public int capturexp = -1;
+        public int conquestwinxp = -1;
+        public int captureassistxp = -1;
+        public int compdestructxp = -1;
+        public int killsxp = -1;
+        public int killassistsxp = -1;
+        public int saviorkillxp = -1;
+        public int defensivekillxp = -1;
+        public int spottingassistsxp = -1;
+        public int uavkillxp = -1;
+        public int tagnarcbonusxp = -1;
+        public int firstvictoryxp = -1;
+        public int subtotalxp = -1;
+        public int mechbonusxp = -1;
+        public int premiumbonusxp = -1;
+        public int teamkillxp = -1;
 
         private ulong ConvertToTimestamp(DateTime value)
         {

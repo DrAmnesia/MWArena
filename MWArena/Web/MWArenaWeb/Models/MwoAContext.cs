@@ -9,10 +9,9 @@ namespace MWA.Models
     public class MwoADbContext : DbContext 
     {
         
-            public MwoADbContext()
-                : base("name=ExpArena")
+            public MwoADbContext(): base("name=ExpArena")
             {
-              //  Database.SetInitializer<MwoADbContext >(new DropCreateDatabaseIfModelChanges<MwoADbContext>());
+                Database.SetInitializer<MwoADbContext >(new DropCreateDatabaseIfModelChanges<MwoADbContext>());
                 this.Configuration.LazyLoadingEnabled = false;
                 this.Configuration.ProxyCreationEnabled = false;
                 this.Configuration.AutoDetectChangesEnabled = false;
@@ -32,6 +31,25 @@ namespace MWA.Models
         public DbSet<Association> Associations{ get; set; }
         public DbSet<MatchDrop> MatchDrops { get; set; }
         public DbSet<Map> Maps { get; set; }
+
+        ///<Summary>An IQueryable collection of vwMatchDropDeckMetric Entities</Summary>
+        //public DbSet<vwMatchDropDeckMetric> vwMatchDropDeckMetrics { get; set; }
+
+        ///<Summary>An IQueryable collection of vwVariantAssocMapMetric Entities</Summary>
+        public DbSet<vwVariantAssocMapMetric> vwVariantAssocMapMetrics { get; set; }
+
+        ///<Summary>An IQueryable collection of vwVariantAssocMetric Entities</Summary>
+        public DbSet<vwVariantAssocMetric> vwVariantAssocMetrics { get; set; }
+
+        ///<Summary>An IQueryable collection of MwoAMatchMetrics_import Entities</Summary>
+        public DbSet<MwoAMatchMetrics_import> MwoAMatchMetrics_imports { get; set; }
+
+        ///<Summary>An IQueryable collection of vwVariantMatchStatsSummary Entities</Summary>
+       // public DbSet<vwVariantMatchStatsSummary> vwVariantMatchStatsSummarys { get; set; }
+
+        ///<Summary>An IQueryable collection of vwWeightClassMatchStatsSummary Entities</Summary>
+       // public DbSet<vwWeightClassMatchStatsSummary> vwWeightClassMatchStatsSummarys { get; set; }
+ 
         //public DbSet<MWMatch> MWMatches { get; set; }
         //public DbSet<DropDeck> DropDecks { get; set; }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,7 +12,7 @@ using MWArenaWeb.Controllers;
 using MWA.Models;
 using MatchLogger;
 using MwoArenaWeb.Controllers;
-
+ 
 namespace MWArenaWeb.Tests.Controllers
 {
     [TestClass]
@@ -22,7 +23,7 @@ namespace MWArenaWeb.Tests.Controllers
         [TestMethod]
         public void Get()
         {
-            LoggedMatch lm = new LoggedMatch();
+            MatchLogger.MatchLogger.LoggedMatch lm = new MatchLogger.MatchLogger.LoggedMatch();
             DropDeck12 dde = new DropDeck12();
             DropDeck12 ddf = new DropDeck12();
             // Arrange
@@ -51,13 +52,74 @@ namespace MWArenaWeb.Tests.Controllers
             Assert.AreEqual("value", result);
         }
 
+        public static MatchStat ImportToMatchStat(MwoAMatchMetrics_import ims)
+        {
+            var ms = new MatchStat();
+            ms.assists = ims.assists;
+            ms.damage = ims.damage;
+            ms.kills = ims.kills;
+            ms.lance = ims.lance;
+            ms.level = ims.level;
+            ms.matchType = ims.matchType;
+            ms.matchscore = ims.matchscore;
+            ms.mech = ims.mech;
+            ms.name = ims.name;
+            ms.ping = ims.ping;
+            ms.team = ims.team;
+            ms.time = DateTime.Parse(ims.time);
+            ms.victory = ims.victory;
+            ms.victoryType = ims.victoryType;
+            ms.status = ims.status;
+            return ms;
 
+        }
+
+        [TestMethod]
+        public void loadMatchStats()
+        {
+            var lmd = new List<MatchDrop>();
+            var matchStats = db.MwoAMatchMetrics_imports.ToList();
+            var imps = matchStats.Count;
+
+            foreach (var mmi in matchStats)
+            {
+                mmi.MatchHash = mmi.CalcMatchHash();
+            }
+
+            var hashes=  matchStats.Select(x => x.MatchHash).Distinct();
+
+
+            foreach (var hash in hashes)
+            {
+                List<MatchStat> friendlies = new List<MatchStat>();
+                List<MatchStat> enemies = new List<MatchStat>();
+                foreach (var mmi2 in matchStats.Where(o=>o.MatchHash==hash))
+                    {
+                        if (mmi2.team=="friendly")
+                            friendlies.Add(ImportToMatchStat(mmi2));
+                        else
+                        {
+                            enemies.Add(ImportToMatchStat(mmi2));
+                        }
+                    }
+                MatchLogger.MatchLogger.LoggedMatch loggedMatch= new MatchLogger.MatchLogger.LoggedMatch();
+                loggedMatch.FriendlyMatchStats = friendlies;
+                loggedMatch.EnemyMatchStats = enemies;
+                loggedMatch.AssociationName = "PUG";
+                loggedMatch.MatchHash = "";
+                var md = MWA.Models.ModelHelper.GetLoggedMatchDrop(loggedMatch,db);
+                lmd.Add(md);
+            }
+
+            
+            Assert.IsTrue(lmd.Count> 0);
+        }
 
         [TestMethod]
         public void GetLoggedMatchDropTest()
         {
             #region TESTDATA: Create LoggedMatch
-            LoggedMatch lm = new LoggedMatch();
+            MatchLogger.MatchLogger.LoggedMatch lm = new MatchLogger.MatchLogger.LoggedMatch();
             lm.AssociationName = "TEST";
 
             // DropDeck12 fdd = new DropDeck12{MechName1 = "blr-1gp",MechName2="cn9-a",MechName3= "drg-5nc",MechName4 = "hbk-4p",MechName5 ="shd-2d2",MechName6="shd-2hp",MechName7="shd-2hp",MechName8="stk-3h",MechName9="tbt-7m",MechName10="tbt-3c",MechName11="tdr-5ss",MechName12="vtr-9b"};
@@ -84,7 +146,7 @@ namespace MWArenaWeb.Tests.Controllers
         public void PostLoggedMatchLogicTest()
         {
             #region Create LoggedMatch
-            LoggedMatch lm = new LoggedMatch();
+            MatchLogger.MatchLogger.LoggedMatch lm = new MatchLogger.MatchLogger.LoggedMatch();
             lm.AssociationName = "TEST";
 
             // DropDeck12 fdd = new DropDeck12{MechName1 = "blr-1gp",MechName2="cn9-a",MechName3= "drg-5nc",MechName4 = "hbk-4p",MechName5 ="shd-2d2",MechName6="shd-2hp",MechName7="shd-2hp",MechName8="stk-3h",MechName9="tbt-7m",MechName10="tbt-3c",MechName11="tdr-5ss",MechName12="vtr-9b"};
@@ -308,7 +370,7 @@ namespace MWArenaWeb.Tests.Controllers
 
     public static class TestHelpers
     {
-        public static LoggedMatch LoadTestMatchStats(this LoggedMatch lm)
+        public static MatchLogger.MatchLogger.LoggedMatch LoadTestMatchStats(this MatchLogger.MatchLogger.LoggedMatch lm)
         {
             #region TESTDATA: create player lists,mech lists and matchhash
 
