@@ -770,34 +770,11 @@ namespace MWA.Models
         public string Name { get; set; }
         public string ChassisName { get; set; }
         public string VariantName { get; set; }
-        public string UserName { get; set; }
-        public Nullable<int> UserProfileId { get; set; }
-        public Nullable<int> ChassisId { get; set; }
-
-        public virtual UserProfile UserProfile { get; set; }
+        public Chassis Chassis { get; set; }
+        public virtual MechWarrior MechWarrior { get; set; }
     }
-    public partial class UserProfile
-    {
-        public UserProfile()
-        {
-            this.MechLoadouts = new HashSet<MechLoadout>();
-        }
-
-        public int UserId { get; set; }
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string PilotImage { get; set; }
-        public int RankId { get; set; }
-        public string RankName { get; set; }
-        public int LanceId { get; set; }
-        public string LanceName { get; set; }
-        public int CompanyId { get; set; }
-        public string CompanyName { get; set; }
-        public int FactionId { get; set; }
-        public string FactionName { get; set; }
-
-        public virtual ICollection<MechLoadout> MechLoadouts { get; set; }
-    }
+  
+    
     /******* Views ****************************************************/
     public partial class vwVariantAssocMetric
     {

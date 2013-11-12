@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MWA.Models;
 
 namespace MWA.Integration
 {
@@ -35,10 +36,30 @@ namespace MWA.Integration
                 if (value != this.apiUrl)
                 {
                     this.apiUrl = value;
+                    this.connectorSource = value.ToString();
                     NotifyPropertyChanged();
                 }
             }
         }
+
+
+        public MWA.Models.ExternalSystem ExtSystemInformation
+        {
+            get { return _extSystemInformation; }
+            set { _extSystemInformation = value; }
+        }
+
+        public MWA.Models.ExternalSystemUserAccount ExtUserAccountInfo
+        {
+            get { return _extUserAccountIfo; }
+            set { _extUserAccountIfo = value; }
+        }
+
+
+        private ExternalSystem _extSystemInformation;
+        private ExternalSystemUserAccount _extUserAccountIfo;
+
+     
 
     }
 }

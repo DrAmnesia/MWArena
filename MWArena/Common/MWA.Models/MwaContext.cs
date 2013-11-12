@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-    using System;
-    using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using Microsoft.AspNet.Identity.EntityFramework;
 namespace MWA.Models
 {
- 
 
 
 
-   
+
+
     public class MwaDBContext : IdentityDbContext<MechWarrior>
     {
         public MwaDBContext()
@@ -56,6 +56,5 @@ namespace MWA.Models
 
     }
 
-  
+
 }
- 

@@ -38,14 +38,14 @@ namespace MWA.Web.Controllers
         {
         }
 
-        public AccountController(UserManager<ApplicationUser> userManager,
+        public AccountController(UserManager<MechWarrior> userManager,
              ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
         }
 
-        public UserManager<ApplicationUser> UserManager { get; private set; }
+        public UserManager<MechWarrior> UserManager { get; private set; }
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // GET api/Account/UserInfo
@@ -328,7 +328,7 @@ namespace MWA.Web.Controllers
                 return BadRequest(ModelState);
             }
             string confirmationToken = CreateConfirmationToken();
-            var user = new ApplicationUser
+            var user = new MechWarrior
             {
                 UserName = model.UserName,
                 Email = model.Email,
@@ -362,11 +362,11 @@ namespace MWA.Web.Controllers
         private bool ConfirmAccount(string confirmationToken)
         {
             MwaDBContext context = new MwaDBContext();
-            ApplicationUser user = context.Users.SingleOrDefault(u => u.ConfirmationToken == confirmationToken);
+            MechWarrior user = context.Users.SingleOrDefault(u => u.ConfirmationToken == confirmationToken);
             if (user != null)
             {
                 user.IsConfirmed = true;
-                DbSet<ApplicationUser> dbSet = context.Set<ApplicationUser>();
+                DbSet<MechWarrior> dbSet = context.Set<MechWarrior>();
                 dbSet.Attach(user);
                 context.Entry(user).State = EntityState.Modified;
                 context.SaveChanges();
@@ -403,7 +403,7 @@ namespace MWA.Web.Controllers
                 return InternalServerError();
             }
 
-            var user = new ApplicationUser
+            var user = new MechWarrior
             {
                 UserName = model.UserName,
                 Email = model.Email,

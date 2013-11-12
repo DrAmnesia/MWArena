@@ -456,5 +456,41 @@ namespace GW2Stuff.Properties {
                 this["Association"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DrAmnesia")]
+        public string MwaLogin {
+            get {
+                return ((string)(this["MwaLogin"]));
+            }
+            set {
+                this["MwaLogin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://mwarena.azurewebsites.net/api/")]
+        public string MwaApiUrl {
+            get {
+                return ((string)(this["MwaApiUrl"]));
+            }
+            set {
+                this["MwaApiUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("alabama96")]
+        public string MwaPassword {
+            get {
+                return ((string)(this["MwaPassword"]));
+            }
+            set {
+                this["MwaPassword"] = value;
+            }
+        }
     }
 }

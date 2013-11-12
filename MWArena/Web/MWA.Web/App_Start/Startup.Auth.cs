@@ -18,7 +18,7 @@ namespace MWA.Web
         {
             PublicClientId = "self";
 
-            UserManagerFactory = () => new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new MwaDBContext()));
+            UserManagerFactory = () => new UserManager<MechWarrior>(new UserStore<MechWarrior>(new MwaDBContext()));
 
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
@@ -32,7 +32,7 @@ namespace MWA.Web
 
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
-        public static Func<UserManager<ApplicationUser>> UserManagerFactory { get; set; }
+        public static Func<UserManager<MechWarrior>> UserManagerFactory { get; set; }
 
         public static string PublicClientId { get; private set; }
 

@@ -23,11 +23,17 @@ namespace MWA.Integration
         {
             connectorSource = connectorSourcePath;
         }
-
         public IntegrationConnector(string connectorName)
             : this()
         {
             name = connectorName;
+        }
+
+
+        public bool HasAsyncConnectionAction
+        {
+            get { return _hasAsyncConnectionAction; }
+            set { _hasAsyncConnectionAction = value; }
         }
 
         public virtual void Disconnect()
@@ -36,26 +42,18 @@ namespace MWA.Integration
             this.IsActive = false;
             this.ConnectionState = ConnState.DISCONNECTED;
         }
-
         public virtual void Connect()
         {
             var dueTime = TimeSpan.FromSeconds(5);
             var interval = TimeSpan.FromSeconds(5);
             ctoken = new CancellationToken();
         }
- 
-
-
         public virtual void ConnectAndRefreshEvery(int refInterval)
         {
             var dueTime = TimeSpan.FromSeconds(refInterval);
             var interval = TimeSpan.FromSeconds(refInterval);
             DoPeriodicWorkAsync(dueTime, interval, ctoken).ConfigureAwait(false);
         }
-
-
-
-
         public string Name
         {
             get { return name; }
@@ -68,7 +66,6 @@ namespace MWA.Integration
                 }
             }
         }
-
         public String ConnectorSource
         {
             get { return connectorSource; }
@@ -93,7 +90,6 @@ namespace MWA.Integration
                 }
             }
         }
-
         /// <summary> Gets or sets a value indicating whether this instance is active.</summary>
         /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
         /// <remarks>Setting this value to false will cancel refreshing process.</remarks>
@@ -113,7 +109,6 @@ namespace MWA.Integration
                 }
             }
         }
-
         public bool HasRefreshRequest
         {
             get { return hasRefreshRequest; }
@@ -126,8 +121,6 @@ namespace MWA.Integration
                 }
             }
         }
-
-
         public ConnState ConnectionState
         {
             get { return connectionState; }
@@ -140,24 +133,21 @@ namespace MWA.Integration
                 }
             }
         }
-
-        public  Task<bool> connectionAction()
+  /*      public Task<bool> connectionAction()
         {
 
             return Task.Factory.StartNew(() =>
             {
                 //do a lot of work without awaiting
                 //any other Task
-                return ConnectionAction();
+                return  ConnectionAction();
             });
-        }
-
-        public virtual bool ConnectionAction()
+       }*/ 
+        public virtual async Task<bool> ConnectionAction()
         {
+            Thread.Sleep(2000);
             return true;
         }
-       
-
         protected async Task DoPeriodicWorkAsync(TimeSpan dueTime,
                                        TimeSpan interval,
                                        CancellationToken token)
@@ -169,7 +159,7 @@ namespace MWA.Integration
             // Repeat this loop until cancelled.
             while (!token.IsCancellationRequested)
             {
-                 
+
                 // Wait to repeat again.
                 if (interval > TimeSpan.Zero)
                 {
@@ -177,9 +167,9 @@ namespace MWA.Integration
                     this.ConnectionState = ConnState.CONNECTING;
                     this.IsActive = true;
                     tokenSource.Token.ThrowIfCancellationRequested();
-                 // run the Action that is meant to fire when we refresh, then update the Connector Properties, then wait
-                    var t = await Task.Run(() => ConnectionAction()).ContinueWith((o)=>UpdateRefreshStatus(o),token,TaskContinuationOptions.OnlyOnRanToCompletion,TaskScheduler.FromCurrentSynchronizationContext()).ContinueWith((d)=>Task.Delay(interval, token));
-                  
+                    // run the Action that is meant to fire when we refresh, then update the Connector Properties, then wait
+                    var t = await Task.Run(() => ConnectionAction()).ContinueWith((o) => UpdateRefreshStatus(o), token, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.FromCurrentSynchronizationContext());
+                    await Task.Delay(dueTime, token);
                 }
             }
         }
@@ -188,24 +178,24 @@ namespace MWA.Integration
         {
             tokenSource.Token.ThrowIfCancellationRequested();
 
-            this.hasRefreshRequest = false;
+            this.HasRefreshRequest = false;
             if (t.Result == true)
             {
-                this.IsActive = true;
+
                 this.ConnectionState = ConnState.CONNECTED;
+                this.IsConnected = true;
             }
             else
             {
-                this.isActive = false;
+
                 this.ConnectionState = ConnState.ERROR;
-                
+                this.IsConnected = false;
+
             }
-             
+            this.IsActive = false;
             return t;
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         // This method is called by the Set accessor of each property. 
         // The CallerMemberName attribute that is applied to the optional propertyName 
         // parameter causes the property name of the caller to be substituted as an argument. 
@@ -226,5 +216,6 @@ namespace MWA.Integration
         protected CancellationToken ctoken;
         protected CancellationTokenSource tokenSource;
         protected string connectorSource;
+        private bool _hasAsyncConnectionAction;
     }
 }

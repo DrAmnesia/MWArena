@@ -113,5 +113,14 @@
     <Setting Name="Association" Type="System.String" Scope="User">
       <Value Profile="(Default)">PUG</Value>
     </Setting>
+    <Setting Name="MwaLogin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DrAmnesia</Value>
+    </Setting>
+    <Setting Name="MwaApiUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://mwarena.azurewebsites.net/api/</Value>
+    </Setting>
+    <Setting Name="MwaPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">alabama96</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

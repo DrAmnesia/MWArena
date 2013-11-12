@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -19,6 +20,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 using MatchLogger;
 using Microsoft.Win32;
@@ -62,19 +64,17 @@ namespace GW2Stuff
             mwApiConn = new WebApiIntegrationConnector("MWApi");
 
             buildApiConn = new WebApiIntegrationConnector();
+
+            ((INotifyPropertyChanged)mwApiConn).PropertyChanged +=
+                            new PropertyChangedEventHandler(mwApiConn_PropertyChanged);
+
             lwConn = new ExeIntegrationConnector("Logwarrior.exe");
             //lwConn = new LWConn("MatchCompletedPublishingTestForm.exe");
 
             //MatchLogger.MatchCompletedPublisher.OnMatchCompleted+= HandleMatch;
-            if (tbPilotName.Text != "Your Pilot Name")
-            {
-                //MatchLogger.MatchLogger.SetPlayerName(tbPilotName.Text);
-                UserName = tbPilotName.Text;
-                tbSystemMessages.Text = String.Format("MWApi:{0}", MatchLogger.MatchLogger.GetApiUrl());
-                mwApiConn = new WebApiIntegrationConnector("MWApi", new Uri(MatchLogger.MatchLogger.GetApiUrl()));
-            }
-            else
-                ForcePilotNameEntry();
+
+
+
 
             OverlaySettings.loadSettings();
             btnLWConn.BorderBrush = System.Windows.Media.Brushes.Transparent;
@@ -90,29 +90,7 @@ namespace GW2Stuff
             }
 
             btnBuildConn_Click("", new RoutedEventArgs());
-            eventDictionary = new Dictionary<String, EventItem>();
-            eventList = new List<EventItem>();
-            eventView = new ListCollectionView(eventList);
-            taskQueue = new TaskQueue();
 
-            eventView.CustomSort = (IComparer)(new EventItemComparer());
-
-            taskQueue.taskQueueItemComplete += taskQueue_taskQueueItemComplete;
-
-            timerFocus = new DispatcherTimer();
-            timerFocus.Interval = new TimeSpan(0, 0, 0, 0, 500);
-            timerRefresh = new DispatcherTimer();
-            timerRefresh.Interval = new TimeSpan(0, 0, 0, 30, 0);
-            timerTick = new DispatcherTimer();
-            timerTick.Interval = new TimeSpan(0, 0, 0, 1, 0);
-
-            timerFocus.Tick += timerFocus_Elapsed;
-            timerRefresh.Tick += timerRefresh_Elapsed;
-            timerTick.Tick += timerTick_Elapsed;
-
-            timerFocus.Start();
-            timerRefresh.Start();
-            timerTick.Start();
 
             menuItem_filters_Association.IsChecked = Properties.Settings.Default.filterAssociation;
             menuItem_filters_ShowBuilds.IsChecked = Properties.Settings.Default.filterShowBuilds;
@@ -127,6 +105,16 @@ namespace GW2Stuff
             }
 
             getStartupInformation();
+
+
+            if (tbPilotName.Text == "Pilot Name" ||
+                (string.IsNullOrEmpty(Properties.Settings.Default.UserName) ||
+                 Properties.Settings.Default.UserName == "Pilot Name"))
+                ForcePilotNameEntry();
+            else
+            {
+                InitIntegrationConnectors();
+            }
 
         }
 
@@ -246,7 +234,7 @@ namespace GW2Stuff
         {
             double cumulativeHeight = 0;
             double maxHeight = eventContainer.ActualHeight;
-
+            /*
             bool filterCompleted = Properties.Settings.Default.filterAssociation;
             bool filterWindow = Properties.Settings.Default.filterShowBuilds;
             bool filterInactive = Properties.Settings.Default.filterEventInactive;
@@ -275,6 +263,7 @@ namespace GW2Stuff
                     }
                 }
             }
+             * */
         }
 
         // Toggle the mouse click-through state
@@ -406,7 +395,10 @@ namespace GW2Stuff
 
         /* Other essential data */
 
-        private void getStartupInformation() { taskQueue.run(null, async_getStartupInformation); }
+        private void getStartupInformation()
+        {
+            //taskQueue.run(null, async_getStartupInformation); 
+        }
 
         // Grab startup data
         private Object async_getStartupInformation(Object ignored)
@@ -703,29 +695,18 @@ namespace GW2Stuff
 
         private void btnApiConn_Click(object sender, RoutedEventArgs e)
         {
-            
-              
+
+            if (mwApiConn.IsConnected)
+                mwApiConn.Disconnect();
+
             if (!mwApiConn.IsConnected)
             {
-                // ToDO: put in ConnectionState Handler
-                mwApiConn.ConnectionState = ConnState.CONNECTING;
-                tbMWApiStatus.Fill = System.Windows.Media.Brushes.Yellow;
-                tbMWApiStatus.Fill = mwApiConn.IsConnected ? System.Windows.Media.Brushes.LimeGreen : System.Windows.Media.Brushes.DimGray;
-                imgMWApiConn.Opacity = (mwApiConn.IsConnected) ? 1 : .4;
-                btnApiConn.BorderThickness = new System.Windows.Thickness(0, 0, 0, 0);
                 MwaMainDataGrid.Focus();
-          
-
                 InfoBlock.Text =
                     " The data is a detail view of your recent matches.";
-
-
-                mwApiConn.ConnectAndRefreshEvery(60);
+                mwApiConn.ConnectAndRefreshEvery(30);
             }
-            else
-            {
-                mwApiConn.IsActive = false;
-            }
+
 
         }
 
@@ -737,13 +718,27 @@ namespace GW2Stuff
 
         private void tbPilotName_LostFocus(object sender, RoutedEventArgs e)
         {
+            SetPilotName();
+        }
+
+        private void SetPilotName()
+        {
             tbPilotName.IsReadOnly = true;
             tbPilotName.Background = Brushes.Transparent;
             Properties.Settings.Default.UserName = tbPilotName.Text;
+            MatchLogger.MatchLogger.SetPlayerName(tbPilotName.Text);
             UserName = tbPilotName.Text;
-            //MatchLogger.MatchLogger.SetPlayerName(UserName);
+            InitIntegrationConnectors();
+        }
+
+        private void InitIntegrationConnectors()
+        {
+            mwApiConn = (mwApiConn) ?? new WebApiIntegrationConnector("MWAPI");
+
             tbSystemMessages.Text = String.Format("MWApi:{0}", MatchLogger.MatchLogger.GetApiUrl());
-            mwApiConn = new WebApiIntegrationConnector("MWApi", new Uri(MatchLogger.MatchLogger.GetApiUrl()));
+            mwApiConn.ApiUrl = new Uri(MatchLogger.MatchLogger.GetApiUrl());
+             
+
         }
 
         private void btnBuildConn_Click(object sender, RoutedEventArgs e)
@@ -764,42 +759,7 @@ namespace GW2Stuff
                 GetVariantData();
             }
         }
-        private async void GetMatchData()
-        {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = mwApiConn.ApiUrl;
-            // Add an Accept header for JSON format.
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response;
-            try
-            {
-                string endp = String.Format("mwoamatchmetric/{0}", tbPilotName.Text);
-                response = await client.GetAsync(endp);
-                response.EnsureSuccessStatusCode(); // Throw on error code.
-                var matches = await response.Content.ReadAsAsync<IEnumerable<MwoAMatchMetric>>();
-                MwaMainDataGrid.ItemsSource = matches.Select(o => new { o.level, o.matchType, o.mech, o.kills, o.damage });
-
-            }
-            catch (Newtonsoft.Json.JsonException jEx)
-            {
-                // This exception indicates a problem deserializing the request body.
-                InfoBlock.Text = "ERROR:" + jEx.Message;
-                mwApiConn.ConnectionState = ConnState.ERROR;
-            }
-            catch (HttpRequestException ex)
-            {
-                InfoBlock.Text = "ERROR:" + ex.Message;
-                mwApiConn.ConnectionState = ConnState.ERROR;
-            }
-            finally
-            {
-                mwApiConn.ConnectionState = ConnState.CONNECTED;
-                tbMWApiStatus.Fill = (mwApiConn.IsConnected) ? System.Windows.Media.Brushes.LimeGreen : (mwApiConn.ConnectionState == ConnState.ERROR) ? System.Windows.Media.Brushes.Red : System.Windows.Media.Brushes.DimGray; ;
-
-            }
-
-        }
+      
 
         private async void GetVariantData()
         {
@@ -839,5 +799,94 @@ namespace GW2Stuff
 
         }
 
+
+        private void mwApiConn_PropertyChanged(object sender, PropertyChangedEventArgs pce)
+        {
+            
+             if (sender != null)
+            {
+            WebApiIntegrationConnector changedWaic = (WebApiIntegrationConnector) sender;
+           
+            string pc = pce.PropertyName;
+            
+
+                if (pc == "ConnectionState")
+                {
+                    imgMWApiConn.Opacity = (!changedWaic.IsConnected) ? 1 : .4;
+                    tbSystemMessages.Text = String.Format("{0}.{2}:{1}", changedWaic.Name, changedWaic.ConnectorSource,
+                        changedWaic.ConnectionState.ToString());
+                    switch (changedWaic.ConnectionState)
+                    {
+                       case ConnState.ACTIVE:
+                            {
+                                setApiMonitorState(tbMWApiStatus, System.Windows.Media.Brushes.Yellow);
+                                imgMWApiConn.Opacity = 1;
+                                return;
+                            }
+                       case ConnState.CONNECTING:
+                            {
+                                setApiMonitorState(tbMWApiStatus, System.Windows.Media.Brushes.Turquoise);
+                                imgMWApiConn.Opacity = 1;
+                                return;
+                            }
+                       case ConnState.CONNECTED:
+                        {
+                            setApiMonitorState(tbMWApiStatus, System.Windows.Media.Brushes.Green);
+                            imgMWApiConn.Opacity = 1;
+                            return;
+                        }
+
+                       case ConnState.ERROR:
+                        {
+                            setApiMonitorState(tbMWApiStatus, System.Windows.Media.Brushes.Red);
+                            imgMWApiConn.Opacity = 1;
+                            return;
+                        }
+                       case ConnState.DISCONNECTED:
+                        {
+                            setApiMonitorState(tbMWApiStatus, System.Windows.Media.Brushes.DimGray);
+                            imgMWApiConn.Opacity = .4;
+                            return;
+                        }
+                       case ConnState.NOTINITIALIZED:
+                        {
+                            setApiMonitorState(tbMWApiStatus, System.Windows.Media.Brushes.DarkGray);
+                            imgMWApiConn.Opacity = .4;
+                            return;
+                        }
+
+                       case ConnState.INITIALIZING:
+                        {
+                            setApiMonitorState(tbMWApiStatus, System.Windows.Media.Brushes.LightYellow);
+                            imgMWApiConn.Opacity = 1;
+                            return;
+                        }
+                              
+
+                    }
+
+
+
+                }
+
+            
+        }
+
+    }
+
+        private void setApiMonitorState(Rectangle monitor, Brush brush)
+        {
+            monitor.Fill = brush;
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            mwApiConn.ApiUrl = new Uri("http://mwarena.azurewebsites.net/api/");
+        }
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace MWA.Integration
 {
-    public interface IIntegrationConnector
+    public interface IIntegrationConnector:INotifyPropertyChanged
     {
         void Disconnect();
         void Connect();

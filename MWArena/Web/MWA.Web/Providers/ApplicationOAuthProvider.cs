@@ -16,9 +16,9 @@ namespace MWA.Web.Providers
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;
-        private readonly Func<UserManager<ApplicationUser>> _userManagerFactory;
+        private readonly Func<UserManager<MechWarrior>> _userManagerFactory;
 
-        public ApplicationOAuthProvider(string publicClientId, Func<UserManager<ApplicationUser>> userManagerFactory)
+        public ApplicationOAuthProvider(string publicClientId, Func<UserManager<MechWarrior>> userManagerFactory)
         {
             if (publicClientId == null)
             {
@@ -35,7 +35,7 @@ namespace MWA.Web.Providers
         }
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            using (UserManager<ApplicationUser> userManager = _userManagerFactory())
+            using (UserManager<MechWarrior> userManager = _userManagerFactory())
             {
                 var user = await userManager.FindAsync(context.UserName, context.Password);
 

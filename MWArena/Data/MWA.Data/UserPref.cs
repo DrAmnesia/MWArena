@@ -8,7 +8,7 @@ namespace MWA.Models
     public class UserPref
     {
         public int UserPrefId { get; set; }
-        public virtual ApplicationUser User { get; set; }
+        public virtual MechWarrior User { get; set; }
   
         public string UserPrefName { get; set; }
 
