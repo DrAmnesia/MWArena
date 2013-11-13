@@ -37,6 +37,7 @@ namespace MWA.Web.Providers
         {
             using (UserManager<MechWarrior> userManager = _userManagerFactory())
             {
+                
                 var user = await userManager.FindAsync(context.UserName, context.Password);
 
                 if (user == null || !user.IsConfirmed)

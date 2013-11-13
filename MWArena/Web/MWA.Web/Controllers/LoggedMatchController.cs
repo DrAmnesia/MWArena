@@ -14,6 +14,7 @@ namespace MwoArenaWeb.Controllers
         private MwaDBContext db = new MwaDBContext();
 
         // GET api/loggedmatch
+
         public IEnumerable<MatchDrop> Get()
         {
             return db.MatchDrops.Where(o =>  o.AssociationName == "TEST");

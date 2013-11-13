@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using MWA.Models.Annotations;
 
-
 namespace MWA.Models
 {
     /// <summary>

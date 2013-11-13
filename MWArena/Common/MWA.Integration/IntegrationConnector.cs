@@ -11,7 +11,7 @@ namespace MWA.Integration
 {
     public class IntegrationConnector : IIntegrationConnector
     {
-
+        public Func<bool> ConnectCommand { get;set; } 
         public IntegrationConnector()
         {
             connectionState = ConnState.NOTINITIALIZED;
@@ -103,7 +103,7 @@ namespace MWA.Integration
                     this.isActive = value;
                     if (!this.isActive)
                     {
-                        tokenSource.Cancel();
+                       //tokenSource.Cancel();
                     }
                     NotifyPropertyChanged();
                 }
@@ -148,7 +148,7 @@ namespace MWA.Integration
             Thread.Sleep(2000);
             return true;
         }
-        protected async Task DoPeriodicWorkAsync(TimeSpan dueTime,
+        protected virtual async Task DoPeriodicWorkAsync(TimeSpan dueTime,
                                        TimeSpan interval,
                                        CancellationToken token)
         {
@@ -168,7 +168,7 @@ namespace MWA.Integration
                     this.IsActive = true;
                     tokenSource.Token.ThrowIfCancellationRequested();
                     // run the Action that is meant to fire when we refresh, then update the Connector Properties, then wait
-                    var t = await Task.Run(() => ConnectionAction()).ContinueWith((o) => UpdateRefreshStatus(o), token, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.FromCurrentSynchronizationContext());
+                    var t = await Task.Run(() => this.ConnectionAction()).ContinueWith((o) => UpdateRefreshStatus(o), token, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.FromCurrentSynchronizationContext());
                     await Task.Delay(dueTime, token);
                 }
             }

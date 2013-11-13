@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Microsoft.AspNet.Identity;
 using MWA.Models;
 
 namespace MWArenaWeb.Controllers
@@ -15,20 +16,22 @@ namespace MWArenaWeb.Controllers
     public class MwoAMatchMetricController : ApiController
     {
         private MwaDBContext db = new MwaDBContext();
-
+        /*
         // GET api/MwoAMatchMetric
         public IQueryable<MwoAMatchMetric> GetMwoAMatchMetrics()
         {
             return db.MwoAMatchMetrics;
-        }
+        }*/
         [HttpGet]
-        public IQueryable<MwoAMatchMetric> FindPilotMatches(string id)
+        [Authorize]
+        public IQueryable<MwoAMatchMetric> GetMwoAMatchMetrics()
         {
-            if(!(id==null))
-                return db.MwoAMatchMetrics.Where(m => m.name == id  ).OrderBy(o=>o.time).AsQueryable().Take(20);
-            else
-                return db.MwoAMatchMetrics.OrderBy(o => o.time).AsQueryable().Take(20);
-            
+        string uid = User.Identity.GetUserId();
+            string uname = User.Identity.Name;
+            if (uname.IsNullOrWhiteSpace())
+                return new  List<MwoAMatchMetric>().AsQueryable() ;
+
+                return db.MwoAMatchMetrics.Where(m => m.name == uname  ).OrderBy(o=>o.time).AsQueryable().Take(20);
         }
        
 

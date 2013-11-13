@@ -202,7 +202,7 @@
                             </LinearGradientBrush>
                         </TextBox.Foreground>
                     </TextBox>
-                    <PasswordBox x:Name="tbMwaPassword" Password="{Binding MwaPassword, Source={StaticResource Settings}}" HorizontalAlignment="Left" Height="23" Margin="67,46,0,0" VerticalAlignment="Top" Width="120" Background="#00000000">
+                    <PasswordBox x:Name="tbMwaPassword"  HorizontalAlignment="Left" Height="23" Margin="67,46,0,0" VerticalAlignment="Top" Width="120" Background="#00000000">
                         
                         <PasswordBox.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -211,7 +211,7 @@
                             </LinearGradientBrush>
                         </PasswordBox.Foreground>
                     </PasswordBox>
-                    <TextBox x:Name="tbMwaApiUrl" Text="{Binding MwaApiUrl, Source={StaticResource Settings}}"  HorizontalAlignment="Left" Height="23" Margin="67,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="218" TextChanged="TextBox_TextChanged" Background="#00000000">
+                    <TextBox x:Name="tbMwaApiUrl" Text="{Binding MwaApiUrl, Source={StaticResource Settings}}"  HorizontalAlignment="Left" Height="23" Margin="67,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="218"  Background="#00000000">
                         <TextBox.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FFDDE0E6" Offset="0"/>
@@ -222,6 +222,7 @@
                     <Label Content="API URL" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
                     <Label Content="PilotName" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top"/>
                     <Label Content="Password" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top"/>
+                    <Button Content="login" HorizontalAlignment="Left" Margin="21,132,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
                 </Grid>
 
             </TabItem>

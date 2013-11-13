@@ -30,10 +30,9 @@ namespace MWApiIntegrationConnector
             }
             // MwaMainDataGrid.ItemsSource = matches.Select(o => new { o.level, o.matchType, o.mech, o.kills, o.damage }); 
         }
-        public static async void ExtLogin()
-        {
+       
+  
 
-        }
         public static async void SetExtSystemUserAccountInfo(this WebApiIntegrationConnector waic,string UserName)
         {
             HttpClient client = new HttpClient();
