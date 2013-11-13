@@ -139,17 +139,21 @@
         <Button x:Name="btnApiConn" HorizontalAlignment="Right" Margin="0,2,36,1" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnApiConn_MouseEnter" Padding="-4"  MouseLeave="btnApiConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Click="btnApiConn_Click" Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White">
             <StackPanel HorizontalAlignment="Center">
                 <Image x:Name="imgMWApiConn" Source="assets/images/favicon.png" Opacity="0.4"    Height="16" Width="16" />
-                <Rectangle x:Name="tbMWApiStatus" HorizontalAlignment="Center"   Width="16" Height="3" VerticalAlignment="Center" Margin="0,1" Fill="DimGray"/>
+                <Rectangle x:Name="tbMWApiStatus" HorizontalAlignment="Left"   Width="16" Height="3" VerticalAlignment="Center" Margin="0,1" Fill="DimGray">
+                    <Rectangle.RenderTransform>
+                        <ScaleTransform />
+                    </Rectangle.RenderTransform>
+                </Rectangle>
             </StackPanel>
 
         </Button>
-        <Button x:Name="btnLWConn" HorizontalAlignment="Right" Margin="0,2,60,1" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnLWConn_MouseEnter" Padding="-4"  MouseLeave="btnLWConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Click="btnLWConn_Click" Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White">
+        <Button IsEnabled="False" x:Name="btnLWConn" HorizontalAlignment="Right" Margin="0,2,60,1" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnLWConn_MouseEnter" Padding="-4"  MouseLeave="btnLWConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Click="btnLWConn_Click" Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White">
             <StackPanel HorizontalAlignment="Center">
                 <Image x:Name="imgLWConn" Source="assets\Icons\16x16\MWO_icon.png" Opacity="0.4"    Height="16" Width="16" />
                 <Rectangle x:Name="tbLWStatus" HorizontalAlignment="Center"   Width="16" Height="3" VerticalAlignment="Center" Margin="0,1" Fill="DimGray"/>
             </StackPanel>
         </Button>
-        <Button x:Name="btnBuildConn" HorizontalAlignment="Right" Margin="0,2,86,1" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnBuildConn_MouseEnter" Padding="-4"  MouseLeave="btnBuildConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent"   Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White" Click="btnBuildConn_Click">
+        <Button IsEnabled="False" x:Name="btnBuildConn" HorizontalAlignment="Right" Margin="0,2,86,1" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnBuildConn_MouseEnter" Padding="-4"  MouseLeave="btnBuildConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent"   Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White" Click="btnBuildConn_Click">
             <StackPanel HorizontalAlignment="Center">
                 <Image x:Name="imgBuildConn" Source="assets\Icons\32x32\bar_chart.png" Opacity="0.5"    Height="16" Width="16" />
                 <Rectangle x:Name="tbBuildStatus" HorizontalAlignment="Center"   Width="16" Height="3" VerticalAlignment="Center" Margin="0,1" Fill="DimGray"/>
@@ -170,7 +174,7 @@
                 </LinearGradientBrush>
             </DataGrid.Background>
         </DataGrid>
-        <TabControl HorizontalAlignment="Left" Height="240" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="305" HorizontalContentAlignment="Left" SelectionChanged="TabControl_SelectionChanged" Background="#00000000" Grid.RowSpan="2"  >
+        <TabControl x:Name="tcMWApi" HorizontalAlignment="Left" Height="240" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="305" HorizontalContentAlignment="Left" SelectionChanged="TabControl_SelectionChanged" Background="#00000000" Grid.RowSpan="2"  >
             <TabControl.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
@@ -178,14 +182,6 @@
                 </LinearGradientBrush>
             </TabControl.Foreground>
 
-            <Border Cursor="Hand" x:Name="tab" Background="#FF003ab7" BorderThickness="0,0,0,0" BorderBrush="#FF060606" Padding="5">
-                <Grid>
-                    <ContentPresenter   x:Name="contentPresenter" ContentSource="Header"
-        				TextBlock.Foreground="White"
-        				VerticalAlignment="Center"
-        				HorizontalAlignment="Left"/>
-                </Grid>
-            </Border>
             <TabItem x:Name="TabHome" Header="Home" Height="18" FontSize="9" Padding="0,0,0,0" VerticalAlignment="Bottom" BorderBrush="#00000000" Foreground="White" BorderThickness="0,0,0,0">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -203,7 +199,7 @@
                         </TextBox.Foreground>
                     </TextBox>
                     <PasswordBox x:Name="tbMwaPassword"  HorizontalAlignment="Left" Height="23" Margin="67,46,0,0" VerticalAlignment="Top" Width="120" Background="#00000000">
-                        
+
                         <PasswordBox.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FFDDE0E6" Offset="0"/>
@@ -226,6 +222,15 @@
                 </Grid>
 
             </TabItem>
+
+            <Border Cursor="Hand" x:Name="tab" Background="#FF003ab7" BorderThickness="0,0,0,0" BorderBrush="#FF060606" Padding="5">
+                <Grid>
+                    <ContentPresenter   x:Name="contentPresenter" ContentSource="Header"
+        				TextBlock.Foreground="White"
+        				VerticalAlignment="Center"
+        				HorizontalAlignment="Left"/>
+                </Grid>
+            </Border>
             <TabItem x:Name="TabDrops" Header="Drops" Height="18" FontSize="9" Padding="0,0,0,0" VerticalAlignment="Bottom" BorderBrush="#00000000" Foreground="White" BorderThickness="0,0,0,0">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -238,7 +243,7 @@
                 </Grid>
 
             </TabItem>
-            <TabItem x:Name="TabAssoc" Header="Alpha" Height="18" FontSize="9"  Padding="0,0,0,0" VerticalAlignment="Bottom" BorderBrush="#00000000" Foreground="White" HorizontalAlignment="Left" Margin="-2,0,-2,-2" Width="31">
+            <TabItem x:Name="TabAssoc" Header="Metrics" Height="18" FontSize="9"  Padding="0,0,0,0" VerticalAlignment="Top" BorderBrush="#00000000" Foreground="White" Margin="-2,2,2,-2">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF060606" Offset="1"/>

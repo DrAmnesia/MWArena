@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading;
@@ -43,55 +44,87 @@ namespace MWA.Integration
         }
         public virtual async Task<bool> ConnectionAction()
         {
-            //var b= ConnectCommand(ViewControl);
-            var b = await GetMatches( );
+             var b= await ConnectCommand(ViewControl);
+            //var b = await GetMatches( );
             return b;
         }
 
         public virtual void ConnectAndRefreshEvery(int refInterval)
         {
+ 
             var dueTime = TimeSpan.FromSeconds(refInterval);
             var interval = TimeSpan.FromSeconds(refInterval);
-            DoPeriodicWorkAsync(dueTime, interval, ctoken);
+            
+            DoPeriodicWorkAsync(dueTime, interval, ctoken).ConfigureAwait(false);
         }
 
         protected virtual async Task DoPeriodicWorkAsync(TimeSpan dueTime,
-                                       TimeSpan interval,
-                                       CancellationToken token)
+            TimeSpan interval,
+            CancellationToken token)
         {
-            // Initial wait time before we begin the periodic loop.
-            if (dueTime > TimeSpan.Zero)
-                await Task.Delay(dueTime, token);
-
-            // Repeat this loop until cancelled.
-            while (!token.IsCancellationRequested)
+            try
             {
-
-                // Wait to repeat again.
-                if (interval > TimeSpan.Zero)
+                if (token.IsCancellationRequested)
                 {
-                    this.HasRefreshRequest = true;
-                    this.ConnectionState = ConnState.CONNECTING;
-                    this.IsActive = true;
-                    tokenSource.Token.ThrowIfCancellationRequested();
-                    // run the Action that is meant to fire when we refresh, then update the Connector Properties, then wait
-                    try
+                    TokenSource = new CancellationTokenSource();
+                    ctoken = TokenSource.Token;
+                }
+                else
+                {
+
+                // Initial wait time before we begin the periodic loop.
+                    if (dueTime > TimeSpan.Zero)
                     {
-                    var t = await GetMatches();//Task.Run(() => this.GetMatches());//.ContinueWith((o) => UpdateRefreshStatus(o), token, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.FromCurrentSynchronizationContext());
-                    await Task.Delay(dueTime, token);
-                    }
-                    catch (Exception ex)
-                    {
-                        var e = ex;
-                        throw;
+                        this.HasRefreshRequest = true;
+                        this.ConnectionState = ConnState.CONNECTING;
+                        this.IsActive = true;
+                        bool b = await ConnectionAction();
+                        bool b2 = await UpdateRefreshStatus(b);
+                        await Task.Delay(dueTime, token);
                     }
                     
+
+                // Repeat this loop until cancelled.
+                while (!token.IsCancellationRequested)
+                {
+
+                    // Wait to repeat again.
+                    if (interval > TimeSpan.Zero)
+                    {
+                        this.HasRefreshRequest = true;
+                        this.ConnectionState = ConnState.CONNECTING;
+                        this.IsActive = true;
+                        TokenSource.Token.ThrowIfCancellationRequested();
+                        // run the Action that is meant to fire when we refresh, then update the Connector Properties, then wait
+                        try
+                        {
+                            bool b = await ConnectionAction();
+                            bool b2 = await UpdateRefreshStatus(b);
+                            await Task.Delay(dueTime, token);
+                        }
+                        catch (Exception ex)
+                        {
+                            var e = ex;
+                            throw;
+                        
+                        }
+
+                    }
                 }
+                        }
+            }
+            catch (Exception ex)
+            {
+                var e = ex;
+                TokenSource = new CancellationTokenSource();
+                ctoken = TokenSource.Token;
+                throw;
             }
         }
+
         public AuthenticationHeaderValue AuthHeader { get { return _authHeader; } set { _authHeader = value; } }
 
-        public async Task<bool> GetMatches()
+        public async Task<bool> GetMatches(ItemsControl viewControl)
         {
              
             // load users Connector Settings
@@ -115,13 +148,48 @@ namespace MWA.Integration
                 var mm = response.Content.ReadAsAsync<IEnumerable<MwoAMatchMetric>>().Result;
                 if (mm.Any())
                 {
-                    ViewControl.ItemsSource = mm;
+                    viewControl.ItemsSource = mm;
                     return true;
                 }
                
             }
  
            
+            return false;
+
+        }
+
+        public async Task<bool> GetVariantAssocMetric(ItemsControl viewControl)
+        {
+
+            // load users Connector Settings
+            HttpClient client = new HttpClient();
+            client.BaseAddress = this.ApiUrl;
+            // Add an Accept header for JSON format.
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response;
+            client.DefaultRequestHeaders.Authorization = AuthHeader;
+            string endp = String.Format("{0}{1}", ApiUrl, "VariantAssocMetric");
+
+            response = client.GetAsync(endp).Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Authentication failed");
+            }
+            else
+            {
+                var mm = response.Content.ReadAsAsync<IEnumerable<vwVariantAssocMetric>>().Result;
+                if (mm.Any())
+                {
+                    viewControl.ItemsSource = mm;
+                    return true;
+                }
+
+            }
+
+
             return false;
 
         }
@@ -142,5 +210,7 @@ namespace MWA.Integration
             // MwaMainDataGrid.ItemsSource = matches.Select(o => new { o.level, o.matchType, o.mech, o.kills, o.damage });
 
         }
+
+      
     }
 }

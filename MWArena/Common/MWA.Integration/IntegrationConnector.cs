@@ -15,8 +15,8 @@ namespace MWA.Integration
         public IntegrationConnector()
         {
             connectionState = ConnState.NOTINITIALIZED;
-            tokenSource = new CancellationTokenSource();
-            ctoken = tokenSource.Token;
+            TokenSource = new CancellationTokenSource();
+            ctoken = TokenSource.Token;
         }
         public IntegrationConnector(String connectorName, String connectorSourcePath)
             : this(connectorName)
@@ -38,18 +38,26 @@ namespace MWA.Integration
 
         public virtual void Disconnect()
         {
-            tokenSource.Cancel();
+            TokenSource.Cancel();
             this.IsActive = false;
             this.ConnectionState = ConnState.DISCONNECTED;
+            this.isConnected = false;
+
         }
         public virtual void Connect()
         {
             var dueTime = TimeSpan.FromSeconds(5);
             var interval = TimeSpan.FromSeconds(5);
             ctoken = new CancellationToken();
+            this.IsActive = true;
+            this.ConnectionState = ConnState.CONNECTING;
+            this.isConnected = false;
         }
         public virtual void ConnectAndRefreshEvery(int refInterval)
         {
+            this.IsActive = true;
+            this.ConnectionState = ConnState.CONNECTING;
+            this.isConnected = false;
             var dueTime = TimeSpan.FromSeconds(refInterval);
             var interval = TimeSpan.FromSeconds(refInterval);
             DoPeriodicWorkAsync(dueTime, interval, ctoken).ConfigureAwait(false);
@@ -166,20 +174,30 @@ namespace MWA.Integration
                     this.HasRefreshRequest = true;
                     this.ConnectionState = ConnState.CONNECTING;
                     this.IsActive = true;
-                    tokenSource.Token.ThrowIfCancellationRequested();
+                    TokenSource.Token.ThrowIfCancellationRequested();
                     // run the Action that is meant to fire when we refresh, then update the Connector Properties, then wait
-                    var t = await Task.Run(() => this.ConnectionAction()).ContinueWith((o) => UpdateRefreshStatus(o), token, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.FromCurrentSynchronizationContext());
-                    await Task.Delay(dueTime, token);
+                    try
+                    {
+                        bool b = await ConnectionAction();
+                        bool b2 = await UpdateRefreshStatus(b);
+                        await Task.Delay(dueTime, token);
+                    }
+                    catch (Exception ex)
+                    {
+                        var e = ex;
+                        throw;
+                    }
+
                 }
             }
         }
 
-        protected Task UpdateRefreshStatus(Task<bool> t)
+        protected async Task<bool> UpdateRefreshStatus(bool b)
         {
-            tokenSource.Token.ThrowIfCancellationRequested();
+            TokenSource.Token.ThrowIfCancellationRequested();
 
             this.HasRefreshRequest = false;
-            if (t.Result == true)
+            if (b == true)
             {
 
                 this.ConnectionState = ConnState.CONNECTED;
@@ -193,7 +211,8 @@ namespace MWA.Integration
 
             }
             this.IsActive = false;
-            return t;
+
+            return b;
         }
         public event PropertyChangedEventHandler PropertyChanged;
         // This method is called by the Set accessor of each property. 
@@ -214,7 +233,7 @@ namespace MWA.Integration
         protected Uri apiUrl;
         protected string name;
         protected CancellationToken ctoken;
-        protected CancellationTokenSource tokenSource;
+        public CancellationTokenSource TokenSource { get; set; }
         protected string connectorSource;
         private bool _hasAsyncConnectionAction;
     }

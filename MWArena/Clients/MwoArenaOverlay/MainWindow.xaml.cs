@@ -20,6 +20,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using GW2Stuff.Properties;
@@ -29,6 +30,7 @@ using MWA.Integration;
 using MWA.Models;
 using Newtonsoft.Json.Linq;
 using MWA.Integration;
+using MWApiIntegrationConnector = MWA.Integration.MWApiIntegrationConnector;
 
 
 namespace GW2Stuff
@@ -117,6 +119,7 @@ namespace GW2Stuff
             else
             {
                 InitIntegrationConnectors();
+                tcMWApi.SelectedItem = TabHome;
             }
 
         }
@@ -717,17 +720,18 @@ namespace GW2Stuff
         {
 
             if (mwApiConn.IsConnected)
+            {
                 mwApiConn.Disconnect();
-
-            if (!mwApiConn.IsConnected)
+            }
+            else
             {
                 MwaMainDataGrid.Focus();
                 InfoBlock.Text =
                     " The data is a detail view of your recent matches.";
-                mwApiConn.ViewControl = dgDrops;
-                //mwApiConn.ConnectCommand = mwApiConn.GetMatches;
+                mwApiConn.ViewControl = dgAssocMain;
+                mwApiConn.ConnectCommand = mwApiConn.GetVariantAssocMetric;
                 mwApiConn.ConnectAndRefreshEvery(30);
-                 
+
             }
 
 
@@ -849,15 +853,21 @@ namespace GW2Stuff
                 MWA.Integration.MWApiIntegrationConnector changedWaic = (MWA.Integration.MWApiIntegrationConnector)sender;
 
                 string pc = pce.PropertyName;
-
+                if (pc == "IsActive")
+                {
+                    if (changedWaic.IsActive)
+                    {
+                        animateApiMonitorActivated();
+                    }
+                }
 
                 if (pc == "ConnectionState")
                 {
                     imgMWApiConn.Opacity = (!changedWaic.IsConnected) ? 1 : .4;
                     tbSystemMessages.Text = String.Format("{0}.{2}:{1}", changedWaic.Name, changedWaic.ConnectorSource,
                         changedWaic.ConnectionState.ToString());
-                    if (mwApiConn.ConnectionState == ConnState.ACTIVE || mwApiConn.ConnectionState == ConnState.CONNECTED)
-                        MwaMainDataGrid.ItemsSource = mwApiConn.MM.Select(m=>new { Mech=m.mech,DMG=m.damage});
+                   // if (mwApiConn.ConnectionState == ConnState.ACTIVE || mwApiConn.ConnectionState == ConnState.CONNECTED)
+                     //   MwaMainDataGrid.ItemsSource = mwApiConn.MM.Select(m=>new { Mech=m.mech,DMG=m.damage});
                     switch (changedWaic.ConnectionState)
                     {
                         case ConnState.ACTIVE:
@@ -922,10 +932,59 @@ namespace GW2Stuff
             monitor.Fill = brush;
         }
 
+        private void animateApiMonitorActivated()
+        {
+           
+ 
+            // Set the target of the animation
+          //  Storyboard.SetTarget(slide, tbMWApiStatus);
+          //  Storyboard.SetTargetProperty(slide, new PropertyPath("RenderTransform.(ScaleTransform.ScaleX)")); ;
+ 
+            // Create a DoubleAnimation to animate the width of the button.
+            DoubleAnimation myDoubleAnimation = new DoubleAnimation();
+            myDoubleAnimation.From = 2;
+            myDoubleAnimation.To = 16;
+            myDoubleAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(3000));
+
+            // Configure the animation to target the button's Width property.
+            Storyboard.SetTarget(myDoubleAnimation, tbMWApiStatus);
+            Storyboard.SetTargetProperty(myDoubleAnimation, new PropertyPath( WidthProperty));
+
+            // Create a storyboard to contain the animation.
+            Storyboard sb = new Storyboard();
+            sb.Children.Add(myDoubleAnimation);
+            sb.Begin();
+        }
+
+
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+            TabItem item = tcMWApi.SelectedItem as TabItem; //The sender is a type of TabItem...
+
+    if (item != null)
+    { 
+        if (item.Name == "TabDrops")
+        {
+                   mwApiConn.ViewControl = dgDrops;
+        mwApiConn.ConnectCommand = mwApiConn.GetMatches; 
+            
         }
+
+
+        if (item != null)
+        {
+            if (item.Name == "TabAssoc")
+            {
+            mwApiConn.ViewControl = dgAssocMain;
+            mwApiConn.ConnectCommand = mwApiConn.GetVariantAssocMetric;
+            }
+       
+        }
+       
+    }
+}
+    
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -934,6 +993,13 @@ namespace GW2Stuff
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
+            if(mwApiConn==null)
+                mwApiConn = new MWA.Integration.MWApiIntegrationConnector("MWAPI");
+            mwApiConn.IsActive = true;
+            mwApiConn.IsConnected = false;
+            mwApiConn.ConnectionState = ConnState.CONNECTING;
+            
             mwApiConn.ApiUrl = new Uri("http://mwarena.azurewebsites.net/api/");
             //mwApiConn.ApiUrl = new Uri("http://v5-dev/api/");
             Settings.Default.MwaLogin = tbMwaLogin.Text;
@@ -954,6 +1020,9 @@ namespace GW2Stuff
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Authentication failed");
+                mwApiConn.IsActive = false;
+                mwApiConn.IsConnected = false;
+                mwApiConn.ConnectionState = ConnState.ERROR;
             }
             else
             {
@@ -968,6 +1037,11 @@ namespace GW2Stuff
                     client.GetAsync(mwApiConn.ApiUrl + "MechWarrior")
                         .Result.Content.ReadAsAsync<JObject>()
                         .Result;
+                mwApiConn.IsActive = false;
+                btnApiConn_Click("Login", new RoutedEventArgs());
+                tcMWApi.SelectedItem = TabAssoc;
+
+
             }
         }
     }
