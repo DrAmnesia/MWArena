@@ -67,7 +67,7 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <ApplicationIcon>mechicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
@@ -232,9 +232,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\event-inactive.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\tick.png" />
@@ -561,6 +558,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\Assemblies\Newtonsoft.Json.dll" />
+    <Resource Include="Resources\mechicon.ico" />
+    <Resource Include="mechicon.ico" />
+    <Resource Include="Icon.ico" />
     <Resource Include="favicon.ico" />
     <Resource Include="assets\Icons\16x16\Imgur.png" />
     <Resource Include="assets\Icons\16x16\MWO_icon.png" />

@@ -966,21 +966,23 @@ namespace GW2Stuff
     { 
         if (item.Name == "TabDrops")
         {
-                   mwApiConn.ViewControl = dgDrops;
+        mwApiConn.Disconnect();
+        mwApiConn.ViewControl = dgDrops;
         mwApiConn.ConnectCommand = mwApiConn.GetMatches; 
-            
+         mwApiConn.ConnectAndRefreshEvery(30);
         }
 
 
-        if (item != null)
-        {
+        
             if (item.Name == "TabAssoc")
             {
+                mwApiConn.Disconnect();
             mwApiConn.ViewControl = dgAssocMain;
             mwApiConn.ConnectCommand = mwApiConn.GetVariantAssocMetric;
+            mwApiConn.ConnectAndRefreshEvery(30);
             }
        
-        }
+        
        
     }
 }
@@ -1043,6 +1045,11 @@ namespace GW2Stuff
 
 
             }
+        }
+
+        private void menuItem_Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
     }
 }

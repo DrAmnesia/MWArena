@@ -68,9 +68,10 @@ namespace MWA.Integration
                 {
                     TokenSource = new CancellationTokenSource();
                     ctoken = TokenSource.Token;
+                    token = ctoken;
+                    await Task.Delay(TimeSpan.FromSeconds(2), token);
                 }
-                else
-                {
+                 
 
                 // Initial wait time before we begin the periodic loop.
                     if (dueTime > TimeSpan.Zero)
@@ -110,7 +111,7 @@ namespace MWA.Integration
                         }
 
                     }
-                }
+               
                         }
             }
             catch (Exception ex)
@@ -148,7 +149,20 @@ namespace MWA.Integration
                 var mm = response.Content.ReadAsAsync<IEnumerable<MwoAMatchMetric>>().Result;
                 if (mm.Any())
                 {
-                    viewControl.ItemsSource = mm;
+                    viewControl.ItemsSource = mm.Select(
+                        o =>
+                            new
+                            {
+                                
+                                Map=o.level,
+                                Mech = o.mech,
+                                Live = (o.status==0)?"O":"X",
+                                Win=(o.victory==1)?"O":"X",
+                                Kill = o.kills,
+                                Ass = o.assists,
+                                DMG=o.damage 
+                              
+                            }); ;
                     return true;
                 }
                
@@ -183,7 +197,17 @@ namespace MWA.Integration
                 var mm = response.Content.ReadAsAsync<IEnumerable<vwVariantAssocMetric>>().Result;
                 if (mm.Any())
                 {
-                    viewControl.ItemsSource = mm;
+                    viewControl.ItemsSource = mm.Select(
+                        o =>
+                            new
+                            {
+                                Mech = o.BaseVariantName,
+                                Drops = o.matches,
+                                o.WinPerc,
+                                K = o.kills,
+                                D = o.deaths,
+                                o.DmgPM
+                            }); ;
                     return true;
                 }
 

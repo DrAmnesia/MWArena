@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:GW2Stuff" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:GW2Stuff.Properties"
     x:Name="MWAOverlay" mc:Ignorable="d" x:Class="GW2Stuff.MainWindow"
-        Title="GW2 Stuff" Width="320" AllowsTransparency="false" WindowStyle="None" IsHitTestVisible="True" MinHeight="480" MinWidth="320" MaxHeight="520"  BorderThickness="3" Background="Transparent" MaxWidth="800" Icon="Resources/icon.ico" UseLayoutRounding="True" Topmost="True" Closed="Window_Closed_1" Loaded="Window_Loaded" d:DesignHeight="480" Height="480" VerticalAlignment="Top">
+        Title="MWOverlay" Width="320" AllowsTransparency="false" WindowStyle="None" IsHitTestVisible="True" MinHeight="480" MinWidth="320" MaxHeight="520"  BorderThickness="3" Background="Transparent" MaxWidth="800" Icon="Resources/mechicon.ico" UseLayoutRounding="True" Topmost="True" Closed="Window_Closed_1" Loaded="Window_Loaded" Height="467.333" VerticalAlignment="Top">
     <Window.Resources>
         <Style x:Key="Flat">
             <Setter Property="Control.Background" Value="{x:Null}" />
@@ -24,7 +24,316 @@
         </Style>
         <properties:Settings x:Key="Settings" />
         <Color x:Key="ResizerColor">#FF003AB7</Color>
+        <!-- 
+         This color will be used to draw a border around the TabControl, on 
+         the bottom of the TabItemPanel and on the bottom of unselected TabItems.
+      -->
+        <Color x:Key="BorderColor_Base">#888</Color>
 
+        <!-- 
+         This color will be used to draw the (outer) background of TabPages and
+         the selected TabItem.
+      -->
+        <Color x:Key="TabControl_BackgroundColor_Base">#EEF7FF</Color>
+
+        <!-- Brushes used for styling the TabControl -->
+        <SolidColorBrush x:Key="TabControl_BackgroundBrush_Base" 
+                       Color="{StaticResource TabControl_BackgroundColor_Base}"/>
+
+        <!-- Brushes for drawing the outer and inner borders on TabPages -->
+        <SolidColorBrush x:Key="TabPage_InnerBorderBrushDark" 
+                       Color="#FF8DB2E3"/>
+        <LinearGradientBrush x:Key="TabPage_InnerBorderBrushBright" 
+                           StartPoint="0,0" EndPoint="1,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Offset="0" Color="Transparent"/>
+                <GradientStop Offset="1" Color="#FFC0F9FF"/>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+
+        <!-- 
+         We only want to render a line between the TabControl's TabPage-area and
+         the TabItemsPanel where there is no TabItem/TabStrip. However, we cannot
+         simply set the TabItemPanel's Background-property as this would affect
+         the area as a whole.
+         The trick here is to define a gradient that only renders a 1px line at
+         the bottom. Since TabItems are rendered above the background, this line
+         will only be visible in the area that doesn't contain a TabItem.
+         We'll achieve this effect by using a gradient that finishes with the
+         border-color, but only for the last .01%.
+      -->
+        <LinearGradientBrush x:Key="TabItemPanel_BackgroundBrush" 
+                           StartPoint="0,0" EndPoint="0,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Offset="0.98" Color="Transparent"/>
+                <GradientStop Offset="0.99" 
+               Color="{StaticResource BorderColor_Base}"/>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+
+        <!-- Brushes used for styling TabItems (Background) -->
+        <LinearGradientBrush x:Key="TabItem_BackgroundBrush_Disabled" 
+                           StartPoint="0,0" EndPoint="0,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Color="#EEE" Offset="0"/>
+                <GradientStop Color="#BBB" Offset="0.98"/>
+                <!-- 
+               This is the same trick as with the TabItemPanel_BackgroundBrush (see there).
+            -->
+                <GradientStop Color="{StaticResource BorderColor_Base}" 
+                          Offset="0.99"/>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="TabItem_BackgroundBrush_Selected" 
+                           StartPoint="0,0" EndPoint="0,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Color="#FFFFC14A" Offset="0.1" />
+                <GradientStop Color="{StaticResource TabControl_BackgroundColor_Base}" 
+                          Offset="0.15"/>
+                <GradientStop Color="#C5DBF6" Offset="0.8"/>
+                <GradientStop Color="{StaticResource TabControl_BackgroundColor_Base}" 
+                          Offset="1.0"/>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="TabItem_BackgroundBrush_Unselected" 
+                           StartPoint="0,0" EndPoint="0,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Color="#E8F2FF" Offset="0.0"/>
+                <GradientStop Color="#DFE9F6" Offset="0.3"/>
+                <GradientStop Color="#C7D8EE" Offset="0.7"/>
+                <GradientStop Color="#B9CADE" Offset="0.98"/>
+                <!-- See the TabItemPanel_BackgroundBrush comment. -->
+                <GradientStop Color="{StaticResource BorderColor_Base}" 
+                          Offset="0.99"/>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="TabItem_HoverBackgroundBrush" 
+                           EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFFFD5A0" Offset="0.3" />
+            <GradientStop Color="#FFFFA335" Offset="0.51" />
+            <GradientStop Color="#FFFFC14A" Offset="0.98" />
+        </LinearGradientBrush>
+
+        <!-- Brushes used for styling TabItems (Foreground/Text) -->
+        <SolidColorBrush x:Key="TabItem_TextBrush_Unselected" Color="#33333333" />
+        <SolidColorBrush x:Key="TabItem_TextBrush_Disabled" Color="#888" />
+        <SolidColorBrush x:Key="TabItem_TextBrush_Hover" Color="DodgerBlue" />
+        <SolidColorBrush x:Key="TabItem_TextBrush_Selected" Color="DarkBlue" />
+
+        <!-- Brushes used for styling TabItems (Borders) -->
+        <!-- 
+         For all borders around the TabItems, we'll have to use either the 
+         identical color OR (what's being done here) we'll have to assure the
+         bottom of the border will always result in the color that is being
+         used for drawing the line between the TabControl and the TabItemPanel.
+      
+         If we do use a different (solid) color here, the bottom line will not
+         be rendered as desired which I presume is a matter of precedence in the
+         way borders are being drawn (anti-clockwise, starting with bottom and
+         finishing with left, hence the effect of the left and right edges of 
+         the bottom line being drawn with the left and right border respectively).
+         If you want to try it out, exchange the LinearGradientBrush with the
+         SolidColorBrush that has been commented out and run the app.
+         You'll probably have to zoom in to see the effect. 
+      -->
+        <!--<SolidColorBrush x:Key="TabItem_DisabledBorderBrush" Color="#CCC" />-->
+        <LinearGradientBrush x:Key="TabItem_DisabledBorderBrush" 
+                           StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#CCC" Offset="0"/>
+            <GradientStop Color="{StaticResource BorderColor_Base}" 
+                       Offset="0.8"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="TabItem_BorderBrush_Selected" 
+                       Color="{StaticResource BorderColor_Base}" />
+        <!-- See the comment regarding the TabItem_DisabledBorderBrush above. -->
+        <LinearGradientBrush x:Key="TabItem_Border_Unselected" 
+                           StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#AAA" Offset="0"/>
+            <GradientStop Color="{StaticResource BorderColor_Base}" 
+                       Offset="0.8"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="TabItem_HoverBorderBrush" StartPoint="0,0" 
+                           EndPoint="0,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Offset="0.98" Color="DarkOrange"/>
+                <!-- See the TabItemPanel_BackgroundBrush comment. -->
+                <GradientStop Offset="0.99" 
+                          Color="{StaticResource BorderColor_Base}"/>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+
+        <!-- 
+         Margins for TabItems - these will be set in the respective triggers.
+      -->
+        <Thickness x:Key="TabItemMargin_Base">0,2,-4,0</Thickness>
+        <Thickness x:Key="TabItemMargin_Selected">-4,0,-4,0</Thickness>
+        <Thickness x:Key="TabItemMargin_Hover">0,4,-4,0</Thickness>
+        <Thickness x:Key="TabItemPanel_Padding">4,0,0,0</Thickness>
+
+        <!-- The TabControl's Style. -->
+        <Style TargetType="{x:Type TabControl}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabControl">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- 
+                        The Border around each TabItem will allow us to draw the line
+                        between the TabItemPanel and the TabControl (resp. the 
+                        TabPage-container) when a TabItem is NOT selected, which 
+                        replaces the bottom line of the TabItemPanel's border. 
+                        Thus, we'll avoid drawing the bottom line for the selected
+                        TabItem. Also, since the TabItem, when selected, applies a left
+                        Margin of 4px, we need to add these here as Padding.
+                     -->
+                            <Border Background="{StaticResource TabItemPanel_BackgroundBrush}" 
+                             Padding="{StaticResource TabItemPanel_Padding}">
+                                <!-- This is the area in which TabItems (the strips) will be drawn. -->
+                                <TabPanel IsItemsHost="True"/>
+                            </Border>
+
+                            <!-- 
+                        This is the outer border of the TabControl itself, actually meaning
+                        the Panel that will host a TabItem's content.
+                        The top-border here will not be drawn as, otherwise, the TabItemPanel
+                        would always show a thin line for the selected Tab (which we want 
+                        to avoid).
+                     -->
+                            <Border BorderThickness="1,0,1,1" 
+                             Grid.Row="1" 
+                             BorderBrush="{StaticResource TabItem_BorderBrush_Selected}" 
+                             Background="{StaticResource TabControl_BackgroundBrush_Base}">
+                                <!-- This is the first/outer Border drawn on the TabPage -->
+                                <Border BorderThickness="1" 
+                                BorderBrush="{StaticResource TabPage_InnerBorderBrushDark}" 
+                                CornerRadius="3" 
+                                Margin="8">
+                                    <!-- 
+                              This is the second/inner Border drawn on the TabPage. 
+                              This Border is drawn with a horizontal Gradient that is transparent
+                              on the left which produces the fading effect.
+                           -->
+                                    <Border BorderThickness="1" 
+                                   BorderBrush="{StaticResource TabPage_InnerBorderBrushBright}" 
+                                   CornerRadius="2" 
+                                   Margin="0" 
+                                   Padding="2,2,3,3"
+                                   >
+                                        <!-- 
+                                 This is where the Content of the selected TabPage 
+                                 will be rendered. 
+                              -->
+                                        <ContentPresenter ContentSource="SelectedContent" Margin="0"/>
+                                    </Border>
+                                </Border>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- The Style for TabItems (strips). -->
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <!-- The Grid helps defining the general height of TabItems. -->
+                        <Grid Height="24" VerticalAlignment="Bottom">
+                            <!-- 
+                        The important aspect here is that the bottom of the Border is 0px thick,
+                        helping the TabItem/strip to blend into the TabPage.
+
+                     -->
+                            <Border Name="Border"
+                             Background="{StaticResource TabItem_BackgroundBrush_Unselected}"
+                             BorderBrush="{StaticResource TabItem_BorderBrush_Selected}" 
+                             Margin="{StaticResource TabItemMargin_Selected}" 
+                             BorderThickness="2,1,1,0" 
+                             CornerRadius="3,3,0,0" 
+                             >
+                                <!-- This is where the Content of the TabItem will be rendered. -->
+                                <ContentPresenter x:Name="ContentSite"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          ContentSource="Header"
+                                          Margin="7,2,12,2"
+                                          RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- The appearance of a TabItem when it's inactive/unselected -->
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter Property="Panel.ZIndex" Value="90" />
+                                <Setter TargetName="Border" Property="BorderBrush" 
+                                Value="{StaticResource TabItem_Border_Unselected}" />
+                                <Setter Property="Foreground" 
+                                Value="{StaticResource TabItem_TextBrush_Unselected}" />
+                                <!-- Except for the selected TabItem, tabs are to appear smaller in height. -->
+                                <Setter TargetName="Border" Property="Margin" 
+                                Value="{StaticResource TabItemMargin_Base}"/>
+                            </Trigger>
+
+                            <!-- 
+                        The appearance of a TabItem when it's disabled 
+                        (in addition to Selected=False)
+                     -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Panel.ZIndex" Value="80" />
+                                <Setter TargetName="Border" Property="BorderBrush"
+                                Value="{StaticResource TabItem_DisabledBorderBrush}" />
+                                <Setter TargetName="Border" Property="Background" 
+                                Value="{StaticResource TabItem_BackgroundBrush_Disabled}" />
+                                <Setter Property="Foreground" 
+                                Value="{StaticResource TabItem_TextBrush_Disabled}" />
+                            </Trigger>
+
+                            <!-- The appearance of a TabItem when the mouse hovers over it -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Border.IsMouseOver" Value="True"/>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="99" />
+                                <Setter Property="Foreground" Value="{StaticResource TabItem_TextBrush_Hover}" />
+                                <Setter Property="BorderBrush" 
+                                TargetName="Border" 
+                                Value="{StaticResource TabItem_HoverBorderBrush}" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="2,1,1,1" />
+                                <Setter Property="Background" TargetName="Border"
+                                Value="{StaticResource TabItem_HoverBackgroundBrush}"/>
+                                <!-- 
+                           To further increase the hover-effect, extend the TabItem's height a little
+                           more compared to unselected TabItems.
+                        -->
+                                <Setter TargetName="Border" Property="Margin" 
+                                Value="{StaticResource TabItemMargin_Hover}"/>
+                            </MultiTrigger>
+
+                            <!-- The appearance of a TabItem when it's active/selected -->
+                            <Trigger Property="IsSelected" Value="True">
+                                <!-- We want the selected TabItem to always be on top. -->
+                                <Setter Property="Panel.ZIndex" Value="100" />
+                                <Setter TargetName="Border" Property="BorderBrush" 
+                                Value="{StaticResource TabItem_BorderBrush_Selected}" />
+                                <Setter TargetName="Border" Property="Background" 
+                                Value="{StaticResource TabItem_BackgroundBrush_Selected}" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,0" />
+                                <Setter Property="Foreground" 
+                                Value="{StaticResource TabItem_TextBrush_Selected}"/>
+                                <Setter TargetName="Border" Property="Margin" 
+                                Value="{StaticResource TabItemMargin_Selected}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Window.BorderBrush>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -37,15 +346,15 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="33"/>
 
-            <RowDefinition Height="Auto" MinHeight="246"/>
-            <RowDefinition Height="120"/>
+            <RowDefinition/>
+            <RowDefinition Height="90"/>
             <RowDefinition Height="24"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Rectangle HorizontalAlignment="Left" Height="417" Margin="0,2,0,0" Grid.RowSpan="4" VerticalAlignment="Top" Width="305">
+        <Rectangle Margin="0,2,0,0" Grid.RowSpan="3">
             <Rectangle.Stroke>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF000A25"/>
@@ -55,9 +364,10 @@
             </Rectangle.Stroke>
         </Rectangle>
 
-        <Image x:Name="titleBar" Source="assets/images/Bar_y24x240.png" MouseLeftButtonDown="titleBar_MouseLeftButtonDown" Grid.RowSpan="1" Cursor="SizeAll" ToolTip="Right click for settings" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black" Height="32" Width="320" Margin="0,0,0,1">
+        <Image x:Name="titleBar" Source="assets/images/Bar_y24x240.png" MouseLeftButtonDown="titleBar_MouseLeftButtonDown" Grid.RowSpan="1" Cursor="SizeAll" ToolTip="Right click for settings" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black" Height="32" Width="320" Margin="-7,0,-7,2">
             <Image.ContextMenu>
                 <ContextMenu x:Name="SettingsMenu">
+                    <MenuItem x:Name="menuItem_minimize" Header="Minimize" Click="menuItem_Minimize_Click"/>
                     <MenuItem x:Name="menuItem_world" Header="World" StaysOpenOnClick="True" IsEnabled="False">
                         <MenuItem x:Name="menuItem_world_eu" Header="EU" StaysOpenOnClick="True"/>
                         <MenuItem x:Name="menuItem_world_us" Header="US" StaysOpenOnClick="True"/>
@@ -98,8 +408,8 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        <Rectangle Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="320" Height="32" />
-        <TextBox x:Name="tbPilotName" Text="{Binding UserName, Source={StaticResource Settings}}"  BorderThickness="0,0,0,0" Padding="+4" HorizontalAlignment="Left" Margin="64,2,0,1" VerticalAlignment="Center" Grid.Row="0" FontFamily="Kartika" FontSize="16" FontWeight="Bold" BorderBrush="Transparent" Height="30" Width="120" Background="Transparent" LostFocus="tbPilotName_LostFocus"  >
+        <Rectangle Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="320" Height="32" Margin="0,0,-14,0" />
+        <TextBox x:Name="tbPilotName" Text="{Binding UserName, Source={StaticResource Settings}}"  BorderThickness="0,0,0,0" Padding="+4" HorizontalAlignment="Left" Margin="64,2,0,2" VerticalAlignment="Center" Grid.Row="0" FontFamily="Kartika" FontSize="16" FontWeight="Bold" BorderBrush="Transparent" Height="30" Width="120" Background="Transparent" LostFocus="tbPilotName_LostFocus"  >
             <TextBox.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFDDE0E6" Offset="0"/>
@@ -109,16 +419,16 @@
         </TextBox>
 
 
-        <ItemsControl x:Name="eventContainer" Margin="2,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" SizeChanged="eventContainer_SizeChanged" Grid.Row="2" BorderThickness="3">
-            <Grid Margin="0,0,-6,0" Height="110">
+        <ItemsControl x:Name="eventContainer" Margin="3,0,1,0" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" SizeChanged="eventContainer_SizeChanged" Grid.Row="2" BorderThickness="3">
+            <Grid Margin="0,0,-6,0">
                 <Label  Foreground="#FF000942" FontWeight="Bold" FontSize="14" Padding="2,0,2,2" Grid.Column="0" Margin="0" ToolTip="Info Panel">
-                    <TextBlock x:Name="InfoBlock" Text="Monitor your match statistics and skill progress. Watch the community drop deck trends and contribute to the MWA community statistics library," TextWrapping="Wrap" Margin="0,0,0,0" Background="Transparent" Foreground="#FFB8BEE4" Height="110" Width="298" />
+                    <TextBlock x:Name="InfoBlock" Text="Monitor your match statistics and skill progress. Watch the community drop deck trends and contribute to the MWA community statistics library," TextWrapping="Wrap" Margin="0,0,0,0" Background="Transparent" Foreground="#FFB8BEE4" />
                 </Label>
             </Grid>
         </ItemsControl>
 
 
-        <Border x:Name="resizer" BorderThickness="1" Margin="0,0,1,1" Cursor="SizeNWSE" MouseLeftButtonDown="resizer_MouseLeftButtonDown" HorizontalAlignment="Right" Width="19" Height="19" VerticalAlignment="Bottom" Grid.Row="3">
+        <Border x:Name="resizer" BorderThickness="1" Margin="0,0,1,0" Cursor="SizeNWSE" MouseLeftButtonDown="resizer_MouseLeftButtonDown" HorizontalAlignment="Right" Width="19" Height="19" VerticalAlignment="Top" Grid.Row="3">
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -134,9 +444,9 @@
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
-        <WebBrowser HorizontalAlignment="Left" Height="250" Margin="0,2,0,0" Grid.Row="1" Grid.RowSpan="3" Visibility="Hidden" VerticalAlignment="Top" Width="314" x:Name="MainBrowser" Opacity="100" IsEnabled="True" OpacityMask="White"  Source="http://mwoarenaapidemo.azurewebsites.net/duels.html"/>
-
-        <Button x:Name="btnApiConn" HorizontalAlignment="Right" Margin="0,2,36,1" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnApiConn_MouseEnter" Padding="-4"  MouseLeave="btnApiConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Click="btnApiConn_Click" Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White">
+        <WebBrowser HorizontalAlignment="Left" Height="250" Margin="0,2,-8,0" Grid.Row="1" Visibility="Hidden" VerticalAlignment="Top" Width="314" x:Name="MainBrowser" Opacity="100" IsEnabled="True" OpacityMask="White"  Source="http://mwoarenaapidemo.azurewebsites.net/duels.html"/>
+<StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Width="120" VerticalAlignment="Center">
+    <Button x:Name="btnApiConn" HorizontalAlignment="Right" Margin="0,0,4,0" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnApiConn_MouseEnter" Padding="-4"  MouseLeave="btnApiConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Click="btnApiConn_Click" Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White">
             <StackPanel HorizontalAlignment="Center">
                 <Image x:Name="imgMWApiConn" Source="assets/images/favicon.png" Opacity="0.4"    Height="16" Width="16" />
                 <Rectangle x:Name="tbMWApiStatus" HorizontalAlignment="Left"   Width="16" Height="3" VerticalAlignment="Center" Margin="0,1" Fill="DimGray">
@@ -147,25 +457,25 @@
             </StackPanel>
 
         </Button>
-        <Button IsEnabled="False" x:Name="btnLWConn" HorizontalAlignment="Right" Margin="0,2,60,1" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnLWConn_MouseEnter" Padding="-4"  MouseLeave="btnLWConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Click="btnLWConn_Click" Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White">
+        <Button IsEnabled="False" x:Name="btnLWConn" HorizontalAlignment="Left" Margin="0,0,4,0" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnLWConn_MouseEnter" Padding="-4"  MouseLeave="btnLWConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Click="btnLWConn_Click" Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White">
             <StackPanel HorizontalAlignment="Center">
                 <Image x:Name="imgLWConn" Source="assets\Icons\16x16\MWO_icon.png" Opacity="0.4"    Height="16" Width="16" />
                 <Rectangle x:Name="tbLWStatus" HorizontalAlignment="Center"   Width="16" Height="3" VerticalAlignment="Center" Margin="0,1" Fill="DimGray"/>
             </StackPanel>
         </Button>
-        <Button IsEnabled="False" x:Name="btnBuildConn" HorizontalAlignment="Right" Margin="0,2,86,1" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnBuildConn_MouseEnter" Padding="-4"  MouseLeave="btnBuildConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent"   Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White" Click="btnBuildConn_Click">
+        <Button IsEnabled="False" x:Name="btnBuildConn" HorizontalAlignment="Right" Margin="0,0,4,0" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnBuildConn_MouseEnter" Padding="-4"  MouseLeave="btnBuildConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent"   Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White" Click="btnBuildConn_Click">
             <StackPanel HorizontalAlignment="Center">
                 <Image x:Name="imgBuildConn" Source="assets\Icons\32x32\bar_chart.png" Opacity="0.5"    Height="16" Width="16" />
                 <Rectangle x:Name="tbBuildStatus" HorizontalAlignment="Center"   Width="16" Height="3" VerticalAlignment="Center" Margin="0,1" Fill="DimGray"/>
             </StackPanel>
         </Button>
-
-        <Button x:Name="btnSettings" HorizontalAlignment="Right" Margin="0,0,10,3" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" BorderBrush="Transparent" BorderThickness="0" Padding="-4"  Background="Transparent"  Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White" Click="btnSettings_Click" MouseLeave="btnSettings_MouseLeave" MouseEnter="btnSettings_MouseEnter">
+        <Button x:Name="btnSettings" HorizontalAlignment="Right" Margin="0,0,4,0" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" BorderBrush="Transparent" BorderThickness="0" Padding="-4"  Background="Transparent"  Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White" Click="btnSettings_Click" MouseLeave="btnSettings_MouseLeave" MouseEnter="btnSettings_MouseEnter">
             <StackPanel HorizontalAlignment="Center">
                 <Image x:Name="imgClose" Source="assets/Icons/32x32/settings.png" Opacity=".5"    Height="24" Width="24" HorizontalAlignment="Right" Margin="0,0,2,0" VerticalAlignment="Center" />
             </StackPanel>
         </Button>
-        <Button x:Name="btnStealFocus" Content="" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="4" VerticalAlignment="Top" Width="16" Height="16" Visibility="Hidden"/>
+       </StackPanel>
+         <Button x:Name="btnStealFocus" Content="" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="3" VerticalAlignment="Top" Width="16" Height="16" Visibility="Hidden"/>
         <DataGrid x:Name="MwaMainDataGrid" MinWidth="280" Grid.Row="1" VerticalAlignment="Top" Height="240" Margin="0,0,1,0">
             <DataGrid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -174,15 +484,9 @@
                 </LinearGradientBrush>
             </DataGrid.Background>
         </DataGrid>
-        <TabControl x:Name="tcMWApi" HorizontalAlignment="Left" Height="240" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="305" HorizontalContentAlignment="Left" SelectionChanged="TabControl_SelectionChanged" Background="#00000000" Grid.RowSpan="2"  >
-            <TabControl.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#00000000" Offset="0.648"/>
-                </LinearGradientBrush>
-            </TabControl.Foreground>
+        <TabControl x:Name="tcMWApi" SelectedIndex="0" Margin="0,0,0,0" Grid.Row="1" HorizontalContentAlignment="Left" SelectionChanged="TabControl_SelectionChanged" Background="#00000000" BorderThickness="1" Foreground="{x:Null}"  >
 
-            <TabItem x:Name="TabHome" Header="Home" Height="18" FontSize="9" Padding="0,0,0,0" VerticalAlignment="Bottom" BorderBrush="#00000000" Foreground="White" BorderThickness="0,0,0,0">
+            <TabItem x:Name="TabHome" Header="Home"  FontSize="9"      >
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF060606" Offset="1"/>
@@ -190,7 +494,7 @@
                     </LinearGradientBrush>
                 </TabItem.Background>
                 <Grid Background="#FF003AB7" >
-                    <TextBox  x:Name="tbMwaLogin" Text="{Binding UserName, Source={StaticResource Settings}}" HorizontalAlignment="Left" Height="23" Margin="67,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="#00000000">
+                    <TextBox  x:Name="tbMwaLogin" Text="{Binding UserName, Source={StaticResource Settings}}" HorizontalAlignment="Left" Height="23" Margin="67,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" Background="#00000000">
                         <TextBox.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FFDDE0E6" Offset="0"/>
@@ -198,7 +502,7 @@
                             </LinearGradientBrush>
                         </TextBox.Foreground>
                     </TextBox>
-                    <PasswordBox x:Name="tbMwaPassword"  HorizontalAlignment="Left" Height="23" Margin="67,46,0,0" VerticalAlignment="Top" Width="120" Background="#00000000">
+                    <PasswordBox x:Name="tbMwaPassword"  HorizontalAlignment="Left" Height="23" Margin="67,46,0,0" VerticalAlignment="Top" Width="171" Background="#00000000">
 
                         <PasswordBox.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -207,7 +511,7 @@
                             </LinearGradientBrush>
                         </PasswordBox.Foreground>
                     </PasswordBox>
-                    <TextBox x:Name="tbMwaApiUrl" Text="{Binding MwaApiUrl, Source={StaticResource Settings}}"  HorizontalAlignment="Left" Height="23" Margin="67,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="218"  Background="#00000000">
+                    <TextBox x:Name="tbMwaApiUrl" Text="{Binding MwaApiUrl, Source={StaticResource Settings}}"  HorizontalAlignment="Left" Height="23" Margin="67,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="171"  Background="#00000000">
                         <TextBox.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FFDDE0E6" Offset="0"/>
@@ -215,23 +519,14 @@
                             </LinearGradientBrush>
                         </TextBox.Foreground>
                     </TextBox>
-                    <Label Content="API URL" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
+                    <Label Content="API URL" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top"/>
                     <Label Content="PilotName" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top"/>
                     <Label Content="Password" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top"/>
-                    <Button Content="login" HorizontalAlignment="Left" Margin="21,132,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+                    <Button Content="login" HorizontalAlignment="Left" Margin="163,102,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
                 </Grid>
 
             </TabItem>
-
-            <Border Cursor="Hand" x:Name="tab" Background="#FF003ab7" BorderThickness="0,0,0,0" BorderBrush="#FF060606" Padding="5">
-                <Grid>
-                    <ContentPresenter   x:Name="contentPresenter" ContentSource="Header"
-        				TextBlock.Foreground="White"
-        				VerticalAlignment="Center"
-        				HorizontalAlignment="Left"/>
-                </Grid>
-            </Border>
-            <TabItem x:Name="TabDrops" Header="Drops" Height="18" FontSize="9" Padding="0,0,0,0" VerticalAlignment="Bottom" BorderBrush="#00000000" Foreground="White" BorderThickness="0,0,0,0">
+            <TabItem x:Name="TabAssoc" Header="Metrics"   FontSize="9"      >
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF060606" Offset="1"/>
@@ -239,11 +534,10 @@
                     </LinearGradientBrush>
                 </TabItem.Background>
                 <Grid Background="#FF003AB7" >
-                    <DataGrid  x:Name="dgDrops" MinWidth="280" Grid.Row="1" VerticalAlignment="Top" Height="240" Margin="0,0,0,0"/>
+                    <DataGrid  x:Name="dgAssocMain" MinWidth="280" Grid.Row="1" Margin="0"/>
                 </Grid>
-
             </TabItem>
-            <TabItem x:Name="TabAssoc" Header="Metrics" Height="18" FontSize="9"  Padding="0,0,0,0" VerticalAlignment="Top" BorderBrush="#00000000" Foreground="White" Margin="-2,2,2,-2">
+            <TabItem x:Name="TabDrops" Header="Drops"  FontSize="9"     >
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF060606" Offset="1"/>
@@ -251,12 +545,15 @@
                     </LinearGradientBrush>
                 </TabItem.Background>
                 <Grid Background="#FF003AB7" >
-                    <DataGrid  x:Name="dgAssocMain" MinWidth="280" Grid.Row="1" VerticalAlignment="Top" Height="240" Margin="0,0,0,0"/>
+                    <DataGrid  x:Name="dgDrops" MinWidth="280" Grid.Row="1" Margin="0,0,0,0"/>
                 </Grid>
+
             </TabItem>
+
+
 
         </TabControl>
-        <TextBlock x:Name="tbSystemMessages" HorizontalAlignment="Center" Margin="2,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="System Initialized..." VerticalAlignment="Bottom"   Height="24" Width="304" FontSize="12" FontFamily="Shruti" >
+        <TextBlock x:Name="tbSystemMessages" Margin="0" Grid.Row="3" TextWrapping="Wrap" Text="System Initialized..." FontSize="12" FontFamily="Shruti" >
             <TextBlock.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
