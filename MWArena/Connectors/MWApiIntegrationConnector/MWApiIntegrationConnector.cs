@@ -17,7 +17,7 @@ namespace MWA.Integration
 {
     public class MWApiIntegrationConnector: WebApiIntegrationConnector 
     {
-
+        // public association assoc
         //todo: add ITrulyObservableCollection<INotifyPropertyChanged> for data results
         //add ext i
         private bool debug = false;
@@ -201,13 +201,15 @@ namespace MWA.Integration
                         o =>
                             new
                             {
+                                Weight=o.WeightClass,
                                 Mech = o.BaseVariantName,
                                 Drops = o.matches,
-                                o.WinPerc,
-                                K = o.kills,
-                                D = o.deaths,
-                                o.DmgPM
-                            }); ;
+                                WP= o.WinPerc,
+                                Eff = o.DPM,
+                                KDR = o.KDR,
+                                APM = o.losses,
+                                DmgPM= o.DmgPM
+                                }); ;
                     return true;
                 }
 

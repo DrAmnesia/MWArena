@@ -381,8 +381,10 @@ namespace MWA.Web.Controllers
         [Route("RegisterConfirmation")]
         public  IHttpActionResult  RegisterConfirmation(string Id)
         {
-            if (ConfirmAccount(Id)) return Ok();
-            else return null;
+            if (ConfirmAccount(Id))   
+                return Redirect(Url.Content("~/"));
+            
+            return Redirect(Url.Content("~/") + "#error=" +"404");;
         }
 
         // POST api/Account/RegisterExternal
@@ -587,7 +589,7 @@ namespace MWA.Web.Controllers
 
             // From
             mailMsg.From = new MailAddress("admin@mwoarena.com", "MWa Admin");
-            string html = String.Format(" Click here to confirm your account. <a href='http://v5-dev/api/Account/RegisterConfirmation?id={0}'>Confirm Account</a> ", confirmationToken);
+            string html = String.Format(" Click here to confirm your account. <a href='http://mwarena.azurewebsites.net/api/Account/RegisterConfirmation?id={0}'>Confirm Account</a> ", confirmationToken);
             mailMsg.IsBodyHtml = true;
             // Subject and multipart/alternative Body
             mailMsg.Subject = "Welcome to MWA " + username;

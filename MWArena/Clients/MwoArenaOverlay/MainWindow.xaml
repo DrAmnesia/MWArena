@@ -354,6 +354,16 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
+        <TextBox x:Name="tbPilotName" IsEnabled="False" Visibility="Hidden" Text="{Binding UserName, Source={StaticResource Settings}}"  BorderThickness="0,0,0,0" Padding="+4" HorizontalAlignment="Left" Margin="64,2,0,2" VerticalAlignment="Center" Grid.Row="0" FontFamily="Kartika" FontSize="16" FontWeight="Bold" BorderBrush="Transparent" Height="30" Width="120" Background="Transparent" LostFocus="tbPilotName_LostFocus"  >
+            <TextBox.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFDDE0E6" Offset="0"/>
+                    <GradientStop Color="#FF737578" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBox.Foreground>
+        </TextBox>
+
+
         <Rectangle Margin="0,2,0,0" Grid.RowSpan="3">
             <Rectangle.Stroke>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -364,7 +374,7 @@
             </Rectangle.Stroke>
         </Rectangle>
 
-        <Image x:Name="titleBar" Source="assets/images/Bar_y24x240.png" MouseLeftButtonDown="titleBar_MouseLeftButtonDown" Grid.RowSpan="1" Cursor="SizeAll" ToolTip="Right click for settings" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black" Height="32" Width="320" Margin="-7,0,-7,2">
+        <Image x:Name="titleBar" Source="assets/images/Bar_y24x240.png" MouseLeftButtonDown="titleBar_MouseLeftButtonDown" Grid.RowSpan="1" Cursor="SizeAll" ToolTip="Right click for settings" HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="Black" Height="32" Margin="0,0,1,1" Width="305">
             <Image.ContextMenu>
                 <ContextMenu x:Name="SettingsMenu">
                     <MenuItem x:Name="menuItem_minimize" Header="Minimize" Click="menuItem_Minimize_Click"/>
@@ -408,15 +418,7 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        <Rectangle Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="320" Height="32" Margin="0,0,-14,0" />
-        <TextBox x:Name="tbPilotName" Text="{Binding UserName, Source={StaticResource Settings}}"  BorderThickness="0,0,0,0" Padding="+4" HorizontalAlignment="Left" Margin="64,2,0,2" VerticalAlignment="Center" Grid.Row="0" FontFamily="Kartika" FontSize="16" FontWeight="Bold" BorderBrush="Transparent" Height="30" Width="120" Background="Transparent" LostFocus="tbPilotName_LostFocus"  >
-            <TextBox.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFDDE0E6" Offset="0"/>
-                    <GradientStop Color="#FF737578" Offset="1"/>
-                </LinearGradientBrush>
-            </TextBox.Foreground>
-        </TextBox>
+        <Rectangle Grid.Row="0" />
 
 
         <ItemsControl x:Name="eventContainer" Margin="3,0,1,0" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" SizeChanged="eventContainer_SizeChanged" Grid.Row="2" BorderThickness="3">
@@ -445,37 +447,37 @@
             </Border.Background>
         </Border>
         <WebBrowser HorizontalAlignment="Left" Height="250" Margin="0,2,-8,0" Grid.Row="1" Visibility="Hidden" VerticalAlignment="Top" Width="314" x:Name="MainBrowser" Opacity="100" IsEnabled="True" OpacityMask="White"  Source="http://mwoarenaapidemo.azurewebsites.net/duels.html"/>
-<StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Width="120" VerticalAlignment="Center">
-    <Button x:Name="btnApiConn" HorizontalAlignment="Right" Margin="0,0,4,0" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnApiConn_MouseEnter" Padding="-4"  MouseLeave="btnApiConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Click="btnApiConn_Click" Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White">
-            <StackPanel HorizontalAlignment="Center">
-                <Image x:Name="imgMWApiConn" Source="assets/images/favicon.png" Opacity="0.4"    Height="16" Width="16" />
-                <Rectangle x:Name="tbMWApiStatus" HorizontalAlignment="Left"   Width="16" Height="3" VerticalAlignment="Center" Margin="0,1" Fill="DimGray">
-                    <Rectangle.RenderTransform>
-                        <ScaleTransform />
-                    </Rectangle.RenderTransform>
-                </Rectangle>
-            </StackPanel>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Width="120" VerticalAlignment="Center">
+            <Button x:Name="btnApiConn" HorizontalAlignment="Right" Margin="0,0,4,0" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnApiConn_MouseEnter" Padding="-4"  MouseLeave="btnApiConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Click="btnApiConn_Click" Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White">
+                <StackPanel HorizontalAlignment="Center">
+                    <Image x:Name="imgMWApiConn" Source="assets/images/favicon.png" Opacity="0.4"    Height="16" Width="16" />
+                    <Rectangle x:Name="tbMWApiStatus" HorizontalAlignment="Left"   Width="16" Height="3" VerticalAlignment="Center" Margin="0,1" Fill="DimGray">
+                        <Rectangle.RenderTransform>
+                            <ScaleTransform />
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                </StackPanel>
 
-        </Button>
-        <Button IsEnabled="False" x:Name="btnLWConn" HorizontalAlignment="Left" Margin="0,0,4,0" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnLWConn_MouseEnter" Padding="-4"  MouseLeave="btnLWConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Click="btnLWConn_Click" Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White">
-            <StackPanel HorizontalAlignment="Center">
-                <Image x:Name="imgLWConn" Source="assets\Icons\16x16\MWO_icon.png" Opacity="0.4"    Height="16" Width="16" />
-                <Rectangle x:Name="tbLWStatus" HorizontalAlignment="Center"   Width="16" Height="3" VerticalAlignment="Center" Margin="0,1" Fill="DimGray"/>
-            </StackPanel>
-        </Button>
-        <Button IsEnabled="False" x:Name="btnBuildConn" HorizontalAlignment="Right" Margin="0,0,4,0" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnBuildConn_MouseEnter" Padding="-4"  MouseLeave="btnBuildConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent"   Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White" Click="btnBuildConn_Click">
-            <StackPanel HorizontalAlignment="Center">
-                <Image x:Name="imgBuildConn" Source="assets\Icons\32x32\bar_chart.png" Opacity="0.5"    Height="16" Width="16" />
-                <Rectangle x:Name="tbBuildStatus" HorizontalAlignment="Center"   Width="16" Height="3" VerticalAlignment="Center" Margin="0,1" Fill="DimGray"/>
-            </StackPanel>
-        </Button>
-        <Button x:Name="btnSettings" HorizontalAlignment="Right" Margin="0,0,4,0" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" BorderBrush="Transparent" BorderThickness="0" Padding="-4"  Background="Transparent"  Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White" Click="btnSettings_Click" MouseLeave="btnSettings_MouseLeave" MouseEnter="btnSettings_MouseEnter">
-            <StackPanel HorizontalAlignment="Center">
-                <Image x:Name="imgClose" Source="assets/Icons/32x32/settings.png" Opacity=".5"    Height="24" Width="24" HorizontalAlignment="Right" Margin="0,0,2,0" VerticalAlignment="Center" />
-            </StackPanel>
-        </Button>
-       </StackPanel>
-         <Button x:Name="btnStealFocus" Content="" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="3" VerticalAlignment="Top" Width="16" Height="16" Visibility="Hidden"/>
+            </Button>
+            <Button IsEnabled="False" x:Name="btnLWConn" HorizontalAlignment="Left" Margin="0,0,4,0" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnLWConn_MouseEnter" Padding="-4"  MouseLeave="btnLWConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Click="btnLWConn_Click" Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White">
+                <StackPanel HorizontalAlignment="Center">
+                    <Image x:Name="imgLWConn" Source="assets\Icons\16x16\MWO_icon.png" Opacity="0.4"    Height="16" Width="16" />
+                    <Rectangle x:Name="tbLWStatus" HorizontalAlignment="Center"   Width="16" Height="3" VerticalAlignment="Center" Margin="0,1" Fill="DimGray"/>
+                </StackPanel>
+            </Button>
+            <Button IsEnabled="False" x:Name="btnBuildConn" HorizontalAlignment="Right" Margin="0,0,4,0" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" MouseEnter="btnBuildConn_MouseEnter" Padding="-4"  MouseLeave="btnBuildConn_MouseLeave" BorderBrush="Transparent" BorderThickness="0" Background="Transparent"   Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White" Click="btnBuildConn_Click">
+                <StackPanel HorizontalAlignment="Center">
+                    <Image x:Name="imgBuildConn" Source="assets\Icons\32x32\bar_chart.png" Opacity="0.5"    Height="16" Width="16" />
+                    <Rectangle x:Name="tbBuildStatus" HorizontalAlignment="Center"   Width="16" Height="3" VerticalAlignment="Center" Margin="0,1" Fill="DimGray"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnSettings" HorizontalAlignment="Right" Margin="0,0,4,0" Grid.Row="0" VerticalAlignment="Center" IsCancel="True" FontSize="6" BorderBrush="Transparent" BorderThickness="0" Padding="-4"  Background="Transparent"  Style="{DynamicResource Flat}" Height="30" Width="26" Foreground="White" Click="btnSettings_Click" MouseLeave="btnSettings_MouseLeave" MouseEnter="btnSettings_MouseEnter">
+                <StackPanel HorizontalAlignment="Center">
+                    <Image x:Name="imgClose" Source="assets/Icons/32x32/settings.png" Opacity=".5"    Height="24" Width="24" HorizontalAlignment="Right" Margin="0,0,2,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <Button x:Name="btnStealFocus" Content="" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="3" VerticalAlignment="Top" Width="16" Height="16" Visibility="Hidden"/>
         <DataGrid x:Name="MwaMainDataGrid" MinWidth="280" Grid.Row="1" VerticalAlignment="Top" Height="240" Margin="0,0,1,0">
             <DataGrid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -534,7 +536,7 @@
                     </LinearGradientBrush>
                 </TabItem.Background>
                 <Grid Background="#FF003AB7" >
-                    <DataGrid  x:Name="dgAssocMain" MinWidth="280" Grid.Row="1" Margin="0"/>
+                    <DataGrid  x:Name="dgAssocMain" MinWidth="280" Grid.Row="1" Margin="0" DataContextChanged="dgAssocMain_DataContextChanged"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TabDrops" Header="Drops"  FontSize="9"     >
@@ -569,5 +571,28 @@
                 </LinearGradientBrush>
             </TextBlock.Foreground>
         </TextBlock>
+        <ComboBox IsEnabled="False" Grid.Row="0" HorizontalAlignment="Left" Margin="62,4,0,0" VerticalAlignment="Top" Width="71" SelectedIndex="0">
+            <ComboBox.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFDDE0E6" Offset="0"/>
+                    <GradientStop Color="#FF737578" Offset="1"/>
+                </LinearGradientBrush>
+                
+            </ComboBox.Foreground>
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF060606" Offset="1"/>
+                    <GradientStop Color="#FF003AB7"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+            <ComboBoxItem Content="PUG" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="4Mans" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="12Mans" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="RHOD" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="LMS" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="MCW" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="MWA" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="Proxis" HorizontalAlignment="Left" Width="118"/>
+        </ComboBox>
     </Grid>
 </Window>

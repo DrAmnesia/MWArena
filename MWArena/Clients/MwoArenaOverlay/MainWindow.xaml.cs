@@ -1051,5 +1051,14 @@ namespace GW2Stuff
         {
             WindowState = WindowState.Minimized;
         }
+
+        private void dgAssocMain_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+       /*     if (dgAssocMain.ItemsSource == null) return;
+            if(dgAssocMain.ItemsSource )
+            var items = 
+        */}
+
+  
     }
 }
