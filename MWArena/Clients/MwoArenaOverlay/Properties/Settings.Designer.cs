@@ -471,7 +471,7 @@ namespace GW2Stuff.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://mwarena.azurewebsites.net/api/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.mwoarena.com/api/")]
         public string MwaApiUrl {
             get {
                 return ((string)(this["MwaApiUrl"]));

@@ -115,9 +115,9 @@
         </LinearGradientBrush>
 
         <!-- Brushes used for styling TabItems (Foreground/Text) -->
-        <SolidColorBrush x:Key="TabItem_TextBrush_Unselected" Color="#33333333" />
+        <SolidColorBrush x:Key="TabItem_TextBrush_Unselected" Color="DodgerBlue" />
         <SolidColorBrush x:Key="TabItem_TextBrush_Disabled" Color="#888" />
-        <SolidColorBrush x:Key="TabItem_TextBrush_Hover" Color="DodgerBlue" />
+        <SolidColorBrush x:Key="TabItem_TextBrush_Hover" Color="SteelBlue" />
         <SolidColorBrush x:Key="TabItem_TextBrush_Selected" Color="DarkBlue" />
 
         <!-- Brushes used for styling TabItems (Borders) -->
@@ -378,6 +378,7 @@
             <Image.ContextMenu>
                 <ContextMenu x:Name="SettingsMenu">
                     <MenuItem x:Name="menuItem_minimize" Header="Minimize" Click="menuItem_Minimize_Click"/>
+                    
                     <MenuItem x:Name="menuItem_world" Header="World" StaysOpenOnClick="True" IsEnabled="False">
                         <MenuItem x:Name="menuItem_world_eu" Header="EU" StaysOpenOnClick="True"/>
                         <MenuItem x:Name="menuItem_world_us" Header="US" StaysOpenOnClick="True"/>
@@ -404,7 +405,9 @@
                         <MenuItem x:Name="menuItem_profile_Company" Header="Show Builds" IsCheckable="True" IsChecked="True" StaysOpenOnClick="True" Click="menuItem_profile_Company_Click"/>-->
                     </MenuItem>
                     <MenuItem x:Name="menuItem_saveLocation" Header="Save Overlay Location" Click="menuItem_saveLocation_Click"/>
-                    <MenuItem x:Name="menuItem_options" Header="Options..." Click="menuItem_options_Click" IsEnabled="False"/>
+                    <MenuItem x:Name="menuItem_options" Header="Options..." Click="menuItem_options_Click" IsEnabled="true"/>
+                    <MenuItem x:Name="menuItem_updateCheck" Header="Check for updates" Click="menuItem_updateCheck_Click" IsEnabled="true"/>
+
                     <Separator/>
                     <MenuItem x:Name="menuItem_close" Header="Close" Click="menuItem_close_Click"/>
                 </ContextMenu>
@@ -418,13 +421,13 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        <Rectangle Grid.Row="0" />
+        <Rectangle Grid.Row="0" x:Name="DetailBackdrop"/>
 
 
         <ItemsControl x:Name="eventContainer" Margin="3,0,1,0" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" SizeChanged="eventContainer_SizeChanged" Grid.Row="2" BorderThickness="3">
             <Grid Margin="0,0,-6,0">
-                <Label  Foreground="#FF000942" FontWeight="Bold" FontSize="14" Padding="2,0,2,2" Grid.Column="0" Margin="0" ToolTip="Info Panel">
-                    <TextBlock x:Name="InfoBlock" Text="Monitor your match statistics and skill progress. Watch the community drop deck trends and contribute to the MWA community statistics library," TextWrapping="Wrap" Margin="0,0,0,0" Background="Transparent" Foreground="#FFB8BEE4" />
+                <Label  Foreground="#FF000942" FontWeight="Bold" FontSize="9" Padding="2,0,2,2" Grid.Column="0" Margin="0" ToolTip="Info Panel">
+                    <TextBlock x:Name="InfoBlock" Text="Monitor your match statistics and skill progress. Watch the community drop deck trends and contribute to the MWA community statistics library." TextWrapping="Wrap" Margin="0,0,0,0" Background="Transparent" Foreground="#FFB8BEE4" />
                 </Label>
             </Grid>
         </ItemsControl>
@@ -495,36 +498,64 @@
                         <GradientStop Color="#FF003AB7"/>
                     </LinearGradientBrush>
                 </TabItem.Background>
-                <Grid Background="#FF003AB7" >
-                    <TextBox  x:Name="tbMwaLogin" Text="{Binding UserName, Source={StaticResource Settings}}" HorizontalAlignment="Left" Height="23" Margin="67,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" Background="#00000000">
+                <Grid Background="#FFDAE6FF" x:Name="HomeGrid">
+                    <TextBox  x:Name="tbMwaLogin" Text="{Binding UserName, Source={StaticResource Settings}}" HorizontalAlignment="Left" Height="23" Margin="67,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" Background="#00000000" SelectionBrush="#FF19346A" FontWeight="Bold">
                         <TextBox.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFDDE0E6" Offset="0"/>
-                                <GradientStop Color="#FF737578" Offset="1"/>
+                                <GradientStop Color="#FF031A49" Offset="1"/>
+                                <GradientStop Color="#FF353638"/>
                             </LinearGradientBrush>
                         </TextBox.Foreground>
                     </TextBox>
-                    <PasswordBox x:Name="tbMwaPassword"  HorizontalAlignment="Left" Height="23" Margin="67,46,0,0" VerticalAlignment="Top" Width="171" Background="#00000000">
+                    <PasswordBox x:Name="tbMwaPassword"  HorizontalAlignment="Left" Height="23" Margin="67,46,0,0" VerticalAlignment="Top" Width="171" Background="#00000000" SelectionBrush="#FF19346A" FontWeight="Bold">
 
                         <PasswordBox.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFDDE0E6" Offset="0"/>
-                                <GradientStop Color="#FF737578" Offset="1"/>
+                                <GradientStop Color="#FF031A49" Offset="1"/>
+                                <GradientStop Color="#FF737578"/>
                             </LinearGradientBrush>
                         </PasswordBox.Foreground>
                     </PasswordBox>
-                    <TextBox x:Name="tbMwaApiUrl" Text="{Binding MwaApiUrl, Source={StaticResource Settings}}"  HorizontalAlignment="Left" Height="23" Margin="67,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="171"  Background="#00000000">
+                    <TextBox x:Name="tbMwaApiUrl" Text="{Binding MwaApiUrl, Source={StaticResource Settings}}"  HorizontalAlignment="Left" Height="23" Margin="67,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="171"  Background="#00000000" SelectionBrush="#FF19346A" FontWeight="Bold">
                         <TextBox.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFDDE0E6" Offset="0"/>
-                                <GradientStop Color="#FF737578" Offset="1"/>
+                                <GradientStop Color="#FF031A49" Offset="1"/>
+                                <GradientStop Color="#FF737578"/>
                             </LinearGradientBrush>
                         </TextBox.Foreground>
                     </TextBox>
-                    <Label Content="API URL" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top"/>
-                    <Label Content="PilotName" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Password" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top"/>
-                    <Button Content="login" HorizontalAlignment="Left" Margin="163,102,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+                    <Label Content="API URL" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" FontWeight="Bold">
+                        <Label.Foreground>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF353638" Offset="0"/>
+                                <GradientStop Color="#FF031A49" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Label.Foreground>
+                    </Label>
+                    <Label Content="PilotName" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" FontWeight="Bold">
+                        <Label.Foreground>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF353638" Offset="0"/>
+                                <GradientStop Color="#FF19346A" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Label.Foreground>
+                    </Label>
+                    <Label Content="Password" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" FontWeight="Bold">
+                        <Label.Foreground>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF353638" Offset="0"/>
+                                <GradientStop Color="#FF031A49" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Label.Foreground>
+                    </Label>
+                    <Button Content="login" HorizontalAlignment="Left" Margin="163,102,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" FontWeight="Bold" Background="{x:Null}">
+                        <Button.Foreground>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF353638" Offset="0"/>
+                                <GradientStop Color="#FF031A49" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Foreground>
+                    </Button>
                 </Grid>
 
             </TabItem>
@@ -539,7 +570,7 @@
                     <DataGrid  x:Name="dgAssocMain" MinWidth="280" Grid.Row="1" Margin="0" DataContextChanged="dgAssocMain_DataContextChanged"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="TabDrops" Header="Drops"  FontSize="9"     >
+            <TabItem x:Name="TabDrops" Header="My Drops"  FontSize="9"     >
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF060606" Offset="1"/>
@@ -551,7 +582,17 @@
                 </Grid>
 
             </TabItem>
-
+            <TabItem x:Name="TabMyAssoc" Header="My Metrics"   FontSize="9"      >
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF060606" Offset="1"/>
+                        <GradientStop Color="#FF003AB7"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <Grid Background="#FF003AB7" >
+                    <DataGrid  x:Name="dgMyAssocMain" MinWidth="280" Grid.Row="1" Margin="0"  />
+                </Grid>
+            </TabItem>
 
 
         </TabControl>
@@ -577,7 +618,7 @@
                     <GradientStop Color="#FFDDE0E6" Offset="0"/>
                     <GradientStop Color="#FF737578" Offset="1"/>
                 </LinearGradientBrush>
-                
+
             </ComboBox.Foreground>
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

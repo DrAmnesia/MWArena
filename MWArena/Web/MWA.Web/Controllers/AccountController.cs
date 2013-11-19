@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Odbc;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Mime;
@@ -348,6 +349,7 @@ namespace MWA.Web.Controllers
             if (result.Succeeded)
             {
                  SendEmailConfirmation(model.Email, model.UserName, confirmationToken);
+                return Ok();
             }
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -589,7 +591,7 @@ namespace MWA.Web.Controllers
 
             // From
             mailMsg.From = new MailAddress("admin@mwoarena.com", "MWa Admin");
-            string html = String.Format(" Click here to confirm your account. <a href='http://mwarena.azurewebsites.net/api/Account/RegisterConfirmation?id={0}'>Confirm Account</a> ", confirmationToken);
+            string html = String.Format(" Click here to confirm your account. <a href='https://www.mwoarena.com/api/Account/RegisterConfirmation?id={0}'>Confirm Account</a> ", confirmationToken);
             mailMsg.IsBodyHtml = true;
             // Subject and multipart/alternative Body
             mailMsg.Subject = "Welcome to MWA " + username;

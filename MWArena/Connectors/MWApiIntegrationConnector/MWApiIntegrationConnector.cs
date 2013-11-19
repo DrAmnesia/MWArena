@@ -220,6 +220,53 @@ namespace MWA.Integration
 
         }
 
+        public async Task<bool> GetPilotVariantAssocMetric(ItemsControl viewControl)
+        {
+
+            // load users Connector Settings
+            HttpClient client = new HttpClient();
+            client.BaseAddress = this.ApiUrl;
+            // Add an Accept header for JSON format.
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response;
+            client.DefaultRequestHeaders.Authorization = AuthHeader;
+            string endp = String.Format("{0}{1}", ApiUrl, "PilotVariantAssocMetric");
+
+            response = client.GetAsync(endp).Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Authentication failed");
+            }
+            else
+            {
+                var mm = response.Content.ReadAsAsync<IEnumerable<vwPilotVariantAssocMetric>>().Result;
+                if (mm.Any())
+                {
+                    viewControl.ItemsSource = mm.Select(
+                        o =>
+                            new
+                            {
+                                Weight = o.WeightClass,
+                                Mech = o.BaseVariantName,
+                                Drops = o.matches,
+                                WP = o.WinPerc,
+                                Eff = o.DPM,
+                                KDR = o.KDR,
+                                APM = o.losses,
+                                DmgPM = o.DmgPM
+                            }); ;
+                    return true;
+                }
+
+            }
+
+
+            return false;
+
+        }
+
         public async void LinkLogwarriorAndMWA( MWApiIntegrationConnector waic, string UserName)
         {
             HttpClient client = new HttpClient();

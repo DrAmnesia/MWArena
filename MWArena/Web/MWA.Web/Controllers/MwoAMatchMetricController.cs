@@ -31,7 +31,7 @@ namespace MWArenaWeb.Controllers
             if (uname.IsNullOrWhiteSpace())
                 return new  List<MwoAMatchMetric>().AsQueryable() ;
 
-                return db.MwoAMatchMetrics.Where(m => m.name == uname  ).OrderBy(o=>o.time).AsQueryable().Take(20);
+                return db.MwoAMatchMetrics.Where(m => m.name == uname  ).OrderByDescending(o=>o.time).AsQueryable().Take(30);
         }
        
 

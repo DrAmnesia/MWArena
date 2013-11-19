@@ -1,0 +1,13 @@
+
+Configuring a build for self updating
+
+
+build in release mode.
+copy to E:\Code\bak\Distro\MWOverlay<buildnumber>
+compress using libz
+Example: E:\Code\bak\Distro\MWOverlay0370>E:\Code\bak\Distro\libz-1.0.3.7-bin\tool\libz inject-dll --assembly E:\Code\bak\Distro\MWOverlay0370\MWOverlay.exe --include *.dll --move
+
+use MD5&Checksum to get the exe hash
+
+update the www.mwoarena.com/apps/mwoverlay/update.xml with the new version number and MD5
+upload the new version to www.mwoarena.com/apps/mwoverlay

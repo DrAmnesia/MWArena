@@ -17,7 +17,7 @@ namespace MwoArenaWeb.Controllers
 
         public IEnumerable<MatchDrop> Get()
         {
-            return db.MatchDrops.Where(o =>  o.AssociationName == "TEST");
+            return db.MatchDrops.Include("MwoAMatchMetric").Where(o =>  o.AssociationName != "TEST");
         }
 
         // GET api/loggedmatch/5

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -17,11 +18,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using GW2Stuff.Properties;
 using MatchLogger;
@@ -30,15 +30,23 @@ using MWA.Integration;
 using MWA.Models;
 using Newtonsoft.Json.Linq;
 using MWA.Integration;
+using SharpUpdate;
 using MWApiIntegrationConnector = MWA.Integration.MWApiIntegrationConnector;
-
-
+using System.Configuration;
+using Brush = System.Windows.Media.Brush;
+using Brushes = System.Windows.Media.Brushes;
+using MenuItem = System.Windows.Controls.MenuItem;
+using MessageBox = System.Windows.MessageBox;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+using Rectangle = System.Windows.Shapes.Rectangle;
+ 
+ 
 namespace GW2Stuff
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, ISharpUpdatable
     {
         private Dictionary<String, EventItem> eventDictionary;
         private List<EventItem> eventList;
@@ -56,7 +64,11 @@ namespace GW2Stuff
         public static ExeIntegrationConnector lwConn;
         public static WebApiIntegrationConnector buildApiConn;
         public static String UserName = String.Empty;
-        
+        private int refreshrate = 90;
+        public System.Drawing.Icon AppIcon;
+        private SharpUpdater updater;
+        private System.Windows.Forms.Integration.WindowsFormsHost host;
+        private System.Windows.Forms.Form hostedForm;
         public MainWindow()
         {
 
@@ -66,6 +78,15 @@ namespace GW2Stuff
 
 
             InitializeComponent();
+            // Create the interop host control.
+
+            AppIcon   = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetEntryAssembly().ManifestModule.Name);
+
+            updater = new SharpUpdater(this);
+            this.tbSystemMessages.Text = this.tbSystemMessages.Text  + " [A" + this.ApplicationAssembly.GetName().Version.ToString() +"]";
+            string refrate = (ConfigurationManager.AppSettings["DefaultRefresh"] == null || ConfigurationManager.AppSettings["DefaultRefresh"] == "") ? refreshrate.ToString() : ConfigurationManager.AppSettings["DefaultRefresh"] ;
+            refreshrate = int.Parse(refrate);
+
             mwApiConn = new MWA.Integration.MWApiIntegrationConnector("MWApi");
 
             buildApiConn = new WebApiIntegrationConnector();
@@ -284,7 +305,8 @@ namespace GW2Stuff
         /* Menu */
 
         // Close down
-        private void menuItem_close_Click(object sender, RoutedEventArgs e) { this.Close(); }
+        private void menuItem_close_Click(object sender, RoutedEventArgs e) { Properties.Settings.Default.Save(); 
+            this.Close(); }
 
         // Change world
         private void menuItem_world_Click(object sender, RoutedEventArgs e)
@@ -487,7 +509,7 @@ namespace GW2Stuff
                 if (args.exception != null)
                 {
                     this.Hide();
-                    MessageBox.Show("Cannot retrieve startup information from the server. The program will now close.",
+                    System.Windows.MessageBox.Show("Cannot retrieve startup information from the server. The program will now close.",
                         "GW2Stuff Overlay");
                     this.Close();
                     return;
@@ -538,10 +560,7 @@ namespace GW2Stuff
         }
 
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.MainBrowser.Navigate(new Uri("http://mwoarenaapidemo.azurewebsites.net/duels.html"));
-        }
+
 
 
 
@@ -730,7 +749,7 @@ namespace GW2Stuff
                     " The data is a detail view of your recent matches.";
                 mwApiConn.ViewControl = dgAssocMain;
                 mwApiConn.ConnectCommand = mwApiConn.GetVariantAssocMetric;
-                mwApiConn.ConnectAndRefreshEvery(30);
+                mwApiConn.ConnectAndRefreshEvery(refreshrate);
 
             }
 
@@ -968,21 +987,38 @@ namespace GW2Stuff
         {
         mwApiConn.Disconnect();
         mwApiConn.ViewControl = dgDrops;
-        mwApiConn.ConnectCommand = mwApiConn.GetMatches; 
-         mwApiConn.ConnectAndRefreshEvery(30);
+        mwApiConn.ConnectCommand = mwApiConn.GetMatches;
+        mwApiConn.ConnectAndRefreshEvery(refreshrate);
+      //  InfoBlock.Text = "Personal match history.";
         }
 
 
         
             if (item.Name == "TabAssoc")
             {
+               // InfoBlock.Text = "Average community metrics per chassis.";
+         
                 mwApiConn.Disconnect();
             mwApiConn.ViewControl = dgAssocMain;
             mwApiConn.ConnectCommand = mwApiConn.GetVariantAssocMetric;
-            mwApiConn.ConnectAndRefreshEvery(30);
+            mwApiConn.ConnectAndRefreshEvery(refreshrate);
             }
-       
-        
+
+            if (item.Name == "TabMyAssoc")
+            {
+               // InfoBlock.Text = "Monitor your match statistics and skill progress in each chassis by comparing them to the community average.";
+         
+                mwApiConn.Disconnect();
+                mwApiConn.ViewControl = dgMyAssocMain;
+                mwApiConn.ConnectCommand = mwApiConn.GetPilotVariantAssocMetric;
+                mwApiConn.ConnectAndRefreshEvery(refreshrate);
+            }
+            if (item.Name == "TabHome")
+            {
+                InfoBlock.Text= String.Format("Release [A{0}] \n - Merged all dependencies and reference dlls into MWOverlay.exe. \n - implemented self updating system (see settings -> Check for Updates) \n - Added build # to system initializing message" , this.ApplicationAssembly.GetName().Version.ToString()  );
+            }
+
+          
        
     }
 }
@@ -1002,7 +1038,7 @@ namespace GW2Stuff
             mwApiConn.IsConnected = false;
             mwApiConn.ConnectionState = ConnState.CONNECTING;
             
-            mwApiConn.ApiUrl = new Uri("http://mwarena.azurewebsites.net/api/");
+            mwApiConn.ApiUrl = new Uri("https://www.mwoarena.com/api/");
             //mwApiConn.ApiUrl = new Uri("http://v5-dev/api/");
             Settings.Default.MwaLogin = tbMwaLogin.Text;
             Settings.Default.MwaPassword = tbMwaPassword.Password;
@@ -1059,6 +1095,64 @@ namespace GW2Stuff
             var items = 
         */}
 
-  
+        #region SharpUpdate
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            updater.UpdatedAppStarted += c_UpdatedAppStarted;
+            //this.MainBrowser.Navigate(new Uri("http://mwoarenaapidemo.azurewebsites.net/duels.html"));
+            host = new System.Windows.Forms.Integration.WindowsFormsHost();
+            hostedForm = new Form();
+            hostedForm.Height = 20;
+            hostedForm.Width = 120;
+            host.Child = hostedForm;
+
+            // Add the interop host control to the Grid
+            // control's collection of child controls.
+            this.HomeGrid.Children.Add(host);
+            
+
+        }
+        private void c_UpdatedAppStarted(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        public Assembly ApplicationAssembly
+        {
+            get { return Assembly.GetExecutingAssembly(); }
+        }
+
+        public string ApplicationID
+        {
+            get { return "MWOverlay"; }
+        }
+
+        public System.Drawing.Icon ApplicationIcon
+        {
+            get { return this.AppIcon; }
+        }
+
+        public string ApplicationName
+        {
+            get { return "MWOverlay"; }
+        }
+
+        public System.Windows.Forms.Form Context
+        {
+            get { return hostedForm; }
+        }
+
+        public Uri UpdateXmlLocation
+        {
+            get { return new Uri("http://www.mwoarena.com/apps/mwoverlay/update.xml"); }
+        }
+        #endregion
+
+        private void menuItem_updateCheck_Click(object sender, RoutedEventArgs e)
+        {
+            
+            updater.DoUpdate();
+        }
+
     }
 }

@@ -52,6 +52,9 @@ namespace MWA.Models
         ///<Summary>An IQueryable collection of UserAppSetting Entities</Summary>
         public DbSet<UserAppSetting> UserAppSettings { get; set; }
 
+        ///<Summary>An IQueryable collection of vwPilotVariantAssocMetric Entities</Summary>
+        public DbSet<vwPilotVariantAssocMetric> vwPilotVariantAssocMetrics { get; set; }
+
 
 
     }

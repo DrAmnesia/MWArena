@@ -874,6 +874,33 @@ namespace MWA.Models
         public Nullable<int> deaths { get; set; }
         public Nullable<int> kills { get; set; }
     }
+
+    public partial class vwPilotVariantAssocMetric
+    {
+        public int vwPilotVariantAssocMetricId { get; set; }
+        public string name { get; set; }
+        public int ChassisId { get; set; }
+        public string WeightClass { get; set; }
+        public int Tonnage { get; set; }
+        public string ChassisName { get; set; }
+        public string BaseVariantName { get; set; }
+        public string Associationname { get; set; }
+        public string assoc { get; set; }
+        public string iconurl { get; set; }
+        public Nullable<int> matches { get; set; }
+        public Nullable<int> WinPerc { get; set; }
+        public Nullable<decimal> KDR { get; set; }
+        public Nullable<decimal> DmgPM { get; set; }
+        public Nullable<decimal> KPM { get; set; }
+        public Nullable<decimal> DPM { get; set; }
+        public Nullable<decimal> wins { get; set; }
+        public Nullable<decimal> losses { get; set; }
+        public Nullable<int> deaths { get; set; }
+        public Nullable<int> kills { get; set; }
+        public string username { get; set; }
+        public string userid { get; set; }
+    }
+
  /****** for testing *************************************************/
     public partial class MwoAMatchMetrics_import
     {

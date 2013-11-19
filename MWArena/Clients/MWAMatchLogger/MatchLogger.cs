@@ -7,11 +7,15 @@ using System.IO;
 using System.Reflection;
  
 using Newtonsoft.Json;
+ 
+ 
 
 namespace MatchLogger
 {
+
     public static class MatchLogger
     {
+
         private static bool playerNameSet = false, matchActive = false;
         private static string playerName = "", activeLevelName = "", activeMatchType = "";
         private static PlayerStat playerStat = new PlayerStat();
@@ -20,12 +24,14 @@ namespace MatchLogger
         private static bool allFriendsKilled = true, allEnemiesKilled = true;
         private static DateTime matchEndTime = DateTime.MaxValue;
         private static object logLock = new object();
-        private static readonly string logFilename = @"C:\temp\log.txt";
+        private static readonly string logFilename = "log.txt";
 
         static void Log(string text)
         {
+
             lock (logLock)
             {
+
                 try { File.AppendAllText(logFilename, string.Format("{0}\r\n", text)); }
                 catch { }
             }
@@ -33,6 +39,7 @@ namespace MatchLogger
 
         public static void HandleRoundResultEnemy(byte[] message)
         {
+
             string s = ASCIIEncoding.ASCII.GetString(message);
 #if DEBUG
             Log(string.Format("[ENEMY TEAM]:{0}\r\n", s));
@@ -42,12 +49,14 @@ namespace MatchLogger
             m.HandleMatchStat(s);
             lock (enemyList)
             {
+
                 enemyList.Add(m);
             }
         }
 
         public static void HandleRoundResultFriendly(byte[] message)
         {
+
             string s = ASCIIEncoding.ASCII.GetString(message);
 #if DEBUG
             Log(string.Format("[FRIENDLY TEAM]:{0}\r\n", s));
@@ -57,12 +66,14 @@ namespace MatchLogger
             m.HandleMatchStat(s);
             lock (friendlyList)
             {
+
                 friendlyList.Add(m);
             }
         }
 
         static void LogCSV()
         {
+
             string exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string playerCsvPath = Path.Combine(exePath, "player.csv");
             string matchCsvPath = Path.Combine(exePath, "match.csv");
@@ -80,39 +91,42 @@ namespace MatchLogger
             foreach (MatchStat m in enemyList)
                 csv.AppendLine(m.ToString());
             File.AppendAllText(matchCsvPath, csv.ToString());
-
             LoggedMatch lm = new LoggedMatch
-                             {
-                                 MatchHash = "",
-                                 FriendlyMatchStats = friendlyList,
-                                 EnemyMatchStats = enemyList,
-                                 AssociationName = "PUG",
-                                 PublishingUserName =
-                                     (playerNameSet)
-                                         ? ((playerName == null | playerName == "")
-                                             ? "UNKNOWN"
-                                             : playerName)
-                                         : "UNKNOWN"
-                             };
+            {
+                MatchHash = "",
+                FriendlyMatchStats = friendlyList,
+                EnemyMatchStats = enemyList,
+                AssociationName = "PUG",
+                PublishingUserName =
+                    (playerNameSet)
+                        ? ((playerName == null | playerName == "")
+                            ? "UNKNOWN"
+                            : playerName)
+                        : "UNKNOWN"
+            };
             httpPostLoggedMatch(lm);
-
         }
 
         public static void HandleLevelLoad(byte[] buffer)
         {
+
             string s = ASCIIEncoding.ASCII.GetString(buffer);
             if (s == "mechlab")
             {
+
                 if (matchActive)
                 {
+
                     if (friendlyList == null || enemyList == null || friendlyList.Count == 0 || enemyList.Count == 0)
                         return;
                     matchActive = false;
 
                     foreach (MatchStat m in friendlyList)
                     {
+
                         if (m.status == 0)
                         {
+
                             allFriendsKilled = false;
                             break;
                         }
@@ -120,8 +134,10 @@ namespace MatchLogger
 
                     foreach (MatchStat m in enemyList)
                     {
+
                         if (m.status == 0)
                         {
+
                             allEnemiesKilled = false;
                             break;
                         }
@@ -137,8 +153,10 @@ namespace MatchLogger
                     playerStat.level = activeLevelName;
                     foreach (MatchStat m in friendlyList)
                     {
+
                         if (m.name == playerName)
                         {
+
                             playerStat.mech = m.mech;
                             playerStat.status = m.status;
                         }
@@ -151,6 +169,7 @@ namespace MatchLogger
 
                     foreach (MatchStat m in enemyList)
                     {
+
                         if (playerStat.victory == 2)
                             m.victory = 1;
                         else if (playerStat.victory == 1)
@@ -176,6 +195,8 @@ namespace MatchLogger
             }
             else
             {
+
+
                 matchActive = true;
                 activeLevelName = s;
                 playerStat.level = s;
@@ -187,8 +208,10 @@ namespace MatchLogger
 
         public static void HandlePlayerName(byte[] buffer)
         {
+
             if (!playerNameSet)
             {
+
                 playerName = ASCIIEncoding.ASCII.GetString(buffer);
                 playerNameSet = true;
             }
@@ -196,6 +219,7 @@ namespace MatchLogger
 
         public static void HandleCbillStats(byte[] buffer)
         {
+
             string s = ASCIIEncoding.ASCII.GetString(buffer);
             playerStat.HandleCbillStats(s);
 #if DEBUG
@@ -205,6 +229,7 @@ namespace MatchLogger
 
         public static void HandleXpStats(byte[] buffer)
         {
+
             matchEndTime = DateTime.UtcNow;
             string s = ASCIIEncoding.ASCII.GetString(buffer);
             playerStat.HandleXpStats(s);
@@ -215,6 +240,7 @@ namespace MatchLogger
 
         public static void HandleMatchType(byte[] buffer)
         {
+
             string s = ASCIIEncoding.ASCII.GetString(buffer);
             activeMatchType = s;
 #if DEBUG
@@ -224,6 +250,7 @@ namespace MatchLogger
 
         public static void HandleUI(byte[] buffer)
         {
+
 #if DEBUG
             //string s = ASCIIEncoding.ASCII.GetString(buffer);
             //Log(string.Format("UI: {0}", s));
@@ -232,6 +259,7 @@ namespace MatchLogger
 
         public static void HandleDeathDamageStats(byte[] buffer)
         {
+
 #if DEBUG
             string s = ASCIIEncoding.ASCII.GetString(buffer);
             Log(string.Format("DeathDamageStats: {0}", s));
@@ -240,6 +268,7 @@ namespace MatchLogger
 
         public static void HandleDeathArmorStats(byte[] buffer)
         {
+
 #if DEBUG
             string s = ASCIIEncoding.ASCII.GetString(buffer);
             Log(string.Format("DeathArmorStats: {0}", s));
@@ -248,6 +277,7 @@ namespace MatchLogger
 
         public static void HandleDeathBattleTime(byte[] buffer)
         {
+
 #if DEBUG
             string s = ASCIIEncoding.ASCII.GetString(buffer);
             Log(string.Format("DeathBattleTime: {0}", s));
@@ -258,12 +288,18 @@ namespace MatchLogger
             string api = "http://mwarena.azurewebsites.net/api/LoggedMatch";
             MakeRequest(api, lm, null, null, typeof(HttpResponseMessage));
         }
-
+        public static void Initialize()
+        {
+            // This gets called once on LogWarrior startup
+            // At the time this is called MWO client process is not yet created
+            // LogWarrior will hang if this doesn't return
+            // Uncaught exceptions will bubble up to LogWarrior
+        }
         public static string GetApiUrl()
         {
 
-            string apiurl = "http://mwarena.azurewebsites.net/api/"; 
-             return apiurl;
+            string apiurl = "http://mwarena.azurewebsites.net/api/";
+            return apiurl;
 
         }
         public static string GetApiUrl(string controller)
@@ -286,11 +322,23 @@ namespace MatchLogger
             public List<MatchStat> FriendlyMatchStats { get; set; }
             public List<MatchStat> EnemyMatchStats { get; set; }
 
+
             public string PublishingUserName { get; set; }
 
         }
+
+        public static void Exit()
+        {
+            // This gets called when LogWarrior exits, which is either by pressing F12, or when the MWO client is closed
+            // By this time all threads have been killed and MWO client process is terminated
+            // LogWarrior will hang if this doesn't return
+            // Uncaught exceptions will bubble up to LogWarrior
+        }
+
+
+
         public static object MakeRequest(string requestUrl, object JSONRequest, string JSONmethod,
-                                     string JSONContentType, Type JSONResponseType)
+                                           string JSONContentType, Type JSONResponseType)
         {
             try
             {
@@ -378,6 +426,4 @@ namespace MatchLogger
 
 
     }
-
-        
 }

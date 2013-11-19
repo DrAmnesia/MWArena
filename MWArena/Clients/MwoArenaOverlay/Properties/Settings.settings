@@ -117,7 +117,7 @@
       <Value Profile="(Default)">DrAmnesia</Value>
     </Setting>
     <Setting Name="MwaApiUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://mwarena.azurewebsites.net/api/</Value>
+      <Value Profile="(Default)">https://www.mwoarena.com/api/</Value>
     </Setting>
     <Setting Name="MwaPassword" Type="System.String" Scope="User">
       <Value Profile="(Default)">alabama96</Value>

@@ -232,6 +232,7 @@
     <Compile Include="Controllers\LoggedMatchController.cs" />
     <Compile Include="Controllers\MechWarriorController.cs" />
     <Compile Include="Controllers\MwoAMatchMetricController.cs" />
+    <Compile Include="Controllers\PilotVariantAssocMetricController.cs" />
     <Compile Include="Controllers\UserAppSettingController.cs" />
     <Compile Include="Controllers\UserPrefController.cs" />
     <Compile Include="Controllers\VariantAssocMapMetricController.cs" />
@@ -284,6 +285,10 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <None Include="Properties\PublishProfiles\ExpendablesArena - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\ExpendablesArena - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\ExpendablesArena - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\ExpendablesArena - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\MWArena - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\MWArena - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -332,6 +337,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
