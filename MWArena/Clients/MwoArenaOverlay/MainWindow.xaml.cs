@@ -781,7 +781,7 @@ namespace GW2Stuff
         {
             mwApiConn = (mwApiConn) ?? new MWA.Integration.MWApiIntegrationConnector("MWAPI");
 
-            tbSystemMessages.Text = String.Format("MWApi:{0}", MatchLogger.MatchLogger.GetApiUrl());
+           // tbSystemMessages.Text = String.Format("MWApi:{0}", MatchLogger.MatchLogger.GetApiUrl());
             mwApiConn.ApiUrl = new Uri(MatchLogger.MatchLogger.GetApiUrl());
 
 
@@ -989,15 +989,14 @@ namespace GW2Stuff
         mwApiConn.ViewControl = dgDrops;
         mwApiConn.ConnectCommand = mwApiConn.GetMatches;
         mwApiConn.ConnectAndRefreshEvery(refreshrate);
-      //  InfoBlock.Text = "Personal match history.";
+       InfoBlock.Text = "Personal match history.";
         }
 
 
         
             if (item.Name == "TabAssoc")
             {
-               // InfoBlock.Text = "Average community metrics per chassis.";
-         
+               InfoBlock.Text = "Average community metrics per chassis. \nWeight=WeightClass, Mech=BaseVariant, Drops=*Played, WP=Win%,Eff=KPM²*.3+APM²*.2+DPM/100, KDR=KDR, APM=Assists/Match, DmgPM=AvgDmg/Match";
                 mwApiConn.Disconnect();
             mwApiConn.ViewControl = dgAssocMain;
             mwApiConn.ConnectCommand = mwApiConn.GetVariantAssocMetric;
@@ -1006,7 +1005,7 @@ namespace GW2Stuff
 
             if (item.Name == "TabMyAssoc")
             {
-               // InfoBlock.Text = "Monitor your match statistics and skill progress in each chassis by comparing them to the community average.";
+                InfoBlock.Text = "Personal metrics per chassis. \nWeight=WeightClass, Mech=BaseVariant, Drops=*Played, WP=Win%,Eff=KPM²*.3+APM²*.2+DPM/100, KDR=KDR, APM=Assists/Match, DmgPM=AvgDmg/Match";
          
                 mwApiConn.Disconnect();
                 mwApiConn.ViewControl = dgMyAssocMain;
@@ -1015,7 +1014,9 @@ namespace GW2Stuff
             }
             if (item.Name == "TabHome")
             {
-                InfoBlock.Text= String.Format("Release [A{0}] \n - Merged all dependencies and reference dlls into MWOverlay.exe. \n - implemented self updating system (see settings -> Check for Updates) \n - Added build # to system initializing message" , this.ApplicationAssembly.GetName().Version.ToString()  );
+                InfoBlock.Text =
+                    String.Format(
+                        "Release [A{0}]  \n 1. Added personal/all pilots rank per mech to My Metrics tab", this.ApplicationAssembly.GetName().Version.ToString());
             }
 
           
@@ -1152,6 +1153,13 @@ namespace GW2Stuff
         {
             
             updater.DoUpdate();
+        }
+
+        private void menuItem_keep_on_top_Click(object sender, RoutedEventArgs e)
+        {
+            
+                Settings.Default.KeepOnTop = menuItemkeepOnTop.IsChecked;
+                MWAOverlay.Topmost = Settings.Default.KeepOnTop;
         }
 
     }

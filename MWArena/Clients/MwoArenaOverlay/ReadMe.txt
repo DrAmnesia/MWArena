@@ -1,4 +1,15 @@
-﻿Release Alpha 0.3.7.0
+﻿
+Release Alpha 0.3.7.2
+ 1. Added personal/all pilots rank per mech to My Metrics tab
+
+
+Release Alpha 0.3.7.1
+ 1. Added Stay On Top as a checkbox setting in the settings menu so it can be turned off.  
+ 2. Fixed a bug that kept username from being remembered.  
+ 3. Added Build Number to status bar  
+ 4. Added metrics descriptions.
+
+Release Alpha 0.3.7.0
 - Merged dependencies and reference dlls into exe.
 - implemented self updating system (see settings -> Check for Updates)
 - Added build # to system initializing message

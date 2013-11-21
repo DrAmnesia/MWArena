@@ -250,6 +250,7 @@ namespace MWA.Integration
                             {
                                 Weight = o.WeightClass,
                                 Mech = o.BaseVariantName,
+                                Rank = string.Format("{0}/{1}",Math.Floor(o.wins ?? Convert.ToDecimal(0.00) ) ,o.deaths ),
                                 Drops = o.matches,
                                 WP = o.WinPerc,
                                 Eff = o.DPM,

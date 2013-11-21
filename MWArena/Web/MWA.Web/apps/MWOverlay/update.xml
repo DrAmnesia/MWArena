@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<sharpUpdate>
+<update appId="MWOverlay">
+<version>0.3.7.2</version>
+<url>http://www.MWOArena.com/apps/mwoverlay/MWOverlay.exe</url>
+<fileName>MWOverlay.exe</fileName>
+<md5>f393ba0177279e65f33796666b683e22</md5>
+<description>MWOvwelay A0.3.7.2   
+ 1. Added personal/all pilots rank per mech to My Metrics tab
+</description>
+<launchArgs></launchArgs>
+</update>
+</sharpUpdate>
+
+
+
+
+
+
+ 

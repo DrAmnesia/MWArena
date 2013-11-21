@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MatchLogger</RootNamespace>
     <AssemblyName>MatchLogger</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
@@ -69,15 +69,7 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\MWA.Models\MWA.Models.csproj">
-      <Project>{a1ac9371-0a78-4108-8171-6c02740148cc}</Project>
-      <Name>MWA.Models</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LogWarrior.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="LogWarrior.exe" />
     <Resource Include="settings.ico" />
   </ItemGroup>
   <ItemGroup />

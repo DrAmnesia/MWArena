@@ -411,7 +411,7 @@ namespace GW2Stuff.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("PILOT NAME")]
+        [global::System.Configuration.DefaultSettingValueAttribute("DrAmnesia")]
         public string UserName {
             get {
                 return ((string)(this["UserName"]));
@@ -435,7 +435,7 @@ namespace GW2Stuff.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("RX")]
         public string Company {
             get {
                 return ((string)(this["Company"]));
@@ -483,13 +483,25 @@ namespace GW2Stuff.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("alabama96")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string MwaPassword {
             get {
                 return ((string)(this["MwaPassword"]));
             }
             set {
                 this["MwaPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool KeepOnTop {
+            get {
+                return ((bool)(this["KeepOnTop"]));
+            }
+            set {
+                this["KeepOnTop"] = value;
             }
         }
     }

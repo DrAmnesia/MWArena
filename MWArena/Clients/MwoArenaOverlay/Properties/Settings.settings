@@ -102,13 +102,13 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="UserName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">PILOT NAME</Value>
+      <Value Profile="(Default)">DrAmnesia</Value>
     </Setting>
     <Setting Name="Faction" Type="System.String" Scope="User">
       <Value Profile="(Default)">Merc Corps</Value>
     </Setting>
     <Setting Name="Company" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">RX</Value>
     </Setting>
     <Setting Name="Association" Type="System.String" Scope="User">
       <Value Profile="(Default)">PUG</Value>
@@ -120,7 +120,10 @@
       <Value Profile="(Default)">https://www.mwoarena.com/api/</Value>
     </Setting>
     <Setting Name="MwaPassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)">alabama96</Value>
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="KeepOnTop" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

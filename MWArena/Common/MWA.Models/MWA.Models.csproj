@@ -62,13 +62,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MechWarrior.cs" />
+    <Compile Include="Annotations.cs" />
     <Compile Include="AppSetting.cs" />
     <Compile Include="ExternalSystem.cs" />
     <Compile Include="ExternalSystemUserAccount.cs" />
     <Compile Include="MatchModels.cs" />
+    <Compile Include="MechWarrior.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MwaContext.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserAppSetting.cs" />
     <Compile Include="UserPref.cs" />

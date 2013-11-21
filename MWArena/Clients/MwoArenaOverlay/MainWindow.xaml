@@ -378,7 +378,7 @@
             <Image.ContextMenu>
                 <ContextMenu x:Name="SettingsMenu">
                     <MenuItem x:Name="menuItem_minimize" Header="Minimize" Click="menuItem_Minimize_Click"/>
-                    
+
                     <MenuItem x:Name="menuItem_world" Header="World" StaysOpenOnClick="True" IsEnabled="False">
                         <MenuItem x:Name="menuItem_world_eu" Header="EU" StaysOpenOnClick="True"/>
                         <MenuItem x:Name="menuItem_world_us" Header="US" StaysOpenOnClick="True"/>
@@ -404,8 +404,9 @@
                         <!-- <MenuItem x:Name="menuItem_profile_Faction" Header="Items Per Page" IsCheckable="True" IsChecked="True" StaysOpenOnClick="True" Click="menuItem_profile_Faction_Click"/>
                         <MenuItem x:Name="menuItem_profile_Company" Header="Show Builds" IsCheckable="True" IsChecked="True" StaysOpenOnClick="True" Click="menuItem_profile_Company_Click"/>-->
                     </MenuItem>
+                    <MenuItem x:Name="menuItem_options" Header="Options..." Click="menuItem_options_Click" IsEnabled="false"/>
                     <MenuItem x:Name="menuItem_saveLocation" Header="Save Overlay Location" Click="menuItem_saveLocation_Click"/>
-                    <MenuItem x:Name="menuItem_options" Header="Options..." Click="menuItem_options_Click" IsEnabled="true"/>
+                    <MenuItem x:Name="menuItemkeepOnTop" Header="Stay On Top"  IsCheckable="true" IsChecked="{Binding Source={x:Static properties:Settings.Default},  Path=KeepOnTop, Mode=TwoWay}" StaysOpenOnClick="True" Click="menuItem_keep_on_top_Click" IsEnabled="true"/>
                     <MenuItem x:Name="menuItem_updateCheck" Header="Check for updates" Click="menuItem_updateCheck_Click" IsEnabled="true"/>
 
                     <Separator/>
@@ -499,7 +500,7 @@
                     </LinearGradientBrush>
                 </TabItem.Background>
                 <Grid Background="#FFDAE6FF" x:Name="HomeGrid">
-                    <TextBox  x:Name="tbMwaLogin" Text="{Binding UserName, Source={StaticResource Settings}}" HorizontalAlignment="Left" Height="23" Margin="67,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" Background="#00000000" SelectionBrush="#FF19346A" FontWeight="Bold">
+                    <TextBox  x:Name="tbMwaLogin" Text="{Binding Source={x:Static properties:Settings.Default},  Path=UserName, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="67,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" Background="#00000000" SelectionBrush="#FF19346A" FontWeight="Bold">
                         <TextBox.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FF031A49" Offset="1"/>
